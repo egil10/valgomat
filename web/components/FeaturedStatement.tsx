@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import { PartyLogo } from "@/components/PartyLogo";
 import { quiz } from "@/lib/data";
 import type { PartySlug, Question } from "@/lib/types";
 
@@ -52,11 +51,26 @@ export function FeaturedStatement() {
         {Array.from({ length: 7 }, (_, k) => k + 1).map((score) => {
           const here = slugs.filter((s) => q.positions[s].score === score);
           return (
-            <div key={score} className="flex h-[104px] flex-col items-center gap-1 rounded-xl border border-black/[0.05] bg-white/40 px-1 pb-2 pt-1.5">
+            <div
+              key={score}
+              className="flex h-[112px] flex-col items-center gap-1 overflow-hidden rounded-xl border border-black/[0.05] bg-white/40 px-1 pb-1.5 pt-1.5"
+            >
               <span className="text-[9px] tabular-nums text-ink/40">{score}</span>
-              {here.map((slug) => (
-                <PartyLogo key={slug} party={quiz.parties[slug]} size={18} ring={false} />
-              ))}
+              <div className="flex w-full flex-wrap justify-center gap-0.5">
+                {here.map((slug) => {
+                  const party = quiz.parties[slug];
+                  return (
+                    <span
+                      key={slug}
+                      title={party.name}
+                      className="inline-flex h-[16px] items-center justify-center rounded-[5px] px-1 text-[9px] font-semibold uppercase tracking-tight text-white"
+                      style={{ backgroundColor: party.color }}
+                    >
+                      {party.abbr}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           );
         })}
