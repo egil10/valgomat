@@ -16,8 +16,9 @@ export function ImportancePicker({
   onChange: (v: number) => void;
 }) {
   return (
-    <div className="flex justify-center" role="radiogroup" aria-label="Hvor viktig er saken">
-      <div className="flex gap-1 rounded-full border border-black/5 bg-white/55 p-0.5">
+    <div className="flex items-center justify-between gap-3 border-t border-black/[0.06] pt-3">
+      <span className="text-[11px] uppercase tracking-[0.18em] text-ink/55">Viktighet</span>
+      <div className="flex gap-1" role="radiogroup" aria-label="Viktighet">
         {OPTIONS.map((o) => (
           <button
             key={o.value}
@@ -28,10 +29,10 @@ export function ImportancePicker({
             title={o.label}
             onClick={() => onChange(o.value)}
             className={clsx(
-              "rounded-full px-3 py-1 text-xs font-medium tabular-nums transition-colors",
+              "h-8 w-12 rounded-full text-xs font-medium tabular-nums transition-colors duration-150",
               value === o.value
                 ? "bg-ink text-white"
-                : "text-ink/55 hover:text-ink/80"
+                : "bg-white/55 text-ink/55 hover:text-ink/85"
             )}
           >
             {o.dots}

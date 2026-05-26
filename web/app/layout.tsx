@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="nb">
       <body className="flex min-h-screen flex-col font-sans text-ink antialiased">
         <PillHeader />
-        <main className="mx-auto w-full max-w-3xl flex-1 px-5 pb-16 pt-28 sm:pt-32">{children}</main>
+        <main className="mx-auto w-full max-w-5xl flex-1 px-5 pb-16 pt-28 sm:pt-32">{children}</main>
         <StatsBar />
       </body>
     </html>

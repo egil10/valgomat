@@ -1,64 +1,83 @@
 "use client";
 
 import clsx from "clsx";
-import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
-import { EMOJI_OPTIONS } from "@/components/EmojiScale";
-import { GlassCard } from "@/components/GlassCard";
 import { PartyLogo } from "@/components/PartyLogo";
 import { questionAlignment } from "@/lib/match";
 import type { PartySlug, Question, Quiz, UserAnswer } from "@/lib/types";
 
-export function FeedbackSlide({
+/**
+ * Right-pane panel. Lives next to the question card and updates live as the
+ * user picks/changes their answer. Empty state is rendered when no answer
+ * is set yet — same dimensions so the layout doesn't shift.
+ */
+export function FeedbackPanel({
   quiz,
   question,
   answer,
-  step,
-  total,
-  onNext,
+}: {
+  quiz: Quiz;
+  question: Question;
+  answer: UserAnswer | undefined;
+}) {
+  if (!answer) return <EmptyState quiz={quiz} question={question} />;
+  return <ResolvedPanel quiz={quiz} question={question} answer={answer} />;
+}
+
+function EmptyState({ quiz, question }: { quiz: Quiz; question: Question }) {
+  return (
+    <div className="flex h-full flex-col">
+      <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
+        Partienes posisjoner
+      </p>
+      <div className="mt-3">
+        <Spectrum quiz={quiz} question={question} userScore={null} />
+      </div>
+      <div className="mt-6 flex flex-1 items-center justify-center rounded-2xl border border-dashed border-black/[0.08] bg-white/35 p-6 text-center">
+        <p className="max-w-[28ch] text-sm text-ink/55">
+          Velg et svar til venstre — partienes utdrag dukker opp her.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ResolvedPanel({
+  quiz,
+  question,
+  answer,
 }: {
   quiz: Quiz;
   question: Question;
   answer: UserAnswer;
-  step: number;
-  total: number;
-  onNext: () => void;
 }) {
   const ranked = useMemo(
     () => questionAlignment(quiz, answer).sort((a, b) => a.diff - b.diff),
     [quiz, answer]
   );
-  const userEmoji = EMOJI_OPTIONS.find((o) => o.score === answer.score);
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? ranked : ranked.slice(0, 4);
   const hidden = ranked.length - visible.length;
 
   return (
-    <GlassCard strong className="space-y-7">
-      <div>
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
-          {question.topic} · Du svarte <span aria-hidden>{userEmoji?.emoji}</span>
-        </p>
-        <h2 className="mt-2 font-display text-2xl font-medium leading-snug text-balance sm:text-3xl">
-          {question.statement}
-        </h2>
+    <div className="flex h-full flex-col">
+      <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
+        Partienes posisjoner
+      </p>
+      <div className="mt-3">
+        <Spectrum quiz={quiz} question={question} userScore={answer.score} />
       </div>
 
-      <Spectrum quiz={quiz} question={question} userScore={answer.score} />
-
-      <ul className="space-y-2">
-        {visible.map((r, i) => {
+      <ul className="mt-5 flex-1 space-y-0">
+        {visible.map((r) => {
           const party = quiz.parties[r.slug as PartySlug];
           return (
-            <motion.li
+            <li
               key={r.slug}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.03 * i, duration: 0.3 }}
-              className="flex items-start gap-3 border-b border-black/[0.05] pb-2 last:border-b-0"
+              className="flex items-start gap-3 border-b border-black/[0.05] py-2 last:border-b-0"
             >
-              <PartyLogo party={party} size={36} ring={false} />
+              <PartyLogo party={party} size={32} ring={false} />
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline gap-2">
                   <p className="truncate text-sm font-medium text-ink">
@@ -79,33 +98,26 @@ export function FeedbackSlide({
                 </div>
                 <p className="mt-0.5 line-clamp-2 text-sm leading-snug text-ink/70">«{r.quote}»</p>
               </div>
-            </motion.li>
+            </li>
           );
         })}
       </ul>
 
-      <div className="flex items-center justify-between gap-3">
-        {hidden > 0 ? (
-          <button
-            type="button"
-            onClick={() => setShowAll(true)}
-            className="text-xs text-ink/55 underline-offset-2 hover:text-ink/85 hover:underline"
-          >
-            Vis {hidden} til
-          </button>
-        ) : <span />}
+      {hidden > 0 && (
         <button
           type="button"
-          onClick={onNext}
-          className="pill inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-button transition-transform hover:-translate-y-0.5"
+          onClick={() => setShowAll(true)}
+          className="mt-3 self-start text-[11px] uppercase tracking-[0.18em] text-ink/55 hover:text-ink/85"
         >
-          {step === total ? "Resultater" : "Neste"} →
+          Vis {hidden} til
         </button>
-      </div>
-    </GlassCard>
+      )}
+    </div>
   );
 }
 
+/** Static, layout-stable spectrum. No motion animations on the markers so the
+ *  panel doesn't trigger height jumps when the user changes their answer. */
 function Spectrum({
   quiz,
   question,
@@ -113,7 +125,7 @@ function Spectrum({
 }: {
   quiz: Quiz;
   question: Question;
-  userScore: number;
+  userScore: number | null;
 }) {
   const entries = (Object.keys(quiz.parties) as PartySlug[]).map((slug) => ({
     slug,
@@ -132,33 +144,29 @@ function Spectrum({
 
   return (
     <div>
-      <div className="mb-2 flex justify-between text-[10px] uppercase tracking-[0.18em] text-ink/50">
+      <div className="mb-2 flex justify-between text-[10px] uppercase tracking-[0.18em] text-ink/45">
         <span>Uenig</span>
         <span>Enig</span>
       </div>
-      <div className="relative h-20 rounded-2xl border border-black/[0.06] bg-white/40 sm:h-24">
+      <div className="relative h-24 rounded-2xl border border-black/[0.06] bg-white/40">
         <div className="absolute inset-x-4 top-1/2 h-px -translate-y-1/2 bg-black/15" />
-        <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${toPct(userScore)}%` }}
-        >
-          <span className="pill block bg-ink px-2 py-0.5 text-[11px] font-medium text-white">
-            Deg
-          </span>
-        </motion.div>
+        {userScore !== null && (
+          <div
+            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 transition-[left] duration-300"
+            style={{ left: `${toPct(userScore)}%` }}
+          >
+            <span className="pill block bg-ink px-2 py-0.5 text-[10px] font-medium text-white">
+              Deg
+            </span>
+          </div>
+        )}
         {entries.map((e) => {
           const stack = byScore.get(e.score)!;
           const idx = stack.indexOf(e);
-          const offsetY = stack.length === 1 ? 0 : idx % 2 === 0 ? -20 : 20;
+          const offsetY = stack.length === 1 ? 0 : idx % 2 === 0 ? -22 : 22;
           return (
-            <motion.div
+            <div
               key={e.slug}
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.04 * idx, type: "spring", stiffness: 220, damping: 18 }}
               className="absolute top-1/2 -translate-x-1/2"
               style={{
                 left: `${toPct(e.score)}%`,
@@ -166,8 +174,8 @@ function Spectrum({
               }}
               title={`${e.party.name} — ${e.score}/7`}
             >
-              <PartyLogo party={e.party} size={30} ring={false} />
-            </motion.div>
+              <PartyLogo party={e.party} size={28} ring={false} />
+            </div>
           );
         })}
       </div>
