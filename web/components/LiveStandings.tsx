@@ -13,11 +13,13 @@ import type { Quiz, UserAnswer } from "@/lib/types";
 export function LiveStandings({
   quiz,
   answers,
+  limit = 5,
 }: {
   quiz: Quiz;
   answers: UserAnswer[];
+  limit?: number;
 }) {
-  const ranked = answers.length > 0 ? matchParties(quiz, answers) : [];
+  const ranked = answers.length > 0 ? matchParties(quiz, answers).slice(0, limit) : [];
 
   return (
     <div className="glass flex min-h-9 items-center gap-x-3 rounded-full px-3 py-1 text-[11px]">

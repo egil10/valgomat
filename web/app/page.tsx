@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Quote, Scale, Building2, BookOpen } from "lucide-react";
 
 import { CitationsTicker } from "@/components/CitationsTicker";
+import { InstitutionalTicker } from "@/components/InstitutionalTicker";
 import { LengthPicker } from "@/components/LengthPicker";
 import { PartyLogo } from "@/components/PartyLogo";
 import { quiz } from "@/lib/data";
@@ -56,12 +57,20 @@ export default function HomePage() {
         <LengthPicker />
       </section>
 
-      {/* Rolling banner of citations */}
-      <section className="-mx-5 sm:-mx-10">
-        <p className="px-5 pb-3 text-[11px] uppercase tracking-[0.18em] text-ink/55 sm:px-10">
+      {/* Rolling banner of program citations */}
+      <section className="-mx-5 space-y-3 sm:-mx-10">
+        <p className="px-5 text-[11px] uppercase tracking-[0.18em] text-ink/55 sm:px-10">
           Direkte fra programmene
         </p>
         <CitationsTicker count={32} />
+      </section>
+
+      {/* Rolling banner of institutional quotes (regjeringen.no, Stortinget) */}
+      <section className="-mx-5 space-y-3 sm:-mx-10">
+        <p className="px-5 text-[11px] uppercase tracking-[0.18em] text-ink/55 sm:px-10">
+          Fra talerstolen — Regjeringen og Stortinget
+        </p>
+        <InstitutionalTicker />
       </section>
 
       {/* Why */}

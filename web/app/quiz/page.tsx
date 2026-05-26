@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { ChevronLeft, ChevronRight, SkipForward } from "lucide-react";
+
 import { BestMatchCallout } from "@/components/BestMatchCallout";
 import { EmojiScale } from "@/components/EmojiScale";
 import { FeedbackPanel } from "@/components/FeedbackSlide";
 import { ImportancePicker } from "@/components/ImportancePicker";
 import { LiveStandings } from "@/components/LiveStandings";
-import { PartySpectrum } from "@/components/PartySpectrum";
+import { PartyStack } from "@/components/PartyStack";
 import { SegmentedProgress } from "@/components/SegmentedProgress";
 import { quiz } from "@/lib/data";
 import { clearAnswers, loadAnswers, saveAnswers } from "@/lib/store";
@@ -207,24 +209,38 @@ export default function QuizPage() {
           {question.topic}
         </p>
         <SegmentedProgress total={total} answered={answeredIndices} index={index} />
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-1.5">
           <button
             type="button"
             onClick={prev}
             disabled={index === 0}
-            className="text-sm text-ink/55 transition-colors disabled:opacity-30 enabled:hover:text-ink"
+            aria-label="Forrige påstand"
+            className="pill inline-flex h-9 items-center gap-1 border border-black/[0.06] bg-white/70 px-3 text-sm text-ink/75 transition-colors enabled:hover:bg-white enabled:hover:text-ink disabled:cursor-not-allowed disabled:opacity-30"
           >
-            ← Tilbake
+            <ChevronLeft size={15} aria-hidden />
+            <span className="hidden sm:inline">Tilbake</span>
           </button>
           <button
             type="button"
             onClick={advance}
             disabled={!current && skipsLeft <= 0}
-            className="pill inline-flex items-center gap-2 bg-ink px-5 py-2 text-sm font-medium text-white shadow-button transition-colors enabled:hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
+            className={
+              current
+                ? "pill inline-flex h-9 items-center gap-1.5 bg-ink px-5 text-sm font-medium text-white shadow-button transition-colors enabled:hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
+                : "pill inline-flex h-9 items-center gap-1.5 border border-black/[0.06] bg-white/70 px-4 text-sm font-medium text-ink/75 transition-colors enabled:hover:bg-white enabled:hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+            }
           >
-            {current
-              ? (index + 1 === total ? "Resultater" : "Neste")
-              : "Hopp over"} →
+            {current ? (
+              <>
+                <span>{index + 1 === total ? "Se resultater" : "Neste"}</span>
+                <ChevronRight size={15} aria-hidden />
+              </>
+            ) : (
+              <>
+                <SkipForward size={13} aria-hidden />
+                <span>Hopp over</span>
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -261,8 +277,13 @@ export default function QuizPage() {
           <EmojiScale value={score} onChange={pickScore} />
         </div>
 
-        <div className="mt-4">
-          <PartySpectrum quiz={quiz} question={question} userScore={score} />
+        <div className="mt-2">
+          <PartyStack quiz={quiz} question={question} userScore={score} />
+        </div>
+        <div className="mt-1 flex justify-between px-1 text-[10px] uppercase tracking-[0.18em] text-ink/40">
+          <span>Helt uenig</span>
+          <span>Tja</span>
+          <span>Helt enig</span>
         </div>
       </section>
 
