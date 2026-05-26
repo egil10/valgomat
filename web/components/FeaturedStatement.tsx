@@ -2,39 +2,27 @@
 
 import { useEffect, useState } from "react";
 
-import { quiz } from "@/lib/data";
-import type { PartySlug, Question } from "@/lib/types";
+import { featuredSamples, parties } from "@/lib/landing-data";
+import type { PartySlug } from "@/lib/types";
+
+const SLUGS = Object.keys(parties) as PartySlug[];
 
 /**
- * Visual proof card on the hero: rotates through a handful of real statements
- * showing each party's position. Gives a glance-preview of what the valgomat
- * looks like inside, without the user having to click anywhere.
+ * Rotating "smakebit"-card — uses a small pre-baked sample file so the
+ * landing chunk doesn't need to bundle the full questions.json.
  */
-const FEATURED_IDS = [
-  "formuesskatt",
-  "kjernekraft",
-  "eu",
-  "anerkjenne-palestina",
-  "mobilforbud",
-  "pensjonsalder",
-  "rusreform",
-];
-
 export function FeaturedStatement() {
-  const candidates = FEATURED_IDS
-    .map((id) => quiz.questions.find((q) => q.id === id))
-    .filter((q): q is Question => !!q);
-
-  const pool = candidates.length > 0 ? candidates : quiz.questions.slice(0, 5);
   const [i, setI] = useState(0);
+  const pool = featuredSamples;
 
   useEffect(() => {
-    const t = setInterval(() => setI((n) => (n + 1) % pool.length), 5500);
-    return () => clearInterval(t);
+    if (pool.length === 0) return;
+    const t = window.setInterval(() => setI((n) => (n + 1) % pool.length), 5500);
+    return () => window.clearInterval(t);
   }, [pool.length]);
 
+  if (pool.length === 0) return null;
   const q = pool[i];
-  const slugs = Object.keys(quiz.parties) as PartySlug[];
 
   return (
     <div
@@ -49,7 +37,7 @@ export function FeaturedStatement() {
       </p>
       <div className="mt-auto grid grid-cols-7 gap-1.5 pt-4" aria-hidden>
         {Array.from({ length: 7 }, (_, k) => k + 1).map((score) => {
-          const here = slugs.filter((s) => q.positions[s].score === score);
+          const here = SLUGS.filter((s) => q.scores[s] === score);
           return (
             <div
               key={score}
@@ -58,7 +46,7 @@ export function FeaturedStatement() {
               <span className="text-[9px] tabular-nums text-ink/40">{score}</span>
               <div className="flex w-full flex-wrap justify-center gap-0.5">
                 {here.map((slug) => {
-                  const party = quiz.parties[slug];
+                  const party = parties[slug];
                   return (
                     <span
                       key={slug}

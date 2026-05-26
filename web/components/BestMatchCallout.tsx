@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { ExternalLink } from "lucide-react";
 
 import { PartyLogo } from "@/components/PartyLogo";
@@ -12,7 +13,7 @@ import type { PartySlug, Question, Quiz, UserAnswer } from "@/lib/types";
  * program. Before an answer it shows a placeholder of the same height — that
  * keeps the layout stable across questions.
  */
-export function BestMatchCallout({
+function BestMatchCalloutInner({
   quiz,
   question,
   answer,
@@ -62,3 +63,5 @@ export function BestMatchCallout({
     </a>
   );
 }
+
+export const BestMatchCallout = memo(BestMatchCalloutInner);

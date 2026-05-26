@@ -1,33 +1,50 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { forwardRef, useEffect, useRef } from "react";
 
 /**
- * Cursor-following watercolor glow. Three independent blobs in party tones
- * (red, green, blue) trail the cursor with their own lag and offsets so the
- * shape never reads as a single hard circle — it dissolves and reforms as
- * the pointer moves. All rendered as a single fixed div with CSS variables
- * driven by one rAF callback; no React re-renders, no transition on the
- * heavy filter. Disabled on touch and prefers-reduced-motion.
+ * Cursor-following watercolor glow rewritten for compositor-only paint:
+ * three sibling divs, each with a *static* radial gradient, moved purely
+ * via `transform: translate3d(x, y, 0) translate(-50%, -50%)`. The browser
+ * doesn't re-rasterize per frame — it just shifts existing layers.
+ *
+ * Each blob has its own lerp speed so the shape never reads as a single
+ * hard circle. Disabled on coarse pointers and prefers-reduced-motion.
  */
+const Blob = forwardRef<HTMLDivElement, { color: string; size: number }>(
+  function Blob({ color, size }, ref) {
+    return (
+      <div
+        ref={ref}
+        className="absolute left-0 top-0 will-change-transform"
+        style={{
+          width: size,
+          height: size,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${color}, transparent 70%)`,
+          filter: "blur(40px)",
+          mixBlendMode: "screen",
+        }}
+      />
+    );
+  },
+);
+
 export function CursorGlow() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const a = useRef<HTMLDivElement | null>(null);
+  const b = useRef<HTMLDivElement | null>(null);
+  const c = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
-    // Target = exact pointer, current = lerp-smoothed toward target.
     let tx = window.innerWidth / 2;
     let ty = window.innerHeight / 3;
-
-    // Three blobs each with their own ease so they drift apart.
-    const blobs = [
-      { x: tx, y: ty, ease: 0.16 },
-      { x: tx, y: ty, ease: 0.10 },
-      { x: tx, y: ty, ease: 0.07 },
+    const state = [
+      { ref: a, x: tx, y: ty, ease: 0.18 },
+      { ref: b, x: tx, y: ty, ease: 0.11 },
+      { ref: c, x: tx, y: ty, ease: 0.07 },
     ];
 
     let raf = 0;
@@ -35,23 +52,11 @@ export function CursorGlow() {
 
     function frame() {
       if (!running) return;
-      let moved = false;
-      for (const b of blobs) {
-        const dx = tx - b.x;
-        const dy = ty - b.y;
-        if (Math.abs(dx) + Math.abs(dy) > 0.5) {
-          b.x += dx * b.ease;
-          b.y += dy * b.ease;
-          moved = true;
-        }
-      }
-      if (moved && el) {
-        el.style.setProperty("--ax", `${blobs[0].x}px`);
-        el.style.setProperty("--ay", `${blobs[0].y}px`);
-        el.style.setProperty("--bx", `${blobs[1].x}px`);
-        el.style.setProperty("--by", `${blobs[1].y}px`);
-        el.style.setProperty("--cx", `${blobs[2].x}px`);
-        el.style.setProperty("--cy", `${blobs[2].y}px`);
+      for (const s of state) {
+        s.x += (tx - s.x) * s.ease;
+        s.y += (ty - s.y) * s.ease;
+        const el = s.ref.current;
+        if (el) el.style.transform = `translate3d(${s.x | 0}px, ${s.y | 0}px, 0) translate(-50%, -50%)`;
       }
       raf = window.requestAnimationFrame(frame);
     }
@@ -71,22 +76,10 @@ export function CursorGlow() {
   }, []);
 
   return (
-    <div
-      ref={ref}
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-0"
-      style={{
-        background:
-          // Three large, very soft pastel blobs in party tones. Each lags
-          // the cursor with its own ease so the shape always drifts and
-          // never reads as a single hard circle.
-          "radial-gradient(620px circle at var(--ax, 30%) var(--ay, 25%), rgba(255, 120, 140, 0.18), transparent 70%)," +
-          "radial-gradient(720px circle at var(--bx, 60%) var(--by, 45%), rgba(120, 220, 160, 0.16), transparent 70%)," +
-          "radial-gradient(820px circle at var(--cx, 45%) var(--cy, 70%), rgba(140, 190, 255, 0.16), transparent 70%)",
-        filter: "blur(60px)",
-        mixBlendMode: "screen",
-        opacity: 0.7,
-      }}
-    />
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <Blob ref={a} color="rgba(255, 120, 140, 0.22)" size={560} />
+      <Blob ref={b} color="rgba(120, 220, 160, 0.20)" size={680} />
+      <Blob ref={c} color="rgba(140, 190, 255, 0.20)" size={760} />
+    </div>
   );
 }

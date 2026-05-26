@@ -1,0 +1,440 @@
+{
+  "totalQuestions": 388,
+  "version": "2026-05-26",
+  "featured": [
+    {
+      "id": "formuesskatt",
+      "topic": "Skatt og økonomi",
+      "statement": "Formuesskatten bør avvikles.",
+      "scores": {
+        "ap": 2,
+        "frp": 7,
+        "hoyre": 6,
+        "sv": 1,
+        "sp": 4,
+        "rodt": 1,
+        "mdg": 3,
+        "krf": 5,
+        "venstre": 6
+      }
+    },
+    {
+      "id": "kjernekraft",
+      "topic": "Klima og energi",
+      "statement": "Norge bør åpne for kommersiell drift av kjernekraft.",
+      "scores": {
+        "ap": 3,
+        "frp": 7,
+        "hoyre": 5,
+        "sv": 1,
+        "sp": 2,
+        "rodt": 1,
+        "mdg": 1,
+        "krf": 3,
+        "venstre": 7
+      }
+    },
+    {
+      "id": "eu",
+      "topic": "EU og EØS",
+      "statement": "Norge bør melde seg inn i EU.",
+      "scores": {
+        "ap": 3,
+        "frp": 1,
+        "hoyre": 7,
+        "sv": 2,
+        "sp": 1,
+        "rodt": 1,
+        "mdg": 6,
+        "krf": 2,
+        "venstre": 5
+      }
+    },
+    {
+      "id": "anerkjenne-palestina",
+      "topic": "Utenrikspolitikk",
+      "statement": "Norge gjorde rett i å anerkjenne Palestina som selvstendig stat.",
+      "scores": {
+        "ap": 6,
+        "frp": 2,
+        "hoyre": 4,
+        "sv": 7,
+        "sp": 5,
+        "rodt": 7,
+        "mdg": 7,
+        "krf": 3,
+        "venstre": 6
+      }
+    },
+    {
+      "id": "mobilforbud",
+      "topic": "Skole",
+      "statement": "Norge bør innføre nasjonalt mobilforbud i grunnskolen.",
+      "scores": {
+        "ap": 5,
+        "frp": 5,
+        "hoyre": 4,
+        "sv": 7,
+        "sp": 7,
+        "rodt": 6,
+        "mdg": 7,
+        "krf": 7,
+        "venstre": 4
+      }
+    },
+    {
+      "id": "pensjonsalder",
+      "topic": "Pensjon og arbeid",
+      "statement": "Pensjonsalderen bør heves i takt med levealderen.",
+      "scores": {
+        "ap": 6,
+        "frp": 4,
+        "hoyre": 7,
+        "sv": 3,
+        "sp": 5,
+        "rodt": 1,
+        "mdg": 5,
+        "krf": 5,
+        "venstre": 6
+      }
+    },
+    {
+      "id": "rusreform",
+      "topic": "Justis",
+      "statement": "Bruk og besittelse av brukerdoser narkotika bør avkriminaliseres.",
+      "scores": {
+        "ap": 4,
+        "frp": 2,
+        "hoyre": 3,
+        "sv": 7,
+        "sp": 2,
+        "rodt": 7,
+        "mdg": 7,
+        "krf": 1,
+        "venstre": 7
+      }
+    }
+  ],
+  "citations": [
+    {
+      "slug": "ap",
+      "partyAbbr": "Ap",
+      "color": "#E8112D",
+      "logo": "/logos/ap.svg",
+      "topic": "Skatt og økonomi",
+      "axis": "Mer omfordeling ↔ Mindre skatt på kapital",
+      "quote": "Arbeiderpartiet vil beholde en formuesskatt som bidrar til omfordeling, samtidig som vi gjør den enklere å forholde seg til for små bedrifter.",
+      "href": "https://res.cloudinary.com/arbeiderpartiet/image/upload/fl_attachment:partiprogram-2025-2029/v1/ievv_filestore/130322a45ccf45889bfc6fa4116c5b480cadc1e93e51491f8199451dd231c7c5#page=24&search=%C3%A5%20forholde%20seg%20til"
+    },
+    {
+      "slug": "frp",
+      "partyAbbr": "FrP",
+      "color": "#005AA9",
+      "logo": "/logos/frp.svg",
+      "topic": "Innvandring",
+      "axis": "Streng innvandringspolitikk ↔ Liberal innvandringspolitikk",
+      "quote": "FrP vil stanse mottak av kvoteflyktninger inntil vi har kontroll, stanse familiegjenforening for enslige mindreårige, og avvikle alderskriterier for asylsøkere.",
+      "href": "https://www.frp.no/files/Program/2025/FrP-Partiprogram-2025-2029.pdf#page=25&search=stanse%20mottak%20av%20kvoteflyktninger%20inntil%20vi"
+    },
+    {
+      "slug": "hoyre",
+      "partyAbbr": "H",
+      "color": "#0065F1",
+      "logo": "/logos/hoyre.svg",
+      "topic": "Skatt og økonomi",
+      "axis": "Konkurransekraft ↔ Statsinntekter",
+      "quote": "Høyre er enig — selskapsskatten settes ned.",
+      "href": "https://hoyre.no/politikk/partiprogram/"
+    },
+    {
+      "slug": "sv",
+      "partyAbbr": "SV",
+      "color": "#C8102E",
+      "logo": "/logos/sv.svg",
+      "topic": "Skatt og økonomi",
+      "axis": "Naturressursdeling ↔ Bedriftsmiljø",
+      "quote": "SV er enig — grunnrenteskatt på havbruk og kraft skal være permanent.",
+      "href": "https://www.sv.no/wp-content/uploads/2025/04/svs-arbeidsprogram-2025-29-bm.pdf"
+    },
+    {
+      "slug": "sp",
+      "partyAbbr": "Sp",
+      "color": "#14773D",
+      "logo": "/logos/sp.png",
+      "topic": "Klima og energi",
+      "axis": "Kvotemarked ↔ Stigende karbonpris",
+      "quote": "Senterpartiet er skeptisk og mener at det er bedre alternativer enn at karbonprisen settes til å øke jevnt hvert år.",
+      "href": "https://www.senterpartiet.no/politikk/nytt-program"
+    },
+    {
+      "slug": "rodt",
+      "partyAbbr": "R",
+      "color": "#B5121B",
+      "logo": "/logos/rodt.svg",
+      "topic": "Klima og energi",
+      "axis": "Klima ↔ Mobilitet",
+      "quote": "Rødt er enig — nye 4-felts motorveier utenfor storbyene stoppes.",
+      "href": "https://roedt.no/fil/29796b043eb866e5315c03ee379bb3de40a32208.pdf"
+    },
+    {
+      "slug": "mdg",
+      "partyAbbr": "MDG",
+      "color": "#3D8C40",
+      "logo": "/logos/mdg.svg",
+      "topic": "Innvandring og integrering",
+      "axis": "Velferdsbegrensning ↔ Likebehandling",
+      "quote": "MDG er skeptisk og mener at det er bedre alternativer enn at trygderettigheter gis først etter lengre botid.",
+      "href": "https://mdg.no/politikk"
+    },
+    {
+      "slug": "krf",
+      "partyAbbr": "KrF",
+      "color": "#F0B323",
+      "logo": "/logos/krf.svg",
+      "topic": "Forsvar og sikkerhet",
+      "axis": "Hybrid trussel ↔ Klassisk forsvar",
+      "quote": "KrF er åpne for å vurdere, men har ikke programfestet at cyberforsvaret prioriteres høyere enn konvensjonelle våpen.",
+      "href": "https://krf.no/content/uploads/2020/09/Partiprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "venstre",
+      "partyAbbr": "V",
+      "color": "#006666",
+      "logo": "/logos/v.png",
+      "topic": "Internasjonal politikk",
+      "axis": "Verdiforankret utenrikspolitikk ↔ Handelsinteresser",
+      "quote": "Venstre er enig — Norge fører hard sanksjonspolitikk mot Kina ved menneskerettighetsbrudd.",
+      "href": "https://www.venstre.no/assets/venstre-stortingsprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "ap",
+      "partyAbbr": "Ap",
+      "color": "#E8112D",
+      "logo": "/logos/ap.svg",
+      "topic": "Samferdsel",
+      "axis": "Stamveinett ↔ Naturhensyn",
+      "quote": "Arbeiderpartiet er åpne for å vurdere, men har ikke programfestet at ferjefri E39 og lignende prosjekter prioriteres.",
+      "href": "https://res.cloudinary.com/arbeiderpartiet/image/upload/fl_attachment:partiprogram-2025-2029/v1/ievv_filestore/130322a45ccf45889bfc6fa4116c5b480cadc1e93e51491f8199451dd231c7c5"
+    },
+    {
+      "slug": "frp",
+      "partyAbbr": "FrP",
+      "color": "#005AA9",
+      "logo": "/logos/frp.svg",
+      "topic": "Helse og omsorg",
+      "axis": "Tilgang ↔ Brukerfinansiering",
+      "quote": "Fremskrittspartiet er enig — egenandelene reduseres bredt.",
+      "href": "https://www.frp.no/files/Program/2025/FrP-Partiprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "hoyre",
+      "partyAbbr": "H",
+      "color": "#0065F1",
+      "logo": "/logos/hoyre.svg",
+      "topic": "Skole og utdanning",
+      "axis": "Felles skole ↔ Mangfold",
+      "quote": "Høyre avviser forslaget og mener tvert imot at kommersielle privatskoler forbys er feil retning.",
+      "href": "https://hoyre.no/politikk/partiprogram/"
+    },
+    {
+      "slug": "sv",
+      "partyAbbr": "SV",
+      "color": "#C8102E",
+      "logo": "/logos/sv.svg",
+      "topic": "Skole og utdanning",
+      "axis": "Sidemålskrav ↔ Reduksjon i prøvebyrde",
+      "quote": "SV er enig — obligatorisk skriftlig sidemålseksamen gjeninnføres.",
+      "href": "https://www.sv.no/wp-content/uploads/2025/04/svs-arbeidsprogram-2025-29-bm.pdf"
+    },
+    {
+      "slug": "sp",
+      "partyAbbr": "Sp",
+      "color": "#14773D",
+      "logo": "/logos/sp.png",
+      "topic": "Arbeidsliv",
+      "axis": "Tjenestesikkerhet ↔ Streikerett",
+      "quote": "Senterpartiet er skeptisk og mener at det er bedre alternativer enn at streikeretten begrenses for samfunnskritiske yrker.",
+      "href": "https://www.senterpartiet.no/politikk/nytt-program"
+    },
+    {
+      "slug": "rodt",
+      "partyAbbr": "R",
+      "color": "#B5121B",
+      "logo": "/logos/rodt.svg",
+      "topic": "Kultur og media",
+      "axis": "Bred kultur ↔ Yrkesretting",
+      "quote": "Rødt er enig — DKS utvides til videregående.",
+      "href": "https://roedt.no/fil/29796b043eb866e5315c03ee379bb3de40a32208.pdf"
+    },
+    {
+      "slug": "mdg",
+      "partyAbbr": "MDG",
+      "color": "#3D8C40",
+      "logo": "/logos/mdg.svg",
+      "topic": "Justis og kriminalitet",
+      "axis": "Samtykkelov ↔ Tradisjonell rett",
+      "quote": "MDG er enig — voldtekt skal defineres ut fra samtykke.",
+      "href": "https://mdg.no/politikk"
+    },
+    {
+      "slug": "krf",
+      "partyAbbr": "KrF",
+      "color": "#F0B323",
+      "logo": "/logos/krf.svg",
+      "topic": "Bolig",
+      "axis": "Sosial bolig ↔ Privat marked",
+      "quote": "KrF er enig — kommunenes ansvar for utleieboliger styrkes.",
+      "href": "https://krf.no/content/uploads/2020/09/Partiprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "venstre",
+      "partyAbbr": "V",
+      "color": "#006666",
+      "logo": "/logos/v.png",
+      "topic": "Landbruk og fiskeri",
+      "axis": "Matsikkerhet ↔ Internasjonal handel",
+      "quote": "Venstre støtter i hovedsak forslaget, men vil ha justeringer på hvordan selvforsyningen heves til minst 60 prosent.",
+      "href": "https://www.venstre.no/assets/venstre-stortingsprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "ap",
+      "partyAbbr": "Ap",
+      "color": "#E8112D",
+      "logo": "/logos/ap.svg",
+      "topic": "Pensjon og trygd",
+      "axis": "Uføres pensjon ↔ Pensjonsreform",
+      "quote": "Arbeiderpartiet er enig — uføre pensjonsopptjenes som om de var i jobb til pensjonsalder.",
+      "href": "https://res.cloudinary.com/arbeiderpartiet/image/upload/fl_attachment:partiprogram-2025-2029/v1/ievv_filestore/130322a45ccf45889bfc6fa4116c5b480cadc1e93e51491f8199451dd231c7c5"
+    },
+    {
+      "slug": "frp",
+      "partyAbbr": "FrP",
+      "color": "#005AA9",
+      "logo": "/logos/frp.svg",
+      "topic": "Likestilling og minoriteter",
+      "axis": "Beskyttet gruppe ↔ Likebehandling",
+      "quote": "Fremskrittspartiet er skeptisk og mener at det er bedre alternativer enn at hatkriminalitet mot kjønnsidentitet skal straffes hardere.",
+      "href": "https://www.frp.no/files/Program/2025/FrP-Partiprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "hoyre",
+      "partyAbbr": "H",
+      "color": "#0065F1",
+      "logo": "/logos/hoyre.svg",
+      "topic": "Forskning og teknologi",
+      "axis": "Algoritmeinnsyn ↔ Effektivitet",
+      "quote": "Høyre støtter i hovedsak forslaget, men vil ha justeringer på hvordan offentlige algoritmiske beslutninger må kunne etterprøves.",
+      "href": "https://hoyre.no/politikk/partiprogram/"
+    },
+    {
+      "slug": "sv",
+      "partyAbbr": "SV",
+      "color": "#C8102E",
+      "logo": "/logos/sv.svg",
+      "topic": "Verdier og livssyn",
+      "axis": "Sekulær stat ↔ Folkekirke",
+      "quote": "SV er enig — skille stat og kirke fullføres.",
+      "href": "https://www.sv.no/wp-content/uploads/2025/04/svs-arbeidsprogram-2025-29-bm.pdf"
+    },
+    {
+      "slug": "sp",
+      "partyAbbr": "Sp",
+      "color": "#14773D",
+      "logo": "/logos/sp.png",
+      "topic": "Demokrati og styresett",
+      "axis": "Slankere stat ↔ Bred representasjon",
+      "quote": "Senterpartiet er uenig og vil ikke at stortinget får færre representanter.",
+      "href": "https://www.senterpartiet.no/politikk/nytt-program"
+    },
+    {
+      "slug": "rodt",
+      "partyAbbr": "R",
+      "color": "#B5121B",
+      "logo": "/logos/rodt.svg",
+      "topic": "Internasjonal politikk",
+      "axis": "Handel ↔ Klima",
+      "quote": "Rødt avviser forslaget og mener tvert imot at Mercosur-avtalen signeres uten ytterligere betingelser er feil retning.",
+      "href": "https://roedt.no/fil/29796b043eb866e5315c03ee379bb3de40a32208.pdf"
+    },
+    {
+      "slug": "mdg",
+      "partyAbbr": "MDG",
+      "color": "#3D8C40",
+      "logo": "/logos/mdg.svg",
+      "topic": "Samferdsel",
+      "axis": "Trafikksikkerhet ↔ Forenkling",
+      "quote": "MDG er åpne for å vurdere, men har ikke programfestet at vintertesting av dekk skal være obligatorisk.",
+      "href": "https://mdg.no/politikk"
+    },
+    {
+      "slug": "krf",
+      "partyAbbr": "KrF",
+      "color": "#F0B323",
+      "logo": "/logos/krf.svg",
+      "topic": "Beredskap",
+      "axis": "Total-beredskap ↔ Frivillighet",
+      "quote": "KrF er enig — sivilforsvaret styrkes med plikt for flere.",
+      "href": "https://krf.no/content/uploads/2020/09/Partiprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "venstre",
+      "partyAbbr": "V",
+      "color": "#006666",
+      "logo": "/logos/v.png",
+      "topic": "Helse og omsorg",
+      "axis": "Universelle eldretjenester ↔ Behovsprøvd",
+      "quote": "Venstre er skeptisk og mener at det er bedre alternativer enn at alle over 80 år får rett til sykehjemsplass.",
+      "href": "https://www.venstre.no/assets/venstre-stortingsprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "ap",
+      "partyAbbr": "Ap",
+      "color": "#E8112D",
+      "logo": "/logos/ap.svg",
+      "topic": "Familie og oppvekst",
+      "axis": "Inkludering ↔ Lokal frihet",
+      "quote": "Arbeiderpartiet er åpne for å vurdere, men har ikke programfestet at barnepark skal være lovfestet rettighet også for jobbsøkere.",
+      "href": "https://res.cloudinary.com/arbeiderpartiet/image/upload/fl_attachment:partiprogram-2025-2029/v1/ievv_filestore/130322a45ccf45889bfc6fa4116c5b480cadc1e93e51491f8199451dd231c7c5"
+    },
+    {
+      "slug": "frp",
+      "partyAbbr": "FrP",
+      "color": "#005AA9",
+      "logo": "/logos/frp.svg",
+      "topic": "Skole og utdanning",
+      "axis": "Klassestørrelse ↔ Kommuneøkonomi",
+      "quote": "Fremskrittspartiet er skeptisk og mener at det er bedre alternativer enn at antall elever per klasse skal ikke overstige 24.",
+      "href": "https://www.frp.no/files/Program/2025/FrP-Partiprogram-2025-2029.pdf"
+    },
+    {
+      "slug": "hoyre",
+      "partyAbbr": "H",
+      "color": "#0065F1",
+      "logo": "/logos/hoyre.svg",
+      "topic": "Helse og omsorg",
+      "axis": "Etikkgrense ↔ Reproduktivt valg",
+      "quote": "Høyre er åpne for å vurdere, men har ikke programfestet at kommersiell donorvirksomhet forbys.",
+      "href": "https://hoyre.no/politikk/partiprogram/"
+    },
+    {
+      "slug": "sv",
+      "partyAbbr": "SV",
+      "color": "#C8102E",
+      "logo": "/logos/sv.svg",
+      "topic": "Klima og natur",
+      "axis": "Naturvern ↔ Lokalbruk",
+      "quote": "SV er enig — nasjonalparkene utvides med 50 prosent.",
+      "href": "https://www.sv.no/wp-content/uploads/2025/04/svs-arbeidsprogram-2025-29-bm.pdf"
+    },
+    {
+      "slug": "sp",
+      "partyAbbr": "Sp",
+      "color": "#14773D",
+      "logo": "/logos/sp.png",
+      "topic": "Internasjonal politikk",
+      "axis": "Klimaansvar ↔ Frivillighet",
+      "quote": "Senterpartiet er skeptisk og mener at det er bedre alternativer enn at oljeselskaper skal betale til et klimaskadefond.",
+      "href": "https://www.senterpartiet.no/politikk/nytt-program"
+    }
+  ]
+}

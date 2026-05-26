@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 
 import { PartyLogo } from "@/components/PartyLogo";
-import { quiz } from "@/lib/data";
+import { parties as landingParties } from "@/lib/landing-data";
 import institutionalQuotes from "@/public/data/institutional_quotes.json";
 import type { PartySlug } from "@/lib/types";
 
@@ -54,7 +54,7 @@ export function InstitutionalTicker() {
         style={{ animationDuration: `${Math.max(120, items.length * 10)}s`, animationDirection: "reverse" }}
       >
         {doubled.map((it, i) => {
-          const party = it.speaker_party ? quiz.parties[it.speaker_party] : null;
+          const party = it.speaker_party ? landingParties[it.speaker_party] : null;
           return (
             <li
               key={`${it.url}-${i}`}

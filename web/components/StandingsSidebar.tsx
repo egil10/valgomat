@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 import { PartyLogo } from "@/components/PartyLogo";
@@ -11,7 +12,7 @@ import type { Quiz, UserAnswer } from "@/lib/types";
  * across all parties. The eye toggle in the corner hides/shows the panel.
  * When hidden, the quiz page renders just the floating eye button instead.
  */
-export function StandingsSidebar({
+function StandingsSidebarInner({
   quiz,
   answers,
   onHide,
@@ -87,6 +88,9 @@ export function StandingsSidebar({
     </aside>
   );
 }
+
+/** Memoized — answers reference is stable per upsert, onHide is stable. */
+export const StandingsSidebar = memo(StandingsSidebarInner);
 
 /**
  * Tiny floating eye-button shown in the same spot when the sidebar is

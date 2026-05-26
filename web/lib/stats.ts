@@ -1,4 +1,4 @@
-import { quiz } from "./data";
+import { totalQuestions } from "./landing-data";
 
 /**
  * Lightweight, build-time stats about the corpus we drive the matching from.
@@ -16,8 +16,8 @@ export const dataStats = {
   programSections: 2_250,
   representatives: 169,
   governmentSpeeches: 15,
-  questions: quiz.questions.length,
-  citations: quiz.questions.length * 9,
+  questions: totalQuestions,
+  citations: totalQuestions * 9,
 } as const;
 
 export type StatsKey = keyof typeof dataStats;

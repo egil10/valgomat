@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
 
-import { GlassCard } from "@/components/GlassCard";
 import { PartyBar } from "@/components/PartyBar";
 import { PartyLogo } from "@/components/PartyLogo";
 import { quiz } from "@/lib/data";
@@ -30,13 +28,16 @@ export default function ResultsPage() {
 
   if (answers.length === 0) {
     return (
-      <GlassCard strong className="space-y-3 text-center">
+      <div className="glass-strong rounded-3xl p-6 text-center sm:p-8">
         <h1 className="font-display text-3xl font-medium">Ingen svar enda</h1>
-        <p className="text-ink/65">Svar på minst én påstand for å se resultatet.</p>
-        <Link href="/quiz" className="pill mx-auto inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-button">
+        <p className="mt-3 text-ink/65">Svar på minst én påstand for å se resultatet.</p>
+        <Link
+          href="/quiz"
+          className="pill mx-auto mt-4 inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-button"
+        >
           Start valgomaten →
         </Link>
-      </GlassCard>
+      </div>
     );
   }
 
@@ -46,12 +47,7 @@ export default function ResultsPage() {
     <div className="space-y-14">
       <section>
         <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">Din nærmeste match</p>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="mt-4 flex items-end justify-between gap-6"
-        >
+        <div className="mt-4 flex items-end justify-between gap-6 animate-[fadein_0.45s_ease-out]">
           <div className="flex items-center gap-5">
             <PartyLogo party={top.party} size={84} ring={false} />
             <div>
@@ -64,7 +60,7 @@ export default function ResultsPage() {
           <p className="font-display text-6xl font-medium leading-none tabular-nums sm:text-7xl">
             {Math.round(top.percent)}<span className="text-3xl text-ink/40 sm:text-4xl">%</span>
           </p>
-        </motion.div>
+        </div>
       </section>
 
       <div className="rule" />

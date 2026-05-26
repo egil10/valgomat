@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 import { PartyLogo } from "@/components/PartyLogo";
 import type { PartySlug, Question, Quiz } from "@/lib/types";
 
@@ -12,7 +14,7 @@ import type { PartySlug, Question, Quiz } from "@/lib/types";
  * Height is reserved (min-h) so that the box doesn't grow or shrink between
  * questions, keeping the layout stable.
  */
-export function PartyStack({
+function PartyStackInner({
   quiz,
   question,
   userScore,
@@ -86,3 +88,5 @@ export function PartyStack({
     </div>
   );
 }
+
+export const PartyStack = memo(PartyStackInner);

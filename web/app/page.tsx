@@ -1,12 +1,21 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 
-import { CitationsTicker } from "@/components/CitationsTicker";
 import { CursorGlow } from "@/components/CursorGlow";
 import { FeaturedStatement } from "@/components/FeaturedStatement";
-import { InstitutionalTicker } from "@/components/InstitutionalTicker";
 import { LengthPicker } from "@/components/LengthPicker";
 import { PartyLogo } from "@/components/PartyLogo";
-import { quiz } from "@/lib/data";
+import { parties, totalQuestions } from "@/lib/landing-data";
+
+// Below-fold tickers — defer to a separate chunk loaded after first paint.
+const CitationsTicker = dynamic(
+  () => import("@/components/CitationsTicker").then((m) => m.CitationsTicker),
+  { ssr: false, loading: () => <div className="h-32" /> },
+);
+const InstitutionalTicker = dynamic(
+  () => import("@/components/InstitutionalTicker").then((m) => m.InstitutionalTicker),
+  { ssr: false, loading: () => <div className="h-32" /> },
+);
 
 const FORMAT = new Intl.NumberFormat("nb-NO");
 
@@ -26,7 +35,7 @@ export default function HomePage() {
               <span className="text-ink/55">som siterer kildene.</span>
             </h1>
             <p className="mt-3 max-w-xl text-balance text-base text-ink/65 sm:text-lg">
-              {FORMAT.format(quiz.questions.length)} påstander, ni partier,
+              {FORMAT.format(totalQuestions)} påstander, ni partier,
               alt med direkte lenke til programmet. Velg lengde og kjør.
             </p>
           </div>
@@ -46,7 +55,7 @@ export default function HomePage() {
           <p className="px-5 text-[11px] uppercase tracking-[0.18em] text-ink/55 sm:px-10">
             Direkte fra programmene
           </p>
-          <CitationsTicker count={32} />
+          <CitationsTicker />
         </section>
 
         {/* Institutional quotes ticker */}
@@ -63,7 +72,7 @@ export default function HomePage() {
             Kilder · klikk for å åpne programmet
           </p>
           <ul className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
-            {Object.values(quiz.parties).map((p) => (
+            {Object.values(parties).map((p) => (
               <li key={p.abbr}>
                 <a
                   href={p.program_url}

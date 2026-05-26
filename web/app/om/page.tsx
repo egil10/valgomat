@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { quiz } from "@/lib/data";
+import { dataVersion, parties, totalQuestions } from "@/lib/landing-data";
 
 const FORMAT = new Intl.NumberFormat("nb-NO");
 
 export default function OmPage() {
-  const partyCount = Object.keys(quiz.parties).length;
-  const citationCells = quiz.questions.length * partyCount;
+  const partyCount = Object.keys(parties).length;
+  const citationCells = totalQuestions * partyCount;
 
   return (
     <article className="space-y-12">
@@ -27,7 +27,7 @@ export default function OmPage() {
       <section>
         <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {[
-            { value: FORMAT.format(quiz.questions.length), label: "påstander" },
+            { value: FORMAT.format(totalQuestions), label: "påstander" },
             { value: String(partyCount),                  label: "partier" },
             { value: "7",                                 label: "trinn på skalaen" },
             { value: FORMAT.format(citationCells),        label: "sitater i datasettet" },
@@ -49,7 +49,7 @@ export default function OmPage() {
       <section className="space-y-2">
         <h2 className="font-display text-xl font-medium">Påstandene</h2>
         <p className="text-ink/70">
-          Hver runde trekker et tilfeldig utvalg fra {FORMAT.format(quiz.questions.length)} påstander —
+          Hver runde trekker et tilfeldig utvalg fra {FORMAT.format(totalQuestions)} påstander —
           du velger lengde (10, 25, 50, 100 eller alle) på forsiden. Rekkefølgen
           blandes ved spillstart, så samme valgomat er aldri identisk to ganger.
         </p>
@@ -144,7 +144,7 @@ match%   = 100 × (1 − distance / maxPossible)`}
         </p>
         <p className="text-ink/70">
           Datasett-versjon{" "}
-          <code className="rounded bg-black/[0.04] px-1.5 py-0.5 text-[0.85em]">{quiz.version}</code>.
+          <code className="rounded bg-black/[0.04] px-1.5 py-0.5 text-[0.85em]">{dataVersion}</code>.
           Hele pipelinen er åpen kildekode på{" "}
           <a href="https://github.com/egil10/valgomat" className="underline-offset-2 hover:underline" target="_blank" rel="noreferrer">
             github.com/egil10/valgomat

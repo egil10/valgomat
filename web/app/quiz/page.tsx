@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -7,28 +8,23 @@ import { ChevronLeft, ChevronRight, SkipForward } from "lucide-react";
 
 import { BestMatchCallout } from "@/components/BestMatchCallout";
 import { EmojiScale } from "@/components/EmojiScale";
-import { FeedbackPanel } from "@/components/FeedbackSlide";
 import { ImportancePicker } from "@/components/ImportancePicker";
 import { PartyStack } from "@/components/PartyStack";
 import { SegmentedProgress } from "@/components/SegmentedProgress";
 import { StandingsShowButton, StandingsSidebar } from "@/components/StandingsSidebar";
 import { quiz, getQuestionById } from "@/lib/data";
-import {
-  loadAnswers,
-  loadOrder,
-  saveAnswers,
-  saveOrder,
-  shuffle,
-} from "@/lib/store";
+import { loadAnswers, loadOrder, saveAnswers, saveOrder, shuffle } from "@/lib/store";
 import { loadPrefs, resolveLength, savePrefs, type QuizLength } from "@/lib/prefs";
-import {
-  ANSWERS_CHANGED,
-  PREFS_CHANGED,
-  QUIZ_RESET,
-  emitAnswersChanged,
-} from "@/lib/quizSignals";
+import { PREFS_CHANGED, QUIZ_RESET } from "@/lib/quizSignals";
 import type { AutoMode } from "@/components/AutoAdvance";
 import type { Question, UserAnswer } from "@/lib/types";
+
+// FeedbackPanel (full 9-citation list) is only mounted when the user clicks
+// "Vis alle sitater" — defer its module load.
+const FeedbackPanel = dynamic(
+  () => import("@/components/FeedbackSlide").then((m) => m.FeedbackPanel),
+  { ssr: false, loading: () => <p className="text-xs text-ink/40">Laster sitater …</p> },
+);
 
 const SKIP_CAP = 3;
 
@@ -136,6 +132,22 @@ export default function QuizPage() {
     }
   }, []);
 
+  // Coalesce localStorage writes: rapid clicks set in-memory state immediately
+  // but only flush to disk once per animation frame.
+  const flushTimer = useRef<number | null>(null);
+  const pendingAnswers = useRef<UserAnswer[] | null>(null);
+
+  const scheduleFlush = useCallback(() => {
+    if (flushTimer.current !== null) return;
+    flushTimer.current = window.requestAnimationFrame(() => {
+      flushTimer.current = null;
+      if (pendingAnswers.current) {
+        saveAnswers(pendingAnswers.current);
+        pendingAnswers.current = null;
+      }
+    });
+  }, []);
+
   const upsert = useCallback((next: Partial<UserAnswer> & { questionId: string }) => {
     setAnswers((prev) => {
       const existing = prev.find((a) => a.questionId === next.questionId);
@@ -145,10 +157,8 @@ export default function QuizPage() {
         importance: next.importance ?? existing?.importance ?? 2,
       };
       const updated = [...prev.filter((a) => a.questionId !== next.questionId), merged];
-      const onDisk = loadAnswers();
-      const others = onDisk.filter((a) => a.questionId !== next.questionId);
-      saveAnswers([...others, merged]);
-      emitAnswersChanged();
+      pendingAnswers.current = updated;
+      scheduleFlush();
       return updated;
     });
     setSkipped((prev) => {
@@ -157,6 +167,14 @@ export default function QuizPage() {
       copy.delete(next.questionId);
       return copy;
     });
+  }, [scheduleFlush]);
+
+  // Flush any pending write on unmount so the user never loses data.
+  useEffect(() => {
+    return () => {
+      if (flushTimer.current !== null) window.cancelAnimationFrame(flushTimer.current);
+      if (pendingAnswers.current) saveAnswers(pendingAnswers.current);
+    };
   }, []);
 
   function pickScore(s: number) {
@@ -226,18 +244,6 @@ export default function QuizPage() {
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, total, question?.id, score, skipped, autoMode]);
-
-  // Keep header chip in sync if other tabs change state.
-  useEffect(() => {
-    function refresh() {
-      const saved = loadAnswers();
-      const order = loadOrder();
-      const allowed = new Set(order);
-      setAnswers(order.length === 0 ? saved : saved.filter((a) => allowed.has(a.questionId)));
-    }
-    window.addEventListener(ANSWERS_CHANGED, refresh);
-    return () => window.removeEventListener(ANSWERS_CHANGED, refresh);
-  }, []);
 
   if (!hydrated) return <p className="text-ink/40">Laster …</p>;
   if (!question) {
