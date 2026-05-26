@@ -20,11 +20,25 @@ const LOGO_BY_SOURCE: Record<InstitutionalQuote["source"], string> = {
   stortinget: "/logos/stortinget.svg",
 };
 
+const DATE_FORMAT = new Intl.DateTimeFormat("nb-NO", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+});
+
+function fmtDate(iso: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return DATE_FORMAT.format(d);
+}
+
 /**
- * Second hero ticker — institutional sources. Pulls real-world speech
- * excerpts from regjeringen.no (and later Stortinget). Mirrors the
- * CitationsTicker visually but with a distinct logo column and a darker
- * tone so the two banners read as siblings, not duplicates.
+ * Real speech excerpts from regjeringen.no (and Stortinget). The card has
+ * three rows of metadata so nothing has to truncate the date out of view:
+ *   1. source chip + date chip (never wraps)
+ *   2. speaker (single line, truncates if too long)
+ *   3. quote (line-clamp-2)
  */
 export function InstitutionalTicker() {
   const items = institutionalQuotes as InstitutionalQuote[];
@@ -39,46 +53,46 @@ export function InstitutionalTicker() {
     >
       <ul
         className="ticker-track flex w-max items-stretch gap-3"
-        style={{ animationDuration: `${Math.max(80, items.length * 8)}s`, animationDirection: "reverse" }}
+        style={{ animationDuration: `${Math.max(120, items.length * 10)}s`, animationDirection: "reverse" }}
       >
         {doubled.map((it, i) => (
           <li
             key={`${it.url}-${i}`}
-            className="flex max-w-[480px] shrink-0 items-start gap-3 rounded-2xl border border-black/[0.05] bg-ink/[0.04] px-4 py-3"
+            className="flex w-[420px] shrink-0 items-start gap-3 rounded-2xl border border-black/[0.05] bg-ink/[0.04] p-4"
           >
             <Image
               src={LOGO_BY_SOURCE[it.source]}
               alt={it.source_label}
-              width={32}
-              height={32}
+              width={36}
+              height={36}
               className={
                 it.source === "regjeringen"
-                  ? "h-8 w-8 shrink-0 rounded"
-                  : "h-7 w-auto shrink-0 self-center"
+                  ? "h-9 w-9 shrink-0 rounded"
+                  : "h-8 w-auto shrink-0 self-start"
               }
               unoptimized
             />
-            <div className="min-w-0">
-              <div className="flex items-baseline gap-1 text-[11px] uppercase tracking-[0.18em] text-ink/55">
-                <span className="font-medium text-ink/80">{it.source_label}</span>
-                {it.speaker && (
-                  <>
-                    <span className="text-ink/30">·</span>
-                    <span className="truncate">{it.speaker}</span>
-                  </>
-                )}
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="pill bg-ink/85 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-white">
+                  {it.source_label}
+                </span>
                 {it.date && (
-                  <>
-                    <span className="ml-auto text-ink/30">·</span>
-                    <span className="tabular-nums text-ink/45">{it.date}</span>
-                  </>
+                  <span className="pill bg-white/70 px-2 py-0.5 text-[10px] font-medium tabular-nums text-ink/70">
+                    {fmtDate(it.date)}
+                  </span>
                 )}
               </div>
+              {it.speaker && (
+                <p className="mt-1 truncate text-[11px] uppercase tracking-[0.16em] text-ink/55">
+                  {it.speaker}
+                </p>
+              )}
               <a
                 href={it.url}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-0.5 line-clamp-2 text-sm leading-snug text-ink/85 underline-offset-2 hover:underline"
+                className="mt-1 block line-clamp-2 text-sm leading-snug text-ink/85 underline-offset-2 hover:underline"
               >
                 «{it.quote}»
                 <ExternalLink size={11} aria-hidden className="ml-1 inline align-baseline text-ink/40" />

@@ -8,10 +8,12 @@ import { quiz } from "@/lib/data";
 import type { PartySlug } from "@/lib/types";
 
 /**
- * Infinite horizontal marquee of paraphrased party quotes. Pulled live from
- * the quiz data so the homepage and the underlying citations stay in sync.
- * The strip duplicates its content once and loops via a pure-CSS keyframe so
- * there's no JS scheduler running. Hovering pauses the animation.
+ * Infinite horizontal marquee of paraphrased party quotes, pulled live from
+ * the quiz pool. Three-row card layout matches the InstitutionalTicker:
+ *   1. party chip + topic chip
+ *   2. axis (single line, truncates)
+ *   3. quote (line-clamp-2)
+ * Hover pauses the animation.
  */
 export function CitationsTicker({ count = 32 }: { count?: number }) {
   const items = useMemo(() => {
@@ -20,15 +22,15 @@ export function CitationsTicker({ count = 32 }: { count?: number }) {
       partyName: string;
       partyAbbr: string;
       color: string;
+      logo: string;
+      topic: string;
+      axis: string;
       quote: string;
       href: string;
-      logo: string;
     }> = [];
     const total = quiz.questions.length;
     const partyKeys = Object.keys(quiz.parties) as PartySlug[];
 
-    // Spread picks evenly across the pool with a slight party rotation so the
-    // strip doesn't get monopolized by any single party.
     const step = Math.max(1, Math.floor(total / count));
     for (let i = 0, n = 0; i < count; i++, n += step) {
       const q = quiz.questions[n % total];
@@ -40,9 +42,11 @@ export function CitationsTicker({ count = 32 }: { count?: number }) {
         partyName: party.name,
         partyAbbr: party.abbr,
         color: party.color,
+        logo: party.logo,
+        topic: q.topic,
+        axis: q.axis,
         quote: pos.quote,
         href: pos.source_url ?? party.program_url,
-        logo: party.logo,
       });
     }
     return out;
@@ -56,13 +60,13 @@ export function CitationsTicker({ count = 32 }: { count?: number }) {
       aria-label="Sitater fra partienes program"
     >
       <ul
-        className="ticker-track group flex w-max items-stretch gap-3"
-        style={{ animationDuration: `${Math.max(60, count * 4)}s` }}
+        className="ticker-track flex w-max items-stretch gap-3"
+        style={{ animationDuration: `${Math.max(120, count * 5)}s` }}
       >
         {doubled.map((it, i) => (
           <li
             key={`${it.slug}-${i}`}
-            className="glass flex max-w-[420px] shrink-0 items-start gap-3 rounded-2xl px-4 py-3"
+            className="glass flex w-[420px] shrink-0 items-start gap-3 rounded-2xl p-4"
           >
             <PartyLogo
               party={{
@@ -72,20 +76,29 @@ export function CitationsTicker({ count = 32 }: { count?: number }) {
                 logo: it.logo,
                 program_url: it.href,
               }}
-              size={28}
+              size={36}
               ring={false}
             />
-            <div className="min-w-0">
-              <div className="flex items-baseline gap-1 text-[11px] uppercase tracking-[0.18em] text-ink/55">
-                <span style={{ color: it.color }}>{it.partyAbbr}</span>
-                <span className="text-ink/30">·</span>
-                <span className="truncate">{it.partyName}</span>
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span
+                  className="pill px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-white"
+                  style={{ backgroundColor: it.color }}
+                >
+                  {it.partyAbbr}
+                </span>
+                <span className="pill bg-white/70 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-ink/70">
+                  {it.topic}
+                </span>
               </div>
+              <p className="mt-1 truncate text-[11px] uppercase tracking-[0.16em] text-ink/55">
+                {it.axis}
+              </p>
               <a
                 href={it.href}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-0.5 line-clamp-2 text-sm leading-snug text-ink/80 underline-offset-2 hover:underline"
+                className="mt-1 block line-clamp-2 text-sm leading-snug text-ink/85 underline-offset-2 hover:underline"
               >
                 «{it.quote}»
                 <ExternalLink size={11} aria-hidden className="ml-1 inline align-baseline text-ink/40" />
