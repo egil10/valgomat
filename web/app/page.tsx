@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <>
       <CursorGlow />
-      <div className="space-y-8 sm:space-y-10">
+      <div className="relative z-10 space-y-8 sm:space-y-10">
         {/* Hero — tight, then CTA does the talking */}
         <section className="grid gap-6 sm:grid-cols-5">
           <div className="sm:col-span-3">
@@ -57,13 +57,23 @@ export default function HomePage() {
           <InstitutionalTicker />
         </section>
 
-        {/* Compact sources strip */}
+        {/* Compact sources strip — every logo links to its program */}
         <section>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">Kilder</p>
-          <ul className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
+            Kilder · klikk for å åpne programmet
+          </p>
+          <ul className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2">
             {Object.values(quiz.parties).map((p) => (
-              <li key={p.abbr} title={p.name}>
-                <PartyLogo party={p} size={28} ring={false} />
+              <li key={p.abbr}>
+                <a
+                  href={p.program_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={`${p.name} — partiprogram 2025–2029`}
+                  className="opacity-80 transition-opacity hover:opacity-100"
+                >
+                  <PartyLogo party={p} size={30} ring={false} />
+                </a>
               </li>
             ))}
             <li className="ml-2 h-6 w-px bg-black/10" aria-hidden />

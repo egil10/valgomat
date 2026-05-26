@@ -11,7 +11,7 @@ import { FeedbackPanel } from "@/components/FeedbackSlide";
 import { ImportancePicker } from "@/components/ImportancePicker";
 import { PartyStack } from "@/components/PartyStack";
 import { SegmentedProgress } from "@/components/SegmentedProgress";
-import { StandingsSidebar } from "@/components/StandingsSidebar";
+import { StandingsShowButton, StandingsSidebar } from "@/components/StandingsSidebar";
 import { quiz, getQuestionById } from "@/lib/data";
 import {
   loadAnswers,
@@ -20,7 +20,7 @@ import {
   saveOrder,
   shuffle,
 } from "@/lib/store";
-import { loadPrefs, resolveLength, type QuizLength } from "@/lib/prefs";
+import { loadPrefs, resolveLength, savePrefs, type QuizLength } from "@/lib/prefs";
 import {
   ANSWERS_CHANGED,
   PREFS_CHANGED,
@@ -196,6 +196,11 @@ export default function QuizPage() {
     if (index > 0) setIndex(index - 1);
   }
 
+  function toggleStandings(v: boolean) {
+    setShowStandings(v);
+    savePrefs({ showStandings: v });
+  }
+
   useEffect(() => {
     clearAutoTimer();
     if (!current || autoMode === "manual") return;
@@ -299,13 +304,7 @@ export default function QuizPage() {
       </div>
 
       {/* Main card + standings sidebar */}
-      <div
-        className={
-          showStandings
-            ? "grid gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1fr)_240px]"
-            : "block"
-        }
-      >
+      <div className="grid gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1fr)_auto]">
         <section
           className="glass-strong flex min-h-[500px] flex-col rounded-3xl p-5 sm:min-h-[540px] sm:p-6"
           aria-label="Påstand"
@@ -336,9 +335,17 @@ export default function QuizPage() {
           </div>
         </section>
 
-        {showStandings && (
-          <StandingsSidebar quiz={quiz} answers={answers} />
-        )}
+        <div className={showStandings ? "lg:w-[240px]" : "lg:w-9"}>
+          {showStandings ? (
+            <StandingsSidebar
+              quiz={quiz}
+              answers={answers}
+              onHide={() => toggleStandings(false)}
+            />
+          ) : (
+            <StandingsShowButton onShow={() => toggleStandings(true)} />
+          )}
+        </div>
       </div>
 
       <BestMatchCallout quiz={quiz} question={question} answer={current} />

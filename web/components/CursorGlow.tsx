@@ -51,15 +51,17 @@ export function CursorGlow() {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10"
+      className="pointer-events-none fixed inset-0 z-0"
       style={{
         background:
-          "radial-gradient(420px circle at var(--mx, 50%) var(--my, 30%)," +
-          " rgba(232, 17, 45, 0.10) 0%," +
-          " rgba(0, 101, 241, 0.10) 35%," +
-          " rgba(20, 119, 61, 0.10) 60%," +
-          " transparent 75%)",
-        transition: "background 80ms linear",
+          "radial-gradient(560px circle at var(--mx, 50%) var(--my, 30%)," +
+          " rgba(232, 17, 45, 0.22) 0%," +
+          " rgba(240, 179, 35, 0.18) 25%," +
+          " rgba(20, 119, 61, 0.20) 50%," +
+          " rgba(0, 101, 241, 0.18) 75%," +
+          " transparent 90%)",
+        transition: "background 60ms linear",
+        mixBlendMode: "multiply",
       }}
     />
   );

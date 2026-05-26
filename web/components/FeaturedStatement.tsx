@@ -43,7 +43,7 @@ export function FeaturedStatement() {
       aria-live="polite"
     >
       <p className="truncate text-[11px] uppercase tracking-[0.18em] text-ink/55">
-        Smakebit · {q.topic}
+        {q.topic}
       </p>
       <p className="mt-2 line-clamp-3 min-h-[4.6em] font-display text-xl font-medium leading-snug text-balance text-ink sm:min-h-[3.9em] sm:text-2xl">
         «{q.statement}»

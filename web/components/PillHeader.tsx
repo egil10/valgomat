@@ -22,8 +22,8 @@ export function PillHeader() {
       <nav
         aria-label="Hovedmeny"
         className={clsx(
-          "pointer-events-auto glass-strong rounded-full px-3 py-1.5",
-          "grid w-full max-w-[640px] grid-cols-[auto_1fr_auto] items-center gap-3"
+          "pointer-events-auto glass-ios rounded-full px-3 py-1.5 sm:px-4",
+          "grid w-full max-w-5xl grid-cols-[auto_1fr_auto] items-center gap-3"
         )}
       >
         {/* Left: brand mark */}

@@ -82,45 +82,52 @@ export function LengthPicker() {
       <Link
         href="/quiz"
         onClick={startFresh}
-        className="group relative mt-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-2xl px-6 py-5 text-white shadow-button sm:px-8 sm:py-6"
+        className="group relative mt-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-2xl border border-white/40 px-6 py-5 text-ink shadow-button sm:px-8 sm:py-6"
       >
-        {/* Party-rainbow base (left-right political spectrum, muted) */}
+        {/* Soft pastel base — cream poster paper */}
+        <span aria-hidden className="absolute inset-0 -z-10 bg-[#FBF7EF]" />
+        {/* Party-rainbow at low opacity so the colors are visible but
+            the surface stays light enough for dark text */}
         <span
           aria-hidden
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0 -z-10 opacity-70"
           style={{
             background:
-              "linear-gradient(90deg, #B5121B 0%, #C8102E 12%, #E8112D 22%, #14773D 38%, #3D8C40 50%, #F0B323 62%, #006666 74%, #0065F1 86%, #005AA9 100%)",
+              "linear-gradient(90deg," +
+              " rgba(181, 18, 27, 0.30) 0%," +
+              " rgba(200, 16, 46, 0.28) 12%," +
+              " rgba(232, 17, 45, 0.26) 22%," +
+              " rgba(20, 119, 61, 0.32) 38%," +
+              " rgba(61, 140, 64, 0.30) 50%," +
+              " rgba(240, 179, 35, 0.40) 62%," +
+              " rgba(0, 102, 102, 0.28) 74%," +
+              " rgba(0, 101, 241, 0.28) 86%," +
+              " rgba(0, 90, 169, 0.30) 100%)",
           }}
         />
-        {/* Dark wash so the colors read as "muted poster", not garish */}
-        <span
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-ink/[0.78] mix-blend-multiply"
-        />
-        {/* Subtle highlight on hover */}
+        {/* Inner glow shimmer on hover */}
         <span
           aria-hidden
           className="absolute inset-0 -z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
           style={{
             background:
-              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0) 100%)",
+              "radial-gradient(120% 200% at 50% -20%, rgba(255,255,255,0.85), transparent 60%)",
           }}
         />
         <span className="flex items-center gap-3">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
-            <Zap size={18} aria-hidden className="text-amber-300" />
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-amber-300 shadow-button">
+            <Zap size={18} aria-hidden />
           </span>
           <span className="flex flex-col items-start">
             <span className="font-display text-2xl font-medium leading-none tracking-tight sm:text-3xl">
               Start valgomaten
             </span>
-            <span className="mt-1 text-xs uppercase tracking-[0.18em] text-white/70">
+            <span className="mt-1 text-xs uppercase tracking-[0.18em] text-ink/55">
               {total} påstander · alltid fra null
             </span>
           </span>
         </span>
-        <ArrowRight size={28} aria-hidden className="shrink-0 text-white" />
+        <ArrowRight size={28} aria-hidden className="shrink-0 text-ink" />
       </Link>
     </div>
   );

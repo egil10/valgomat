@@ -19,22 +19,37 @@ html, body {
 
 @layer components {
   .glass {
-    background-color: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    -webkit-backdrop-filter: saturate(140%) blur(18px);
-    backdrop-filter: saturate(140%) blur(18px);
+    background-color: rgba(255, 255, 255, 0.62);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    -webkit-backdrop-filter: saturate(160%) blur(22px);
+    backdrop-filter: saturate(160%) blur(22px);
     box-shadow:
-      0 6px 24px -10px rgba(15, 15, 15, 0.06),
-      0 1px 2px -1px rgba(15, 15, 15, 0.04);
+      0 6px 24px -10px rgba(15, 15, 15, 0.08),
+      0 1px 2px -1px rgba(15, 15, 15, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
   .glass-strong {
-    background-color: rgba(255, 255, 255, 0.82);
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    -webkit-backdrop-filter: saturate(150%) blur(24px);
-    backdrop-filter: saturate(150%) blur(24px);
+    background-color: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: saturate(170%) blur(28px);
+    backdrop-filter: saturate(170%) blur(28px);
     box-shadow:
-      0 10px 40px -14px rgba(15, 15, 15, 0.10),
-      0 1px 2px rgba(15, 15, 15, 0.04);
+      0 10px 40px -14px rgba(15, 15, 15, 0.12),
+      0 1px 2px rgba(15, 15, 15, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  }
+  /* iOS-style liquid glass — stronger saturate + stronger blur + subtle
+     refractive highlights along the edges. Use for the floating header. */
+  .glass-ios {
+    background-color: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    -webkit-backdrop-filter: saturate(180%) blur(40px);
+    backdrop-filter: saturate(180%) blur(40px);
+    box-shadow:
+      0 12px 48px -20px rgba(15, 15, 15, 0.18),
+      0 1px 2px rgba(15, 15, 15, 0.04),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.25);
   }
   .pill {
     border-radius: 9999px;
