@@ -245,20 +245,21 @@ export default function QuizPage() {
 
   return (
     <div className="flex flex-col gap-3 sm:gap-4">
-      {/* Single condensed control row: topic | progress | counts | nav */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <p className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-ink/55">
+      {/* Single condensed control row with fixed columns so it never shifts
+          when the topic / counts change width. */}
+      <div className="grid grid-cols-[180px_minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 sm:grid-cols-[180px_minmax(0,1fr)_220px_auto]">
+        <p className="truncate text-[11px] uppercase tracking-[0.18em] text-ink/55">
           {question.topic}
         </p>
-        <SegmentedProgress total={total} answered={answeredIndices} index={index} />
-        <div className="hidden flex-wrap items-center gap-x-2 text-[11px] tabular-nums text-ink/55 sm:flex">
+        <SegmentedProgress total={total} answered={answeredIndices} />
+        <div className="hidden items-center justify-end gap-x-2 whitespace-nowrap text-[11px] tabular-nums text-ink/55 sm:flex">
           <span><strong className="font-medium text-ink/85">{answers.length}</strong> svart</span>
           <span className="text-ink/30">·</span>
           <span><strong className="font-medium text-ink/85">{skipped.size}</strong> hoppet</span>
           <span className="text-ink/30">·</span>
           <span><strong className="font-medium text-ink/85">{skipsLeft}</strong> hopp igjen</span>
         </div>
-        <div className="ml-auto flex items-center gap-1.5">
+        <div className="flex items-center justify-end gap-1.5">
           <button
             type="button"
             onClick={prev}
