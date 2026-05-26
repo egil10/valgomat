@@ -5,6 +5,7 @@ export type Party = {
   name: string;
   abbr: string;
   color: string;
+  logo: string;
   program_url: string;
 };
 

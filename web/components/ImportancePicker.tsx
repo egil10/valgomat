@@ -3,9 +3,9 @@
 import clsx from "clsx";
 
 const OPTIONS = [
-  { value: 1, label: "Lite viktig" },
-  { value: 2, label: "Viktig" },
-  { value: 3, label: "Svært viktig" },
+  { value: 1, dots: "•",   label: "Lite viktig"  },
+  { value: 2, dots: "••",  label: "Viktig"       },
+  { value: 3, dots: "•••", label: "Svært viktig" },
 ];
 
 export function ImportancePicker({
@@ -16,23 +16,25 @@ export function ImportancePicker({
   onChange: (v: number) => void;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs uppercase tracking-wider text-ink/55">Hvor viktig?</span>
-      <div className="flex gap-1 rounded-full bg-white/55 p-1 ring-1 ring-black/5">
+    <div className="flex justify-center" role="radiogroup" aria-label="Hvor viktig er saken">
+      <div className="flex gap-1 rounded-full border border-black/5 bg-white/55 p-0.5">
         {OPTIONS.map((o) => (
           <button
             key={o.value}
             type="button"
+            role="radio"
+            aria-checked={value === o.value}
+            aria-label={o.label}
+            title={o.label}
             onClick={() => onChange(o.value)}
-            aria-pressed={value === o.value}
             className={clsx(
-              "rounded-full px-3 py-1 text-xs font-medium transition-colors sm:text-sm",
+              "rounded-full px-3 py-1 text-xs font-medium tabular-nums transition-colors",
               value === o.value
-                ? "bg-ink text-white shadow-button"
-                : "text-ink/65 hover:bg-black/5"
+                ? "bg-ink text-white"
+                : "text-ink/55 hover:text-ink/80"
             )}
           >
-            {o.label}
+            {o.dots}
           </button>
         ))}
       </div>

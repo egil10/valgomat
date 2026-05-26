@@ -5,11 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "#F6F4EE",
-        ink: "#0A0A0A",
+        bg: "#FAFAF7",
+        ink: "#111111",
         muted: "#6B6B6B",
-        glass: "rgba(255,255,255,0.55)",
-        edge: "rgba(255,255,255,0.6)",
+        glass: "rgba(255,255,255,0.65)",
+        edge: "rgba(0,0,0,0.06)",
       },
       fontFamily: {
         sans: [
@@ -21,19 +21,22 @@ export default {
           "system-ui",
           "sans-serif",
         ],
+        // Institutional serif for headlines — system stack picks Charter on
+        // macOS/iOS and a high-quality serif on Windows. Keeps the page feeling
+        // editorial without bundling a webfont.
         display: [
-          "-apple-system",
-          "SF Pro Display",
-          "Inter",
-          "Helvetica Neue",
-          "system-ui",
-          "sans-serif",
+          "ui-serif",
+          "Charter",
+          "Iowan Old Style",
+          "Source Serif Pro",
+          "Georgia",
+          "serif",
         ],
       },
       boxShadow: {
-        glass: "0 12px 40px -8px rgba(15,15,15,0.10), 0 2px 6px -2px rgba(15,15,15,0.06)",
-        pill:  "0 6px 24px -8px rgba(15,15,15,0.18), 0 1px 2px rgba(15,15,15,0.06)",
-        button: "0 8px 24px -10px rgba(15,15,15,0.35)",
+        glass: "0 8px 32px -10px rgba(15,15,15,0.06), 0 1px 3px -1px rgba(15,15,15,0.04)",
+        pill:  "0 4px 16px -6px rgba(15,15,15,0.10), 0 1px 1px rgba(15,15,15,0.04)",
+        button: "0 6px 18px -8px rgba(15,15,15,0.30)",
       },
       backdropBlur: {
         xs: "8px",

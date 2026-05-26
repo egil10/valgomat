@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 import { GlassCard } from "@/components/GlassCard";
 import { PartyBar } from "@/components/PartyBar";
+import { PartyLogo } from "@/components/PartyLogo";
 import { quiz } from "@/lib/data";
 import { matchParties, questionAlignment } from "@/lib/match";
 import { loadAnswers } from "@/lib/store";
@@ -24,22 +25,17 @@ export default function ResultsPage() {
   );
 
   if (answers === null) {
-    return <p className="text-ink/60">Laster …</p>;
+    return <p className="text-ink/40">Laster …</p>;
   }
 
   if (answers.length === 0) {
     return (
       <GlassCard strong className="space-y-3 text-center">
-        <h1 className="font-display text-3xl font-semibold">Ingen svar enda</h1>
-        <p className="text-ink/65">Du må svare på minst én påstand før du kan se resultatet.</p>
-        <div className="pt-2">
-          <Link
-            href="/quiz"
-            className="pill inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-semibold text-white shadow-button"
-          >
-            Start quizen →
-          </Link>
-        </div>
+        <h1 className="font-display text-3xl font-medium">Ingen svar enda</h1>
+        <p className="text-ink/65">Svar på minst én påstand for å se resultatet.</p>
+        <Link href="/quiz" className="pill mx-auto inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-button">
+          Start →
+        </Link>
       </GlassCard>
     );
   }
@@ -47,142 +43,98 @@ export default function ResultsPage() {
   const top = matches[0];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-14">
       <section>
-        <p className="text-xs uppercase tracking-wider text-ink/55">Din nærmeste match</p>
+        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">Din nærmeste match</p>
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.2, 0.6, 0.2, 1] }}
-          className="mt-3"
+          transition={{ duration: 0.45 }}
+          className="mt-4 flex items-end justify-between gap-6"
         >
-          <GlassCard strong className="relative overflow-hidden">
-            <div
-              className="absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-3xl"
-              style={{ background: top.party.color }}
-              aria-hidden
-            />
-            <div className="relative grid items-end gap-6 sm:grid-cols-[1fr_auto]">
-              <div>
-                <p className="text-sm font-medium text-ink/60">{top.party.abbr}</p>
-                <h1 className="mt-1 font-display text-5xl font-semibold leading-tight tracking-tight sm:text-6xl">
-                  {top.party.name}
-                </h1>
-              </div>
-              <div className="text-right">
-                <p className="font-display text-7xl font-semibold leading-none tabular-nums sm:text-8xl">
-                  {Math.round(top.percent)}
-                  <span className="text-3xl text-ink/40 sm:text-4xl">%</span>
-                </p>
-                <p className="text-xs uppercase tracking-wider text-ink/55">match</p>
-              </div>
+          <div className="flex items-center gap-5">
+            <PartyLogo party={top.party} size={84} ring={false} />
+            <div>
+              <h1 className="font-display text-5xl font-medium leading-none tracking-tight sm:text-6xl">
+                {top.party.name}
+              </h1>
+              <p className="mt-2 text-sm text-ink/55">{top.party.abbr}</p>
             </div>
-          </GlassCard>
+          </div>
+          <p className="font-display text-6xl font-medium leading-none tabular-nums sm:text-7xl">
+            {Math.round(top.percent)}<span className="text-3xl text-ink/40 sm:text-4xl">%</span>
+          </p>
         </motion.div>
       </section>
 
-      <section>
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">Hele rangeringen</h2>
-        <GlassCard className="mt-3">
-          <ol className="space-y-5">
-            {matches.map((m, i) => (
-              <PartyBar key={m.slug} match={m} rank={i + 1} />
-            ))}
-          </ol>
-        </GlassCard>
-      </section>
+      <div className="rule" />
 
       <section>
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">
-          Per-spørsmål: hvorfor du havnet der du gjorde
-        </h2>
-        <p className="mt-1 text-ink/60">
-          For hver påstand vises ditt svar, partienes posisjon (sortert etter hvor nære
-          de er deg), og det faktiske sitatet fra programmet deres.
-        </p>
-        <div className="mt-4 space-y-3">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">Rangering</p>
+        <ol className="mt-4 space-y-5">
+          {matches.map((m, i) => (
+            <PartyBar key={m.slug} match={m} rank={i + 1} />
+          ))}
+        </ol>
+      </section>
+
+      <div className="rule" />
+
+      <section className="space-y-3">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">Per påstand</p>
+        <div className="space-y-2">
           {answers.map((a) => {
             const q = quiz.questions.find((x) => x.id === a.questionId);
             if (!q) return null;
             const ranking = questionAlignment(quiz, a).sort((x, y) => x.diff - y.diff);
             return (
-              <details
-                key={a.questionId}
-                className="group glass overflow-hidden rounded-4xl"
-              >
-                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-6 sm:p-7">
-                  <div className="min-w-0">
-                    <p className="text-xs uppercase tracking-wider text-ink/50">{q.topic}</p>
-                    <p className="mt-1 text-base font-medium text-ink/90 sm:text-lg">
-                      {q.statement}
-                    </p>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-3">
-                    <span className="pill bg-white/70 px-3 py-1 text-xs font-semibold text-ink/70 ring-1 ring-black/5">
-                      Du: {a.score}/7
-                    </span>
+              <details key={a.questionId} className="group border-b border-black/[0.06] py-3">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4">
+                  <p className="text-sm font-medium text-ink/85 sm:text-base">{q.statement}</p>
+                  <div className="flex shrink-0 items-center gap-3 text-xs">
+                    <span className="text-ink/45 tabular-nums">Du: {a.score}/7</span>
                     <span className="text-ink/40 transition group-open:rotate-180">▾</span>
                   </div>
                 </summary>
-                <div className="border-t border-black/[0.06] bg-white/40 px-6 py-5 sm:px-7">
-                  <ul className="space-y-3">
-                    {ranking.map((r) => {
-                      const party = quiz.parties[r.slug];
-                      return (
-                        <li key={r.slug} className="flex gap-4">
-                          <div
-                            className="mt-1.5 h-3 w-3 shrink-0 rounded-full ring-2 ring-white"
-                            style={{ background: party.color }}
-                            aria-hidden
-                          />
-                          <div className="min-w-0">
-                            <p className="text-sm font-semibold text-ink">
-                              {party.name}{" "}
-                              <span className="ml-1 font-normal text-ink/45 tabular-nums">
-                                · {party.abbr} · {r.partyScore}/7 ({r.diff === 0
-                                  ? "samme"
-                                  : `${r.diff} unna`})
-                              </span>
-                            </p>
-                            <p className="mt-0.5 text-sm leading-relaxed text-ink/75">
-                              «{r.quote}»
-                            </p>
-                            {party.program_url && (
-                              <a
-                                href={party.program_url}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="mt-1 inline-block text-xs text-ink/45 underline-offset-2 hover:text-ink/80 hover:underline"
-                              >
-                                Partiprogram (kilde) ↗
-                              </a>
-                            )}
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
+                <ul className="mt-3 space-y-2 pl-1">
+                  {ranking.map((r) => {
+                    const party = quiz.parties[r.slug];
+                    return (
+                      <li key={r.slug} className="flex gap-3">
+                        <PartyLogo party={party} size={32} ring={false} />
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-ink">
+                            {party.name}
+                            <span className="ml-1.5 text-ink/40 tabular-nums">· {r.partyScore}/7 · {r.diff === 0 ? "samme" : `${r.diff} unna`}</span>
+                          </p>
+                          <p className="mt-0.5 text-sm leading-snug text-ink/65">«{r.quote}»</p>
+                          <a
+                            href={party.program_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mt-0.5 inline-block text-[11px] text-ink/40 underline-offset-2 hover:text-ink/80 hover:underline"
+                          >
+                            Kilde ↗
+                          </a>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
               </details>
             );
           })}
         </div>
       </section>
 
-      <section className="flex flex-wrap gap-3">
-        <Link
-          href="/quiz"
-          className="pill inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-semibold text-white shadow-button"
-        >
+      <div className="flex gap-5 text-sm">
+        <Link href="/quiz" className="pill inline-flex items-center gap-2 bg-ink px-5 py-2.5 font-medium text-white shadow-button">
           Endre svar →
         </Link>
-        <Link
-          href="/om"
-          className="pill inline-flex items-center gap-2 bg-white/60 px-5 py-2.5 text-sm font-medium text-ink/80 ring-1 ring-black/5 backdrop-blur"
-        >
-          Slik virker matchingen
+        <Link href="/om" className="self-center text-ink/55 underline-offset-2 hover:text-ink hover:underline">
+          Metode
         </Link>
-      </section>
+      </div>
     </div>
   );
 }

@@ -2,15 +2,17 @@
 
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import { PartyLogo } from "@/components/PartyLogo";
 import type { PartyMatch } from "@/lib/types";
 
 export function PartyBar({ match, rank }: { match: PartyMatch; rank: number }) {
   const pct = Math.max(0, Math.min(100, match.percent));
   return (
-    <li className="group relative grid grid-cols-[2.5rem_1fr_auto] items-center gap-4">
+    <li className="group relative grid grid-cols-[1.75rem_2.5rem_1fr_auto] items-center gap-3 sm:gap-4">
       <span className="font-display text-2xl font-semibold tabular-nums text-ink/30">
         {rank}
       </span>
+      <PartyLogo party={match.party} size={40} />
       <div className="min-w-0">
         <div className="mb-1.5 flex items-baseline justify-between gap-3">
           <p className="truncate text-base font-semibold text-ink sm:text-lg">

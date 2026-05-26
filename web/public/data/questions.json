@@ -14,15 +14,15 @@
     }
   },
   "parties": {
-    "ap":      { "name": "Arbeiderpartiet",         "abbr": "Ap",  "color": "#E8112D", "program_url": "https://res.cloudinary.com/arbeiderpartiet/image/upload/fl_attachment:partiprogram-2025-2029/v1/ievv_filestore/130322a45ccf45889bfc6fa4116c5b480cadc1e93e51491f8199451dd231c7c5" },
-    "frp":     { "name": "Fremskrittspartiet",      "abbr": "FrP", "color": "#005AA9", "program_url": "https://www.frp.no/files/Program/2025/FrP-Partiprogram-2025-2029.pdf" },
-    "hoyre":   { "name": "Høyre",                   "abbr": "H",   "color": "#0065F1", "program_url": "https://hoyre.no/politikk/partiprogram/" },
-    "sv":      { "name": "Sosialistisk Venstreparti","abbr": "SV", "color": "#C8102E", "program_url": "https://www.sv.no/wp-content/uploads/2025/04/svs-arbeidsprogram-2025-29-bm.pdf" },
-    "sp":      { "name": "Senterpartiet",            "abbr": "Sp", "color": "#14773D", "program_url": "https://www.senterpartiet.no/politikk/nytt-program" },
-    "rodt":    { "name": "Rødt",                     "abbr": "R",  "color": "#B5121B", "program_url": "https://roedt.no/fil/29796b043eb866e5315c03ee379bb3de40a32208.pdf" },
-    "mdg":     { "name": "Miljøpartiet De Grønne",   "abbr": "MDG","color": "#3D8C40", "program_url": "https://mdg.no/politikk" },
-    "krf":     { "name": "Kristelig Folkeparti",     "abbr": "KrF","color": "#F0B323", "program_url": "https://krf.no/content/uploads/2020/09/Partiprogram-2025-2029.pdf" },
-    "venstre": { "name": "Venstre",                  "abbr": "V",  "color": "#006666", "program_url": "https://www.venstre.no/assets/venstre-stortingsprogram-2025-2029.pdf" }
+    "ap":      { "name": "Arbeiderpartiet",          "abbr": "Ap", "color": "#E8112D", "logo": "/logos/ap.svg",    "program_url": "https://res.cloudinary.com/arbeiderpartiet/image/upload/fl_attachment:partiprogram-2025-2029/v1/ievv_filestore/130322a45ccf45889bfc6fa4116c5b480cadc1e93e51491f8199451dd231c7c5" },
+    "frp":     { "name": "Fremskrittspartiet",       "abbr": "FrP","color": "#005AA9", "logo": "/logos/frp.svg",   "program_url": "https://www.frp.no/files/Program/2025/FrP-Partiprogram-2025-2029.pdf" },
+    "hoyre":   { "name": "Høyre",                    "abbr": "H",  "color": "#0065F1", "logo": "/logos/hoyre.svg", "program_url": "https://hoyre.no/politikk/partiprogram/" },
+    "sv":      { "name": "Sosialistisk Venstreparti","abbr": "SV", "color": "#C8102E", "logo": "/logos/sv.svg",    "program_url": "https://www.sv.no/wp-content/uploads/2025/04/svs-arbeidsprogram-2025-29-bm.pdf" },
+    "sp":      { "name": "Senterpartiet",            "abbr": "Sp", "color": "#14773D", "logo": "/logos/sp.png",    "program_url": "https://www.senterpartiet.no/politikk/nytt-program" },
+    "rodt":    { "name": "Rødt",                     "abbr": "R",  "color": "#B5121B", "logo": "/logos/rodt.svg",  "program_url": "https://roedt.no/fil/29796b043eb866e5315c03ee379bb3de40a32208.pdf" },
+    "mdg":     { "name": "Miljøpartiet De Grønne",   "abbr": "MDG","color": "#3D8C40", "logo": "/logos/mdg.svg",   "program_url": "https://mdg.no/politikk" },
+    "krf":     { "name": "Kristelig Folkeparti",     "abbr": "KrF","color": "#F0B323", "logo": "/logos/krf.svg",   "program_url": "https://krf.no/content/uploads/2020/09/Partiprogram-2025-2029.pdf" },
+    "venstre": { "name": "Venstre",                  "abbr": "V",  "color": "#006666", "logo": "/logos/v.png",     "program_url": "https://www.venstre.no/assets/venstre-stortingsprogram-2025-2029.pdf" }
   },
   "questions": [
     {
