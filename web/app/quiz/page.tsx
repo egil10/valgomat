@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 
-import { ArgumentReveal } from "@/components/ArgumentReveal";
 import { AutoAdvanceToggle, type AutoMode } from "@/components/AutoAdvance";
 import { EmojiScale } from "@/components/EmojiScale";
 import { FeedbackPanel } from "@/components/FeedbackSlide";
@@ -72,7 +71,6 @@ export default function QuizPage() {
       saveAnswers(updated);
       return updated;
     });
-    // Answering a previously-skipped question gives the skip back.
     setSkipped((prev) => {
       if (!prev.has(next.questionId)) return prev;
       const copy = new Set(prev);
@@ -90,31 +88,22 @@ export default function QuizPage() {
   }
 
   function goToNext() {
-    if (index + 1 < total) {
-      setIndex(index + 1);
-    } else {
-      router.push("/results");
-    }
-  }
-
-  function tryAdvance(): { ok: boolean; reason?: string } {
-    if (current) return { ok: true };
-    // Question is unanswered — consumes a skip unless it was already skipped.
-    if (!skipped.has(question.id)) {
-      if (skipsLeft <= 0) {
-        return { ok: false, reason: "Du har brukt opp alle 3 hopp over. Svar på påstanden for å gå videre." };
-      }
-      setSkipped((prev) => new Set(prev).add(question.id));
-    }
-    return { ok: true };
+    if (index + 1 < total) setIndex(index + 1);
+    else router.push("/results");
   }
 
   function advance() {
     clearAutoTimer();
-    const res = tryAdvance();
-    if (!res.ok) {
-      if (typeof window !== "undefined" && res.reason) window.alert(res.reason);
-      return;
+    if (!current) {
+      if (!skipped.has(question.id)) {
+        if (skipsLeft <= 0) {
+          if (typeof window !== "undefined") {
+            window.alert("Du har brukt opp alle 3 hopp over. Svar på påstanden for å gå videre.");
+          }
+          return;
+        }
+        setSkipped((prev) => new Set(prev).add(question.id));
+      }
     }
     goToNext();
   }
@@ -143,15 +132,11 @@ export default function QuizPage() {
     if (mode === "manual") clearAutoTimer();
   }
 
-  // Auto-advance: when an answer is set + auto mode is non-manual, schedule
-  // a hop to the next question. Resets if the user picks a different score.
   useEffect(() => {
     clearAutoTimer();
     if (!current || autoMode === "manual") return;
     const delayMs = Number(autoMode) * 1000;
-    autoTimerRef.current = setTimeout(() => {
-      goToNext();
-    }, delayMs);
+    autoTimerRef.current = setTimeout(() => goToNext(), delayMs);
     return clearAutoTimer;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current?.score, autoMode, index]);
@@ -185,9 +170,7 @@ export default function QuizPage() {
         <span className="text-ink/30">·</span>
         <span className="tabular-nums text-ink/55">{index + 1} / {total}</span>
         <span className="text-ink/30">·</span>
-        <span className="tabular-nums text-ink/45">
-          {skipsLeft} hopp over igjen
-        </span>
+        <span className="tabular-nums text-ink/45">{skipsLeft} hopp igjen</span>
         <div className="ml-auto flex items-center gap-3">
           <AutoAdvanceToggle value={autoMode} onChange={setAuto} />
           <button
@@ -200,68 +183,30 @@ export default function QuizPage() {
         </div>
       </div>
 
-      {/* Progress rule */}
-      <div className="h-px w-full bg-black/[0.08]">
-        <div
-          className="h-px bg-ink transition-[width] duration-500"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
-      {/* Top row: question card | party reveal */}
-      <div className="grid gap-4 lg:grid-cols-2">
-        {/* LEFT */}
-        <section
-          className="glass-strong flex h-[540px] flex-col gap-5 overflow-hidden rounded-3xl p-6 sm:h-[560px] sm:p-7"
-          aria-label="Påstand"
-        >
-          <ImportancePicker value={importance} onChange={pickImportance} />
-          <div className="h-px w-full bg-black/[0.06]" />
-          <h1 className="font-display text-2xl font-medium leading-snug text-balance sm:text-3xl">
-            {question.statement}
-          </h1>
-          <EmojiScale value={score} onChange={pickScore} />
-          <div className="mt-auto">
-            <ArgumentReveal question={question} quiz={quiz} revealed={current !== undefined} />
+      {/* Progress + Next */}
+      <div className="flex items-center gap-4">
+        <div className="flex-1">
+          <div className="h-px w-full bg-black/[0.08]">
+            <div
+              className="h-px bg-ink transition-[width] duration-500"
+              style={{ width: `${progress}%` }}
+            />
           </div>
-        </section>
-
-        {/* RIGHT */}
-        <section
-          className="glass flex h-[540px] flex-col overflow-hidden rounded-3xl p-6 sm:h-[560px] sm:p-7"
-          aria-label="Partienes posisjoner"
-        >
-          <FeedbackPanel quiz={quiz} question={question} answer={current} />
-        </section>
-      </div>
-
-      {/* Bottom row: full-width spectrum */}
-      <PartySpectrum quiz={quiz} question={question} userScore={score} />
-
-      {/* Nav */}
-      <div className="flex items-center justify-between gap-3 pt-1 text-sm">
-        <button
-          type="button"
-          onClick={prev}
-          disabled={index === 0}
-          className="text-ink/55 transition disabled:opacity-30 enabled:hover:text-ink"
-        >
-          ← Tilbake
-        </button>
-        <div className="flex items-center gap-4">
-          {answers.length > 0 && (
-            <Link
-              href="/results"
-              className="text-xs text-ink/55 underline-offset-2 hover:text-ink hover:underline"
-            >
-              Resultater
-            </Link>
-          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={prev}
+            disabled={index === 0}
+            className="text-sm text-ink/55 transition disabled:opacity-30 enabled:hover:text-ink"
+          >
+            ← Tilbake
+          </button>
           <button
             type="button"
             onClick={advance}
             disabled={!current && skipsLeft <= 0}
-            className="pill inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-button transition-transform enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
+            className="pill inline-flex items-center gap-2 bg-ink px-5 py-2 text-sm font-medium text-white shadow-button transition-transform enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {current
               ? (index + 1 === total ? "Resultater" : "Neste")
@@ -270,7 +215,45 @@ export default function QuizPage() {
         </div>
       </div>
 
-      {/* Dot deck */}
+      {/* Question card — full width */}
+      <section
+        className="glass-strong rounded-3xl p-6 sm:p-8"
+        aria-label="Påstand"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-ink/45">
+            {question.axis}
+          </p>
+          <ImportancePicker value={importance} onChange={pickImportance} />
+        </div>
+
+        <h1 className="mt-5 font-display text-3xl font-medium leading-snug text-balance sm:text-4xl">
+          {question.statement}
+        </h1>
+
+        <div className="mt-6">
+          <EmojiScale value={score} onChange={pickScore} />
+        </div>
+      </section>
+
+      {/* Spectrum — full width */}
+      <PartySpectrum quiz={quiz} question={question} userScore={score} />
+
+      {/* Party reveal — full width */}
+      <FeedbackPanel quiz={quiz} question={question} answer={current} />
+
+      {/* Footer: results link + dot deck */}
+      <div className="flex items-center justify-between gap-3 pt-1 text-sm">
+        {answers.length > 0 ? (
+          <Link href="/results" className="text-xs text-ink/55 underline-offset-2 hover:text-ink hover:underline">
+            Resultater så langt →
+          </Link>
+        ) : <span />}
+        <Link href="/kilder" className="text-xs text-ink/55 underline-offset-2 hover:text-ink hover:underline">
+          Alle kilder
+        </Link>
+      </div>
+
       <div className="flex flex-wrap gap-1 pt-1">
         {quiz.questions.map((q, i) => {
           const answered = answersById.has(q.id);

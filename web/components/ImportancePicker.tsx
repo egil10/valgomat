@@ -1,14 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-import { SignalLow, SignalMedium, SignalHigh, type LucideIcon } from "lucide-react";
 
-type Option = { value: number; Icon: LucideIcon; label: string };
-
-const OPTIONS: Option[] = [
-  { value: 1, Icon: SignalLow,    label: "Lite viktig"  },
-  { value: 2, Icon: SignalMedium, label: "Viktig"       },
-  { value: 3, Icon: SignalHigh,   label: "Svært viktig" },
+const OPTIONS = [
+  { value: 1, dots: "•",   label: "Lite viktig"  },
+  { value: 2, dots: "••",  label: "Viktig"       },
+  { value: 3, dots: "•••", label: "Svært viktig" },
 ];
 
 export function ImportancePicker({
@@ -26,25 +23,25 @@ export function ImportancePicker({
         <p className="mt-0.5 text-sm font-medium text-ink/85">{active.label}</p>
       </div>
       <div className="flex gap-1" role="radiogroup" aria-label="Viktighet">
-        {OPTIONS.map(({ value: v, Icon, label }) => {
-          const isActive = value === v;
+        {OPTIONS.map((o) => {
+          const isActive = value === o.value;
           return (
             <button
-              key={v}
+              key={o.value}
               type="button"
               role="radio"
               aria-checked={isActive}
-              aria-label={label}
-              title={label}
-              onClick={() => onChange(v)}
+              aria-label={o.label}
+              title={o.label}
+              onClick={() => onChange(o.value)}
               className={clsx(
-                "flex h-9 w-10 items-center justify-center rounded-full transition-colors duration-150",
+                "h-9 min-w-12 rounded-full px-3 text-sm font-medium tabular-nums leading-none transition-colors duration-150",
                 isActive
                   ? "bg-ink text-white"
                   : "bg-white/55 text-ink/55 hover:text-ink/85"
               )}
             >
-              <Icon size={18} strokeWidth={2} />
+              {o.dots}
             </button>
           );
         })}

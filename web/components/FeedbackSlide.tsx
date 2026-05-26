@@ -2,17 +2,16 @@
 
 import clsx from "clsx";
 import { ExternalLink } from "lucide-react";
-import { useMemo } from "react";
 
 import { PartyLogo } from "@/components/PartyLogo";
 import { questionAlignment } from "@/lib/match";
 import type { PartySlug, Question, Quiz, UserAnswer } from "@/lib/types";
 
 /**
- * Right-pane panel. Always renders all 9 parties, sorted by distance from
- * the user's answer (or by extremity-from-neutral as a placeholder before
- * the user has answered). The list is the only thing that scrolls — the
- * surrounding card stays a fixed height so the layout is stable.
+ * Full-width party reveal. Hidden until the user has answered so the user
+ * commits before seeing party positions. Sorted by L1 distance from user.
+ * Each quote is a link to the deep page+search fragment if we have one,
+ * otherwise to the party program landing page.
  */
 export function FeedbackPanel({
   quiz,
@@ -28,24 +27,19 @@ export function FeedbackPanel({
   const ranked = questionAlignment(quiz, answer).sort((a, b) => a.diff - b.diff);
 
   return (
-    <div className="flex h-full flex-col">
+    <section className="glass rounded-3xl p-5 sm:p-7" aria-label="Partienes svar">
       <div className="flex items-baseline justify-between">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
-          Partienes svar
-        </p>
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/40">
-          Sortert etter match
-        </p>
+        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">Partienes svar</p>
+        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/40">Sortert etter match</p>
       </div>
 
-      <ul className="mt-3 min-h-0 flex-1 space-y-0 overflow-y-auto pr-1">
+      <ul className="mt-4 grid gap-x-8 gap-y-3 lg:grid-cols-2">
         {ranked.map((r) => {
           const party = quiz.parties[r.slug as PartySlug];
+          const pos = question.positions[r.slug as PartySlug];
+          const href = pos.source_url ?? party.program_url;
           return (
-            <li
-              key={r.slug}
-              className="flex items-start gap-3 border-b border-black/[0.05] py-2.5 last:border-b-0"
-            >
+            <li key={r.slug} className="flex items-start gap-3 border-b border-black/[0.05] py-2 last:border-b-0">
               <PartyLogo party={party} size={32} ring={false} />
               <div className="min-w-0 flex-1">
                 <div className="flex items-baseline gap-2">
@@ -69,45 +63,39 @@ export function FeedbackPanel({
                   </span>
                 </div>
                 <a
-                  href={party.program_url}
+                  href={href}
                   target="_blank"
                   rel="noreferrer"
                   className="group/quote mt-0.5 line-clamp-2 inline text-sm leading-snug text-ink/70 underline-offset-2 hover:underline"
-                  title="Åpne partiprogrammet"
+                  title={pos.source_page ? `Åpne side ${pos.source_page} i partiprogrammet` : "Åpne partiprogrammet"}
                 >
                   «{r.quote}»
-                  <ExternalLink size={11} className="ml-1 inline-block -translate-y-0.5 opacity-0 transition-opacity group-hover/quote:opacity-60" />
+                  <span className="ml-1 inline-flex items-center gap-0.5 align-baseline text-[10px] text-ink/40 opacity-0 transition-opacity group-hover/quote:opacity-100">
+                    {pos.source_page && <>s. {pos.source_page}</>}
+                    <ExternalLink size={11} aria-hidden />
+                  </span>
                 </a>
               </div>
             </li>
           );
         })}
       </ul>
-    </div>
+    </section>
   );
 }
 
 function Locked() {
   return (
-    <div className="flex h-full flex-col">
-      <div className="flex items-baseline justify-between">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
-          Partienes svar
-        </p>
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/35">
-          Skjult
-        </p>
-      </div>
-      <div className="mt-3 flex flex-1 items-center justify-center rounded-2xl border border-dashed border-black/[0.10] bg-white/30 p-6 text-center">
-        <div className="max-w-[28ch] space-y-2">
-          <p className="font-display text-lg font-medium text-ink/75">
-            Svar først.
-          </p>
-          <p className="text-sm leading-snug text-ink/55">
-            Partienes posisjon vises etter at du har valgt — så får du en ærlig match uten å påvirkes av hva de mener.
-          </p>
-        </div>
-      </div>
-    </div>
+    <section
+      className="rounded-3xl border border-dashed border-black/[0.10] bg-white/30 p-6 text-center"
+      aria-label="Partienes svar — skjult"
+    >
+      <p className="font-display text-lg font-medium text-ink/70">
+        Svar først — så ser du hvor partiene står.
+      </p>
+      <p className="mx-auto mt-1 max-w-prose text-sm text-ink/55">
+        Posisjonene skjules til du har valgt et emoji, så matchen blir et ærlig speil av hva du faktisk mener.
+      </p>
+    </section>
   );
 }

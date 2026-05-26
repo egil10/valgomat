@@ -12,8 +12,10 @@ export type Party = {
 export type Position = {
   score: number;
   quote: string;
+  /** Pre-resolved deep link to the page + search phrase in the program PDF. */
   source_url?: string;
-  page?: number | null;
+  /** Page number the quote was matched on, if matched. */
+  source_page?: number;
 };
 
 export type Question = {

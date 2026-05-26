@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 const NAV = [
-  { href: "/",     label: "Hjem" },
-  { href: "/quiz", label: "Quiz" },
-  { href: "/om",   label: "Metode" },
+  { href: "/",       label: "Hjem"   },
+  { href: "/quiz",   label: "Quiz"   },
+  { href: "/kilder", label: "Kilder" },
+  { href: "/om",     label: "Metode" },
 ];
 
 export function PillHeader() {

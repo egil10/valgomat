@@ -108,11 +108,11 @@ export default function ResultsPage() {
                             <span className="ml-1.5 text-ink/40 tabular-nums">· {r.partyScore}/7 · {r.diff === 0 ? "samme" : `${r.diff} unna`}</span>
                           </p>
                           <a
-                            href={party.program_url}
+                            href={q.positions[r.slug].source_url ?? party.program_url}
                             target="_blank"
                             rel="noreferrer"
                             className="mt-0.5 inline-block text-sm leading-snug text-ink/65 underline-offset-2 hover:text-ink hover:underline"
-                            title="Åpne partiprogrammet"
+                            title={q.positions[r.slug].source_page ? `Åpne side ${q.positions[r.slug].source_page} i partiprogrammet` : "Åpne partiprogrammet"}
                           >
                             «{r.quote}» <span aria-hidden className="text-ink/35">↗</span>
                           </a>
