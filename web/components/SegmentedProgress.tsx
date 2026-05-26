@@ -1,68 +1,48 @@
 "use client";
 
-import clsx from "clsx";
-
 /**
- * 10-circle segmented progress. Each circle represents 1/10 of the question
- * pool. The current segment gets a yellow ring, completed segments fill solid
- * green, and partial segments show a green pie filled in proportion to how
- * many questions in that chunk are answered. Designed to make a 388-question
- * quiz feel chunked and surveyable at a glance.
+ * Gradient progress bar — fills smoothly with the share of answered
+ * questions, regardless of pool size. A thin amber tick marks the
+ * current question's position on the same track so the user sees
+ * "where I am" vs. "how much I've actually answered" at a glance.
  */
 export function SegmentedProgress({
   total,
   answered,
   index,
-  segments = 10,
 }: {
   total: number;
-  /** Set of question indices that have an answer (1-based or 0-based, only size matters per segment). */
+  /** Indices of questions in the pool that have been answered. */
   answered: Set<number>;
   /** Current question index (0-based). */
   index: number;
-  segments?: number;
 }) {
-  const perSegment = total / segments;
+  const answeredCount = answered.size;
+  const pctAnswered = total === 0 ? 0 : (answeredCount / total) * 100;
+  const pctCursor = total === 0 ? 0 : ((index + 0.5) / total) * 100;
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex items-center gap-1.5 sm:gap-2" aria-label="Fremdrift">
-        {Array.from({ length: segments }).map((_, seg) => {
-          const start = Math.floor(seg * perSegment);
-          const end = Math.floor((seg + 1) * perSegment);
-          let done = 0;
-          for (let i = start; i < end; i++) if (answered.has(i)) done++;
-          const size = end - start;
-          const pct = size === 0 ? 0 : done / size;
-          const isCurrent = index >= start && index < end;
-          const complete = pct >= 1;
-          return (
-            <span
-              key={seg}
-              title={`${done} / ${size} svart i bolk ${seg + 1}`}
-              className={clsx(
-                "relative inline-flex h-3.5 w-3.5 items-center justify-center rounded-full border transition",
-                complete
-                  ? "border-emerald-600/70 bg-emerald-500"
-                  : "border-black/15 bg-white/60",
-                isCurrent && "ring-2 ring-amber-400 ring-offset-1 ring-offset-transparent"
-              )}
-            >
-              {!complete && pct > 0 && (
-                <span
-                  className="block h-full w-full rounded-full bg-emerald-500/85"
-                  style={{
-                    clipPath: `inset(${(1 - pct) * 100}% 0 0 0)`,
-                  }}
-                  aria-hidden
-                />
-              )}
-            </span>
-          );
-        })}
+    <div className="flex min-w-[180px] flex-1 items-center gap-3">
+      <div
+        className="relative h-2 flex-1 overflow-hidden rounded-full bg-black/[0.07]"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={total}
+        aria-valuenow={answeredCount}
+        aria-label="Fremdrift"
+      >
+        <div
+          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 transition-[width] duration-500 ease-out"
+          style={{ width: `${pctAnswered}%` }}
+        />
+        <div
+          className="absolute top-1/2 h-3 w-[3px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-400 shadow-[0_0_0_2px_rgba(0,0,0,0.04)] transition-[left] duration-500 ease-out"
+          style={{ left: `${pctCursor}%` }}
+          aria-hidden
+        />
       </div>
-      <span className="ml-2 text-[11px] tabular-nums text-ink/55">
-        {answered.size} / {total}
+      <span className="shrink-0 text-[11px] tabular-nums text-ink/55">
+        {answeredCount} / {total}
       </span>
     </div>
   );
