@@ -257,9 +257,10 @@ export default function QuizPage() {
         <span className="ml-auto text-ink/40">Spørsmål {index + 1} av {total}</span>
       </div>
 
-      {/* Combined card — fixed-feeling height */}
+      {/* Combined card — locked min-height so it never expand/collapses
+          between questions of different statement lengths. */}
       <section
-        className="glass-strong rounded-3xl p-5 sm:p-6"
+        className="glass-strong flex min-h-[500px] flex-col rounded-3xl p-5 sm:min-h-[540px] sm:p-6"
         aria-label="Påstand"
       >
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -269,7 +270,7 @@ export default function QuizPage() {
           <ImportancePicker value={importance} onChange={pickImportance} />
         </div>
 
-        <h1 className="mt-3 min-h-[3.5em] font-display text-2xl font-medium leading-snug text-balance sm:min-h-[2.6em] sm:text-3xl">
+        <h1 className="mt-3 line-clamp-3 min-h-[4.4em] font-display text-2xl font-medium leading-snug text-balance sm:min-h-[4em] sm:text-3xl">
           {question.statement}
         </h1>
 
