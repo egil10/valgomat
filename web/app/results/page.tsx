@@ -107,14 +107,14 @@ export default function ResultsPage() {
                             {party.name}
                             <span className="ml-1.5 text-ink/40 tabular-nums">· {r.partyScore}/7 · {r.diff === 0 ? "samme" : `${r.diff} unna`}</span>
                           </p>
-                          <p className="mt-0.5 text-sm leading-snug text-ink/65">«{r.quote}»</p>
                           <a
                             href={party.program_url}
                             target="_blank"
                             rel="noreferrer"
-                            className="mt-0.5 inline-block text-[11px] text-ink/40 underline-offset-2 hover:text-ink/80 hover:underline"
+                            className="mt-0.5 inline-block text-sm leading-snug text-ink/65 underline-offset-2 hover:text-ink hover:underline"
+                            title="Åpne partiprogrammet"
                           >
-                            Kilde ↗
+                            «{r.quote}» <span aria-hidden className="text-ink/35">↗</span>
                           </a>
                         </div>
                       </li>

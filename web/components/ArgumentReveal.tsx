@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink } from "lucide-react";
 import { PartyLogo } from "@/components/PartyLogo";
 import type { Question, Quiz, Party } from "@/lib/types";
 
@@ -19,7 +20,7 @@ export function ArgumentReveal({ question, quiz }: { question: Question; quiz: Q
   const uenigParty = quiz.parties[uenig[0] as keyof typeof quiz.parties];
 
   return (
-    <div className="border-t border-black/[0.06] pt-3">
+    <div>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -49,14 +50,20 @@ export function ArgumentReveal({ question, quiz }: { question: Question; quiz: Q
 
 function ArgumentCard({ party, quote, mood }: { party: Party; quote: string; mood: "enig" | "uenig" }) {
   return (
-    <div className="flex items-start gap-3 rounded-2xl border border-black/[0.06] bg-white/50 p-3">
+    <a
+      href={party.program_url}
+      target="_blank"
+      rel="noreferrer"
+      className="group flex items-start gap-3 rounded-2xl border border-black/[0.06] bg-white/50 p-3 hover:bg-white/75"
+    >
       <PartyLogo party={party} size={26} ring={false} />
       <div className="min-w-0">
         <p className="text-[10px] uppercase tracking-[0.18em] text-ink/45">
           {mood === "enig" ? "Sterkest enig" : "Sterkest uenig"} · {party.abbr}
+          <ExternalLink size={10} className="ml-1 inline-block -translate-y-0.5 opacity-0 transition-opacity group-hover:opacity-60" />
         </p>
         <p className="mt-0.5 text-sm leading-snug text-ink/75">«{quote}»</p>
       </div>
-    </div>
+    </a>
   );
 }
