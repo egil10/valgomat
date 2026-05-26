@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import clsx from "clsx";
 
 import { AutoAdvanceToggle, type AutoMode } from "@/components/AutoAdvance";
 import { EmojiScale } from "@/components/EmojiScale";
@@ -24,6 +23,7 @@ export default function QuizPage() {
   const [hydrated, setHydrated] = useState(false);
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
   const [autoMode, setAutoMode] = useState<AutoMode>("manual");
+  const [showQuotes, setShowQuotes] = useState(false);
   const autoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -112,10 +112,6 @@ export default function QuizPage() {
     clearAutoTimer();
     if (index > 0) setIndex(index - 1);
   }
-  function jumpTo(i: number) {
-    clearAutoTimer();
-    if (i >= 0 && i < total) setIndex(i);
-  }
   function restart() {
     if (typeof window !== "undefined" && answers.length > 0) {
       if (!window.confirm("Nullstille alle svar?")) return;
@@ -144,9 +140,9 @@ export default function QuizPage() {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      const SCORES = [1, 2, 4, 6, 7];
-      if (e.key >= "1" && e.key <= "5") {
-        pickScore(SCORES[Number(e.key) - 1]);
+      // 1–7 maps directly to the 7-point Likert scale
+      if (e.key >= "1" && e.key <= "7") {
+        pickScore(Number(e.key));
       } else if (e.key === "ArrowRight" || e.key === "Enter") {
         e.preventDefault();
         advance();
@@ -163,9 +159,9 @@ export default function QuizPage() {
   if (!question) return null;
 
   return (
-    <div className="space-y-5">
-      {/* Top bar */}
-      <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.18em]">
+    <div className="flex flex-col gap-3 sm:gap-4">
+      {/* Slim meta + nav row */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] uppercase tracking-[0.18em]">
         <span className="text-ink/55">{question.topic}</span>
         <span className="text-ink/30">·</span>
         <span className="tabular-nums text-ink/55">{index + 1} / {total}</span>
@@ -183,15 +179,13 @@ export default function QuizPage() {
         </div>
       </div>
 
-      {/* Progress + Next */}
+      {/* Progress + nav buttons */}
       <div className="flex items-center gap-4">
-        <div className="flex-1">
-          <div className="h-px w-full bg-black/[0.08]">
-            <div
-              className="h-px bg-ink transition-[width] duration-500"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+        <div className="h-px flex-1 bg-black/[0.08]">
+          <div
+            className="h-px bg-ink transition-[width] duration-500"
+            style={{ width: `${progress}%` }}
+          />
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -215,67 +209,57 @@ export default function QuizPage() {
         </div>
       </div>
 
-      {/* Question card — full width */}
+      {/* Combined card — statement + scale + spectrum all together */}
       <section
-        className="glass-strong rounded-3xl p-6 sm:p-8"
+        className="glass-strong rounded-3xl p-5 sm:p-6"
         aria-label="Påstand"
       >
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-[11px] uppercase tracking-[0.18em] text-ink/45">
             {question.axis}
           </p>
           <ImportancePicker value={importance} onChange={pickImportance} />
         </div>
 
-        <h1 className="mt-5 font-display text-3xl font-medium leading-snug text-balance sm:text-4xl">
+        <h1 className="mt-3 font-display text-2xl font-medium leading-snug text-balance sm:text-3xl">
           {question.statement}
         </h1>
 
-        <div className="mt-6">
+        <div className="mt-4">
           <EmojiScale value={score} onChange={pickScore} />
+        </div>
+
+        <div className="mt-4">
+          <PartySpectrum quiz={quiz} question={question} userScore={score} />
         </div>
       </section>
 
-      {/* Spectrum — full width */}
-      <PartySpectrum quiz={quiz} question={question} userScore={score} />
+      {/* Quote toggle — only meaningful after answering */}
+      {current && (
+        <div className="flex items-center justify-between text-xs text-ink/55">
+          <button
+            type="button"
+            onClick={() => setShowQuotes((v) => !v)}
+            className="underline-offset-2 hover:text-ink hover:underline"
+          >
+            {showQuotes ? "Skjul sitater ↑" : "Vis partienes sitater ↓"}
+          </button>
+          <div className="flex gap-3">
+            {answers.length > 0 ? (
+              <Link href="/results" className="underline-offset-2 hover:text-ink hover:underline">
+                Resultater så langt →
+              </Link>
+            ) : null}
+            <Link href="/kilder" className="underline-offset-2 hover:text-ink hover:underline">
+              Alle kilder
+            </Link>
+          </div>
+        </div>
+      )}
 
-      {/* Party reveal — full width */}
-      <FeedbackPanel quiz={quiz} question={question} answer={current} />
-
-      {/* Footer: results link + dot deck */}
-      <div className="flex items-center justify-between gap-3 pt-1 text-sm">
-        {answers.length > 0 ? (
-          <Link href="/results" className="text-xs text-ink/55 underline-offset-2 hover:text-ink hover:underline">
-            Resultater så langt →
-          </Link>
-        ) : <span />}
-        <Link href="/kilder" className="text-xs text-ink/55 underline-offset-2 hover:text-ink hover:underline">
-          Alle kilder
-        </Link>
-      </div>
-
-      <div className="flex flex-wrap gap-1 pt-1">
-        {quiz.questions.map((q, i) => {
-          const answered = answersById.has(q.id);
-          const wasSkipped = skipped.has(q.id);
-          const here = i === index;
-          return (
-            <button
-              key={q.id}
-              type="button"
-              aria-label={`Spørsmål ${i + 1}`}
-              onClick={() => jumpTo(i)}
-              className={clsx(
-                "h-1.5 rounded-full transition-all",
-                here ? "w-5 bg-ink"
-                  : answered ? "w-1.5 bg-ink/55"
-                  : wasSkipped ? "w-1.5 bg-rose-400/55"
-                  : "w-1.5 bg-ink/15"
-              )}
-            />
-          );
-        })}
-      </div>
+      {current && showQuotes && (
+        <FeedbackPanel quiz={quiz} question={question} answer={current} />
+      )}
     </div>
   );
 }

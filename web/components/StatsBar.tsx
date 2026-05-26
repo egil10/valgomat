@@ -11,7 +11,7 @@ const ITEMS: Array<{ value: string; label: string }> = [
 
 export function StatsBar() {
   return (
-    <footer className="border-t border-black/[0.06] px-5 py-10 sm:px-10">
+    <footer className="border-t border-black/[0.06] px-5 py-6 sm:px-10 sm:py-8">
       <div className="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-6">
         <ul className="grid flex-1 grid-cols-2 gap-x-8 gap-y-2 sm:flex sm:gap-x-10">
           {ITEMS.map((it) => (

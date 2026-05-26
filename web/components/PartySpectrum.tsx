@@ -43,19 +43,19 @@ export function PartySpectrum({
 
   return (
     <section
-      className="glass rounded-3xl p-5 sm:p-7"
+      className="rounded-2xl border border-black/[0.05] bg-white/40 p-3 sm:p-4"
       aria-label="Partienes posisjon på spekteret"
     >
       <div className="flex items-baseline justify-between">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
+        <p className="text-[10px] uppercase tracking-[0.18em] text-ink/55">
           Politisk spekter
         </p>
-        <p className="text-[11px] tabular-nums text-ink/40">
+        <p className="text-[10px] tabular-nums text-ink/40">
           {revealed ? "1 = Helt uenig · 7 = Helt enig" : "Vises etter at du svarer"}
         </p>
       </div>
 
-      <div className="relative mt-4 h-32 sm:h-36">
+      <div className="relative mt-3 h-24 sm:h-28">
         {/* Axis is always visible — it's just the scale, no info leak. */}
         <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-black/10" />
         {TICKS.map((t) => (
@@ -86,7 +86,7 @@ export function PartySpectrum({
                 >
                   {list.map((e) => (
                     <div key={e.slug} title={`${e.party.name} — ${score}/7`}>
-                      <PartyLogo party={e.party} size={32} ring={false} />
+                      <PartyLogo party={e.party} size={26} ring={false} />
                     </div>
                   ))}
                 </div>
