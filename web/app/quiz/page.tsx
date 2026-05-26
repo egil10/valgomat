@@ -3,22 +3,31 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
 import { ChevronLeft, ChevronRight, SkipForward } from "lucide-react";
 
 import { BestMatchCallout } from "@/components/BestMatchCallout";
 import { EmojiScale } from "@/components/EmojiScale";
 import { FeedbackPanel } from "@/components/FeedbackSlide";
 import { ImportancePicker } from "@/components/ImportancePicker";
-import { LiveStandings } from "@/components/LiveStandings";
 import { PartyStack } from "@/components/PartyStack";
 import { SegmentedProgress } from "@/components/SegmentedProgress";
-import { quiz } from "@/lib/data";
-import { clearAnswers, loadAnswers, saveAnswers } from "@/lib/store";
+import { quiz, getQuestionById } from "@/lib/data";
+import {
+  loadAnswers,
+  loadOrder,
+  saveAnswers,
+  saveOrder,
+  shuffle,
+} from "@/lib/store";
 import { loadPrefs, resolveLength, type QuizLength } from "@/lib/prefs";
-import { PREFS_CHANGED, QUIZ_RESET } from "@/lib/quizSignals";
+import {
+  ANSWERS_CHANGED,
+  PREFS_CHANGED,
+  QUIZ_RESET,
+  emitAnswersChanged,
+} from "@/lib/quizSignals";
 import type { AutoMode } from "@/components/AutoAdvance";
-import type { UserAnswer } from "@/lib/types";
+import type { Question, UserAnswer } from "@/lib/types";
 
 const SKIP_CAP = 3;
 
@@ -30,34 +39,51 @@ export default function QuizPage() {
   const [skipped, setSkipped] = useState<Set<string>>(new Set());
   const [autoMode, setAutoMode] = useState<AutoMode>("manual");
   const [length, setLength] = useState<QuizLength>(25);
+  const [orderIds, setOrderIds] = useState<string[]>([]);
   const [showQuotes, setShowQuotes] = useState(false);
   const autoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Slice the pool based on chosen length. This keeps memoization stable.
-  const pool = useMemo(() => {
-    const n = resolveLength(length, quiz.questions.length);
-    return quiz.questions.slice(0, n);
-  }, [length]);
+  /** Resolved pool of question objects, in the shuffled order. */
+  const pool: Question[] = useMemo(() => {
+    const wanted = resolveLength(length, quiz.questions.length);
+    const ids = orderIds.length > 0 ? orderIds : quiz.questions.map((q) => q.id);
+    const resolved: Question[] = [];
+    for (const id of ids) {
+      const q = getQuestionById(id);
+      if (q) resolved.push(q);
+      if (resolved.length >= wanted) break;
+    }
+    return resolved;
+  }, [orderIds, length]);
   const total = pool.length;
 
-  // Hydrate from localStorage once on mount, and rehydrate on signal events.
   const hydrate = useCallback(() => {
     const saved = loadAnswers();
     const prefs = loadPrefs();
     setAutoMode(prefs.autoAdvance);
     setLength(prefs.length);
 
-    const n = resolveLength(prefs.length, quiz.questions.length);
-    const activeIds = new Set(quiz.questions.slice(0, n).map((q) => q.id));
+    let order = loadOrder();
+    if (order.length === 0) {
+      // No shuffle yet (user navigated to /quiz directly). Generate one
+      // and save so reloads stay consistent inside this game.
+      order = quiz.questions.map((q) => q.id);
+      shuffle(order);
+      const n = resolveLength(prefs.length, quiz.questions.length);
+      order = order.slice(0, n);
+      saveOrder(order);
+    }
+    setOrderIds(order);
+
+    const activeIds = new Set(order);
     const relevant = saved.filter((a) => activeIds.has(a.questionId));
     setAnswers(relevant);
 
-    if (relevant.length > 0 && relevant.length < n) {
-      const firstUnanswered = quiz.questions
-        .slice(0, n)
-        .findIndex((q) => !relevant.some((a) => a.questionId === q.id));
-      if (firstUnanswered !== -1) setIndex(firstUnanswered);
-      else setIndex(0);
+    if (relevant.length > 0 && relevant.length < order.length) {
+      const firstUnanswered = order.findIndex(
+        (id) => !relevant.some((a) => a.questionId === id)
+      );
+      setIndex(firstUnanswered === -1 ? 0 : firstUnanswered);
     } else {
       setIndex(0);
     }
@@ -82,7 +108,7 @@ export default function QuizPage() {
     };
   }, [hydrate]);
 
-  const question = pool[Math.min(index, total - 1)];
+  const question = pool[Math.min(index, Math.max(0, total - 1))];
   const answersById = useMemo(
     () => new Map(answers.map((a) => [a.questionId, a])),
     [answers]
@@ -92,7 +118,6 @@ export default function QuizPage() {
   const importance = current?.importance ?? 2;
   const skipsLeft = SKIP_CAP - skipped.size;
 
-  // Indices of pool questions that have an answer — for SegmentedProgress.
   const answeredIndices = useMemo(() => {
     const s = new Set<number>();
     pool.forEach((q, i) => {
@@ -117,11 +142,10 @@ export default function QuizPage() {
         importance: next.importance ?? existing?.importance ?? 2,
       };
       const updated = [...prev.filter((a) => a.questionId !== next.questionId), merged];
-      // Save the full union back to localStorage (don't drop other lengths' answers).
       const onDisk = loadAnswers();
       const others = onDisk.filter((a) => a.questionId !== next.questionId);
       saveAnswers([...others, merged]);
-      // Local component state only carries answers for the active pool.
+      emitAnswersChanged();
       return updated;
     });
     setSkipped((prev) => {
@@ -195,20 +219,45 @@ export default function QuizPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, total, question?.id, score, skipped, autoMode]);
 
+  // Keep header chip in sync if other tabs change state.
+  useEffect(() => {
+    function refresh() {
+      const saved = loadAnswers();
+      const order = loadOrder();
+      const allowed = new Set(order);
+      setAnswers(order.length === 0 ? saved : saved.filter((a) => allowed.has(a.questionId)));
+    }
+    window.addEventListener(ANSWERS_CHANGED, refresh);
+    return () => window.removeEventListener(ANSWERS_CHANGED, refresh);
+  }, []);
+
   if (!hydrated) return <p className="text-ink/40">Laster …</p>;
-  if (!question) return null;
+  if (!question) {
+    return (
+      <div className="space-y-3 text-center">
+        <p className="text-ink/55">Ingen aktiv valgomat. Start fra forsiden.</p>
+        <Link href="/" className="pill inline-flex items-center gap-2 bg-ink px-5 py-2 text-sm font-medium text-white">
+          Til forsiden →
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-3 sm:gap-4">
-      {/* Live standings — always rendered for stable layout */}
-      <LiveStandings quiz={quiz} answers={answers} />
-
-      {/* Topic + segmented progress + nav */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
+      {/* Single condensed control row: topic | progress | counts | nav */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <p className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-ink/55">
           {question.topic}
         </p>
         <SegmentedProgress total={total} answered={answeredIndices} index={index} />
+        <div className="hidden flex-wrap items-center gap-x-2 text-[11px] tabular-nums text-ink/55 sm:flex">
+          <span><strong className="font-medium text-ink/85">{answers.length}</strong> svart</span>
+          <span className="text-ink/30">·</span>
+          <span><strong className="font-medium text-ink/85">{skipped.size}</strong> hoppet</span>
+          <span className="text-ink/30">·</span>
+          <span><strong className="font-medium text-ink/85">{skipsLeft}</strong> hopp igjen</span>
+        </div>
         <div className="ml-auto flex items-center gap-1.5">
           <button
             type="button"
@@ -245,20 +294,7 @@ export default function QuizPage() {
         </div>
       </div>
 
-      {/* Counter row — same numbers shown every render so the line never jumps */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] tabular-nums text-ink/55">
-        <span><strong className="font-medium text-ink/85">{answers.length}</strong> svart</span>
-        <span className="text-ink/30">·</span>
-        <span><strong className="font-medium text-ink/85">{skipped.size}</strong> hoppet over</span>
-        <span className="text-ink/30">·</span>
-        <span><strong className="font-medium text-ink/85">{Math.max(0, total - answers.length - skipped.size)}</strong> igjen</span>
-        <span className="text-ink/30">·</span>
-        <span><strong className="font-medium text-ink/85">{skipsLeft}</strong> hopp tilgjengelig</span>
-        <span className="ml-auto text-ink/40">Spørsmål {index + 1} av {total}</span>
-      </div>
-
-      {/* Combined card — locked min-height so it never expand/collapses
-          between questions of different statement lengths. */}
+      {/* Combined card — locked min-height so it never expands/collapses */}
       <section
         className="glass-strong flex min-h-[500px] flex-col rounded-3xl p-5 sm:min-h-[540px] sm:p-6"
         aria-label="Påstand"
@@ -274,24 +310,23 @@ export default function QuizPage() {
           {question.statement}
         </h1>
 
-        <div className="mt-4">
+        <div className="mt-4 flex justify-between px-1 text-[10px] uppercase tracking-[0.18em] text-ink/45">
+          <span>Helt uenig</span>
+          <span>Tja</span>
+          <span>Helt enig</span>
+        </div>
+
+        <div className="mt-1.5">
           <EmojiScale value={score} onChange={pickScore} />
         </div>
 
         <div className="mt-2">
           <PartyStack quiz={quiz} question={question} userScore={score} />
         </div>
-        <div className="mt-1 flex justify-between px-1 text-[10px] uppercase tracking-[0.18em] text-ink/40">
-          <span>Helt uenig</span>
-          <span>Tja</span>
-          <span>Helt enig</span>
-        </div>
       </section>
 
-      {/* Always-rendered best-match callout — keeps height stable */}
       <BestMatchCallout quiz={quiz} question={question} answer={current} />
 
-      {/* Toggle + nav links row */}
       <div className="flex items-center justify-between text-xs text-ink/55">
         <button
           type="button"

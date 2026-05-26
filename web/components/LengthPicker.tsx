@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { ArrowRight, Zap } from "lucide-react";
 
 import { LENGTH_OPTIONS, type QuizLength, loadPrefs, savePrefs, resolveLength } from "@/lib/prefs";
-import { clearAnswers } from "@/lib/store";
+import { clearAnswers, saveOrder, shuffle } from "@/lib/store";
 import { quiz } from "@/lib/data";
 
 const ITEMS: Array<{ value: QuizLength; label: string; sub: string }> = [
@@ -38,23 +38,19 @@ export function LengthPicker() {
 
   function startFresh() {
     clearAnswers();
+    const ids = quiz.questions.map((q) => q.id);
+    shuffle(ids);
+    const n = resolveLength(length, quiz.questions.length);
+    saveOrder(ids.slice(0, n));
   }
 
   const total = resolveLength(length, quiz.questions.length);
 
   return (
     <div className="glass-strong rounded-3xl p-5 sm:p-7">
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
-          Velg lengde
-        </p>
-        <Link
-          href="/quiz"
-          className="text-[11px] uppercase tracking-[0.18em] text-ink/45 underline-offset-2 hover:text-ink hover:underline"
-        >
-          Fortsett der jeg slapp →
-        </Link>
-      </div>
+      <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
+        Velg lengde
+      </p>
 
       <div className="mt-3 flex flex-wrap gap-2">
         {ITEMS.map((opt) => {
@@ -86,18 +82,41 @@ export function LengthPicker() {
       <Link
         href="/quiz"
         onClick={startFresh}
-        className="group mt-5 flex w-full items-center justify-between gap-4 rounded-2xl bg-gradient-to-r from-ink via-ink to-emerald-700 px-6 py-5 text-white shadow-button transition-colors hover:from-ink hover:via-emerald-800 hover:to-emerald-600 sm:px-8 sm:py-6"
+        className="group relative mt-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-2xl px-6 py-5 text-white shadow-button sm:px-8 sm:py-6"
       >
+        {/* Party-rainbow base (left-right political spectrum, muted) */}
+        <span
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(90deg, #B5121B 0%, #C8102E 12%, #E8112D 22%, #14773D 38%, #3D8C40 50%, #F0B323 62%, #006666 74%, #0065F1 86%, #005AA9 100%)",
+          }}
+        />
+        {/* Dark wash so the colors read as "muted poster", not garish */}
+        <span
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-ink/[0.78] mix-blend-multiply"
+        />
+        {/* Subtle highlight on hover */}
+        <span
+          aria-hidden
+          className="absolute inset-0 -z-10 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0) 100%)",
+          }}
+        />
         <span className="flex items-center gap-3">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
             <Zap size={18} aria-hidden className="text-amber-300" />
           </span>
           <span className="flex flex-col items-start">
             <span className="font-display text-2xl font-medium leading-none tracking-tight sm:text-3xl">
-              Start quiz
+              Start valgomaten
             </span>
-            <span className="mt-1 text-xs uppercase tracking-[0.18em] text-white/65">
-              {total} påstander · klikk for å begynne
+            <span className="mt-1 text-xs uppercase tracking-[0.18em] text-white/70">
+              {total} påstander · alltid fra null
             </span>
           </span>
         </span>

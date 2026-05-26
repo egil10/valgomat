@@ -7,10 +7,10 @@ import clsx from "clsx";
 import { QuizHeaderControls } from "@/components/QuizHeaderControls";
 
 const NAV = [
-  { href: "/",       label: "Hjem"   },
-  { href: "/quiz",   label: "Quiz"   },
-  { href: "/kilder", label: "Kilder" },
-  { href: "/om",     label: "Metode" },
+  { href: "/",       label: "Hjem"      },
+  { href: "/quiz",   label: "Valgomat"  },
+  { href: "/kilder", label: "Kilder"    },
+  { href: "/om",     label: "Metode"    },
 ];
 
 export function PillHeader() {

@@ -8,6 +8,7 @@
 
 export const QUIZ_RESET = "valgomat:reset";
 export const PREFS_CHANGED = "valgomat:prefs";
+export const ANSWERS_CHANGED = "valgomat:answers";
 
 export function emitReset() {
   if (typeof window === "undefined") return;
@@ -17,4 +18,9 @@ export function emitReset() {
 export function emitPrefsChanged() {
   if (typeof window === "undefined") return;
   window.dispatchEvent(new CustomEvent(PREFS_CHANGED));
+}
+
+export function emitAnswersChanged() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent(ANSWERS_CHANGED));
 }

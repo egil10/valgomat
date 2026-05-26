@@ -34,7 +34,7 @@ export default function ResultsPage() {
         <h1 className="font-display text-3xl font-medium">Ingen svar enda</h1>
         <p className="text-ink/65">Svar på minst én påstand for å se resultatet.</p>
         <Link href="/quiz" className="pill mx-auto inline-flex items-center gap-2 bg-ink px-5 py-2.5 text-sm font-medium text-white shadow-button">
-          Start →
+          Start valgomaten →
         </Link>
       </GlassCard>
     );
@@ -129,7 +129,7 @@ export default function ResultsPage() {
 
       <div className="flex gap-5 text-sm">
         <Link href="/quiz" className="pill inline-flex items-center gap-2 bg-ink px-5 py-2.5 font-medium text-white shadow-button">
-          Endre svar →
+          Tilbake til valgomaten →
         </Link>
         <Link href="/om" className="self-center text-ink/55 underline-offset-2 hover:text-ink hover:underline">
           Metode

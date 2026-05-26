@@ -1,20 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
-import { RotateCcw } from "lucide-react";
+import { Home } from "lucide-react";
 
 import { AUTO_OPTIONS, type AutoMode } from "@/components/AutoAdvance";
-import { clearAnswers } from "@/lib/store";
+import { HeaderTopMatch } from "@/components/HeaderTopMatch";
+import { clearAnswers, clearOrder } from "@/lib/store";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { emitPrefsChanged, emitReset } from "@/lib/quizSignals";
 
-/**
- * Quiz-only controls hosted in the global PillHeader. We render here instead
- * of in-page so the quiz card itself can be tighter, and so these controls
- * stay accessible no matter how far into the quiz the user has scrolled.
- */
 export function QuizHeaderControls() {
+  const router = useRouter();
   const [autoMode, setAutoMode] = useState<AutoMode>("manual");
   const [hydrated, setHydrated] = useState(false);
 
@@ -32,16 +30,19 @@ export function QuizHeaderControls() {
 
   function reset() {
     if (typeof window !== "undefined") {
-      if (!window.confirm("Nullstille alle svar?")) return;
+      if (!window.confirm("Avslutte valgomaten? Du må starte på nytt fra forsiden.")) return;
     }
     clearAnswers();
+    clearOrder();
     emitReset();
+    router.push("/");
   }
 
   if (!hydrated) return <span className="hidden h-7 sm:block" />;
 
   return (
     <div className="flex items-center gap-2">
+      <HeaderTopMatch />
       <div
         className="hidden items-center gap-0.5 rounded-full border border-black/[0.06] bg-white/55 p-0.5 md:flex"
         role="radiogroup"
@@ -70,11 +71,11 @@ export function QuizHeaderControls() {
       <button
         type="button"
         onClick={reset}
-        title="Nullstille alle svar"
-        className="pill inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-ink/65 hover:bg-white/70 hover:text-rose-700"
+        title="Avslutt og start på nytt fra forsiden"
+        className="pill inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-ink/65 transition-colors hover:bg-white/70 hover:text-rose-700"
       >
-        <RotateCcw size={12} aria-hidden />
-        <span>Nullstill</span>
+        <Home size={12} aria-hidden />
+        <span>Reset</span>
       </button>
     </div>
   );
