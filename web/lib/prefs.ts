@@ -4,12 +4,18 @@ import type { AutoMode } from "@/components/AutoAdvance";
 
 const KEY = "valgomat:prefs:v1";
 
-type Prefs = {
+/** Quiz lengths offered upfront: short tasters up through the full pool. */
+export const LENGTH_OPTIONS = [10, 25, 50, 100, "all"] as const;
+export type QuizLength = typeof LENGTH_OPTIONS[number];
+
+export type Prefs = {
   autoAdvance: AutoMode;
+  length: QuizLength;
 };
 
 const DEFAULT: Prefs = {
   autoAdvance: "manual",
+  length: 25,
 };
 
 export function loadPrefs(): Prefs {
@@ -24,7 +30,16 @@ export function loadPrefs(): Prefs {
   }
 }
 
-export function savePrefs(prefs: Prefs) {
+export function savePrefs(prefs: Partial<Prefs>) {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(KEY, JSON.stringify(prefs));
+  const current = loadPrefs();
+  window.localStorage.setItem(KEY, JSON.stringify({ ...current, ...prefs }));
+}
+
+export function resolveLength(length: QuizLength, total: number): number {
+  return length === "all" ? total : Math.min(length, total);
+}
+
+export function lengthLabel(length: QuizLength): string {
+  return length === "all" ? "Alle" : String(length);
 }

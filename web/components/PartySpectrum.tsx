@@ -4,9 +4,9 @@ import { PartyLogo } from "@/components/PartyLogo";
 import type { PartySlug, Question, Quiz } from "@/lib/types";
 
 /**
- * Full-width political spectrum. Stretches across the dual-pane row in the
- * quiz so we have room to space party logos out without crashing them on
- * top of each other.
+ * Spectrum row — the visual reveal of where every party lands on the same
+ * 1–7 axis. Renders inside the question card. Logos are deliberately
+ * generous so the user can read this in one glance.
  */
 export function PartySpectrum({
   quiz,
@@ -23,55 +23,32 @@ export function PartySpectrum({
     party: quiz.parties[slug],
   }));
 
-  // Stack parties that share a score in a vertical column.
   const byScore = new Map<number, typeof entries>();
   for (const e of entries) {
     const list = byScore.get(e.score) ?? [];
     list.push(e);
     byScore.set(e.score, list);
   }
-  // Sort each column by abbr so ordering is deterministic across renders.
   for (const arr of byScore.values()) arr.sort((a, b) => a.party.abbr.localeCompare(b.party.abbr));
 
-  const TICKS = [1, 2, 3, 4, 5, 6, 7];
-
   function toPct(score: number) {
-    return 6 + ((score - 1) / 6) * 88;
+    return 7 + ((score - 1) / 6) * 86;
   }
 
   const revealed = userScore !== null;
 
   return (
     <section
-      className="rounded-2xl border border-black/[0.05] bg-white/40 p-3 sm:p-4"
+      className="rounded-2xl border border-black/[0.05] bg-white/40 px-3 pb-2 pt-4 sm:px-4"
       aria-label="Partienes posisjon på spekteret"
     >
-      <div className="flex items-baseline justify-between">
-        <p className="text-[10px] uppercase tracking-[0.18em] text-ink/55">
-          Politisk spekter
-        </p>
-        <p className="text-[10px] tabular-nums text-ink/40">
-          {revealed ? "1 = Helt uenig · 7 = Helt enig" : "Vises etter at du svarer"}
-        </p>
-      </div>
-
-      <div className="relative mt-3 h-24 sm:h-28">
-        {/* Axis is always visible — it's just the scale, no info leak. */}
-        <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-black/10" />
-        {TICKS.map((t) => (
-          <div
-            key={t}
-            className="absolute top-1/2 h-2 w-px -translate-x-1/2 -translate-y-1/2 bg-black/15"
-            style={{ left: `${toPct(t)}%` }}
-            aria-hidden
-          />
-        ))}
+      <div className="relative h-[120px] sm:h-[136px]">
+        <div className="absolute inset-x-3 top-1/2 h-px -translate-y-1/2 bg-black/10" />
 
         {revealed && (
           <>
-            {/* Vertical user line through the whole spectrum */}
             <div
-              className="absolute inset-y-0 w-px bg-ink/20 transition-[left] duration-300"
+              className="absolute inset-y-0 w-px bg-ink/25 transition-[left] duration-300"
               style={{ left: `${toPct(userScore!)}%` }}
               aria-hidden
             />
@@ -81,12 +58,12 @@ export function PartySpectrum({
               return (
                 <div
                   key={score}
-                  className="absolute top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1"
+                  className="absolute top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1.5"
                   style={{ left: `${left}%` }}
                 >
                   {list.map((e) => (
                     <div key={e.slug} title={`${e.party.name} — ${score}/7`}>
-                      <PartyLogo party={e.party} size={26} ring={false} />
+                      <PartyLogo party={e.party} size={38} ring={false} />
                     </div>
                   ))}
                 </div>
@@ -113,16 +90,10 @@ export function PartySpectrum({
         )}
       </div>
 
-      <div className="relative h-4 text-[10px] tabular-nums text-ink/40">
-        {TICKS.map((t) => (
-          <span
-            key={t}
-            className="absolute -translate-x-1/2"
-            style={{ left: `${toPct(t)}%` }}
-          >
-            {t}
-          </span>
-        ))}
+      <div className="flex justify-between px-1 text-[10px] uppercase tracking-[0.18em] text-ink/40">
+        <span>Helt uenig</span>
+        <span>Tja</span>
+        <span>Helt enig</span>
       </div>
     </section>
   );
