@@ -279,6 +279,142 @@
         "krf":     { "score": 5, "quote": "KrF vil at lokalsamfunnene selv skal bestemme om sammenslåinger skal opprettholdes eller reverseres, og styrke lokaldemokratiet." },
         "venstre": { "score": 3, "quote": "Venstre vil ikke åpne for omfattende reversering, men gjøre det enklere å justere grenser der det er brede lokale ønsker." }
       }
+    },
+    {
+      "id": "makspris-strom",
+      "topic": "Energi og økonomi",
+      "statement": "Norge bør innføre en makspris på strøm.",
+      "axis": "Makspris ↔ Markedspris med støtte",
+      "positions": {
+        "ap":      { "score": 3, "quote": "Arbeiderpartiet vil videreføre og videreutvikle strømstøtteordningen, og legge til rette for flere fastprisavtaler — ikke en politisk fastsatt makspris." },
+        "frp":     { "score": 7, "quote": "FrP vil innføre en makspris på strøm, og sikre konkurransekraft og forutsigbar tilgang til kraft for husholdninger og næringsliv." },
+        "hoyre":   { "score": 2, "quote": "Høyre vil beholde en strømstøtteordning og fastprisavtaler, men er mot en politisk fastsatt makspris som vil svekke kraftmarkedet." },
+        "sv":      { "score": 6, "quote": "SV vil innføre et toprissystem for husholdningene der målet er at nødvendig strømforbruk skal være rimelig, og luksusforbruk dyrere." },
+        "sp":      { "score": 5, "quote": "Senterpartiet vil ha kraftfulle ordninger for å skjerme husholdninger og næringsliv mot ekstreme strømpriser, og styrke nasjonal kontroll over kraften." },
+        "rodt":    { "score": 7, "quote": "Rødt vil ha nasjonal kontroll over kraften vår, og en makspris på strøm for husholdninger, industri og næringsliv." },
+        "mdg":     { "score": 3, "quote": "MDG vil innføre en flat strømstøtte til alle husstander i områder med høy strømpris, men er kritiske til en absolutt makspris som svekker insentivene til energieffektivisering." },
+        "krf":     { "score": 4, "quote": "KrF vil videreføre en strømstøtteordning som skjermer forbrukerne fra de verste pristoppene, fremfor en politisk fastsatt makspris." },
+        "venstre": { "score": 2, "quote": "Venstre vil forbedre strømstøtteordningen slik at den sikrer bedre økonomisk forutsigbarhet, men avviser en makspris som kan undergrave kraftmarkedet." }
+      }
+    },
+    {
+      "id": "eiendomsskatt",
+      "topic": "Skatt og økonomi",
+      "statement": "Eiendomsskatten bør avvikles.",
+      "axis": "Mindre boligskatt ↔ Mer boligskatt",
+      "positions": {
+        "ap":      { "score": 2, "quote": "Arbeiderpartiet vil bevare kommunenes rett til å kreve inn eiendomsskatt som en sentral inntektskilde for lokale velferdstjenester." },
+        "frp":     { "score": 7, "quote": "FrP vil oppheve lov om eiendomsskatt slik at kommunene ikke kan kreve inn skatt på eiendom — eiendomsskatten er en usosial skatt som rammer pensjonister." },
+        "hoyre":   { "score": 4, "quote": "Høyre vil sette tak på den kommunale eiendomsskatten og redusere terskelen, men ikke avvikle adgangen for kommunene helt." },
+        "sv":      { "score": 2, "quote": "SV vil at kommunene skal ha mulighet til å sette høyere eiendomsskatt på sekundærboliger, og videreføre eiendomsskatten som lokal inntekt." },
+        "sp":      { "score": 3, "quote": "Senterpartiet vil endre eiendomsskatteloven slik at private eiere av fredede bygninger får fritak, og åpne for differensiering på bolig og fritid." },
+        "rodt":    { "score": 1, "quote": "Rødt vil gi kommunene større handlingsrom til å utforme en lokal eiendomsskatt med sosial profil, og høyere eiendomsskatt på korttidsutleie og «hytter i byen»." },
+        "mdg":     { "score": 1, "quote": "MDG vil beholde kommunenes adgang til å kreve inn eiendomsskatt, åpne for differensierte satser, og innføre nasjonal eiendomsskatt på næringseiendom." },
+        "krf":     { "score": 3, "quote": "KrF vil sikre vertskommunene innsyn og klageadgang over eiendomsskattegrunnlaget, men ikke avvikle kommunal eiendomsskatt." },
+        "venstre": { "score": 3, "quote": "Venstre vil gi studentsamskipnadene fritak fra kommunal eiendomsskatt, men ikke fjerne kommunenes generelle adgang til å skattlegge eiendom." }
+      }
+    },
+    {
+      "id": "vapen-ukraina",
+      "topic": "Utenrikspolitikk",
+      "statement": "Norge bør sende mer militær støtte til Ukraina.",
+      "axis": "Sterkere militær støtte ↔ Mer humanitær/diplomatisk profil",
+      "positions": {
+        "ap":      { "score": 7, "quote": "Arbeiderpartiet vil følge opp Nansen-programmet for Ukraina og støtte Ukrainas forsvars- og frihetskamp så lenge det trengs." },
+        "frp":     { "score": 7, "quote": "FrP vil støtte Ukraina massivt — Russlands invasjon viser at NATO og forsvar må styrkes, og at Ukraina trenger våpen for å vinne." },
+        "hoyre":   { "score": 7, "quote": "Høyre vil at Norge skal være en av Ukrainas viktigste støttespillere og trappe opp den militære, sivile og humanitære hjelpen." },
+        "sv":      { "score": 4, "quote": "SV vil støtte Ukraina med humanitær, sivil og økonomisk bistand, og prioritere diplomati for varig fred fremfor en ren opprustningskonkurranse." },
+        "sp":      { "score": 6, "quote": "Senterpartiet vil opprettholde solidaritet og støtte til Ukraina, og styrke Norges rolle som en pålitelig partner i NATO." },
+        "rodt":    { "score": 3, "quote": "Rødt fordømmer Russlands angrepskrig og støtter Ukrainas rett til selvforsvar, men er kritisk til opprustningskonkurranse og ber om aktiv freds­diplomati." },
+        "mdg":     { "score": 6, "quote": "MDG vil styrke Ukrainas mulighet til å forsvare seg, samtidig som Norge tar et særlig ansvar for klimavennlig gjenoppbygging." },
+        "krf":     { "score": 7, "quote": "KrF vil opprettholde sanksjonene mot Russland og betydelig trappe opp den militære og sivile støtten til Ukraina, og være pådriver for at Ukraina får NATO-medlemskap." },
+        "venstre": { "score": 7, "quote": "Venstre vil styrke Ukrainas mulighet til selvforsvar gjennom langsiktige militære og økonomiske bidrag, i tett samarbeid med våre allierte." }
+      }
+    },
+    {
+      "id": "anerkjenne-palestina",
+      "topic": "Utenrikspolitikk",
+      "statement": "Norge gjorde rett i å anerkjenne Palestina som selvstendig stat.",
+      "axis": "Pro-anerkjennelse ↔ Mot anerkjennelse",
+      "positions": {
+        "ap":      { "score": 6, "quote": "Arbeiderpartiet i regjering anerkjente Palestina som selvstendig stat i mai 2024 som et bidrag til en tostatsløsning og varig fred i Midtøsten." },
+        "frp":     { "score": 2, "quote": "FrP mener anerkjennelsen av Palestina kom for tidlig og uten konkrete bidrag til reell fred — Norge bør stå tett med Israel og demokratiske allierte." },
+        "hoyre":   { "score": 4, "quote": "Høyre legger til grunn en tostatsløsning, men mener tidspunktet og betingelsene for anerkjennelse må bidra reelt til fredsprosessen." },
+        "sv":      { "score": 7, "quote": "SV har lenge krevd norsk anerkjennelse av Palestina som selvstendig stat og vil følge opp med konkrete tiltak mot okkupasjon og bosettinger." },
+        "sp":      { "score": 5, "quote": "Senterpartiet støtter anerkjennelsen som ledd i tostatsløsningen, og vil arbeide for at Norge bidrar konstruktivt til en varig politisk løsning." },
+        "rodt":    { "score": 7, "quote": "Rødt har vært en pådriver for anerkjennelse av Palestina, og vil utvide til konkrete sanksjoner mot Israel for okkupasjon og folkerettsbrudd." },
+        "mdg":     { "score": 7, "quote": "MDG støtter helhjertet anerkjennelsen av Palestina og vil at Norge arbeider aktivt for en rettferdig tostatsløsning og slutt på okkupasjonen." },
+        "krf":     { "score": 3, "quote": "KrF mener anerkjennelse av Palestina må komme som et resultat av forhandlede løsninger, ikke som en ensidig handling før reell selvstyre er på plass." },
+        "venstre": { "score": 6, "quote": "Venstre vil arbeide for en tostatsløsning i konflikten mellom Israel og Palestina, der begge parters legitime interesser ivaretas." }
+      }
+    },
+    {
+      "id": "rovdyr-bestand",
+      "topic": "Natur og distrikt",
+      "statement": "Bestandsmålene for ulv og andre store rovdyr bør økes.",
+      "axis": "Større rovdyrbestander ↔ Mindre rovdyrbestander",
+      "positions": {
+        "ap":      { "score": 3, "quote": "Arbeiderpartiet vil at rovviltforliket ligger fast, og at bestandsmålene faktisk følges opp — er bestanden over målet skal den reguleres ned." },
+        "frp":     { "score": 1, "quote": "FrP vil oppheve kjerneområdet for rovdyr og prioriterte rovdyrsoner, samordne forvaltningen med landbruket og redusere konfliktene med beitedyr." },
+        "hoyre":   { "score": 3, "quote": "Høyre vil holde rovdyrbestandene på et bærekraftig minimum, og prioritere et levedyktig landbruk og beitenæring." },
+        "sv":      { "score": 6, "quote": "SV vil ha levedyktige rovdyrbestander i tråd med våre internasjonale forpliktelser, og styrke rovdyrenes rettsvern utenfor sonene." },
+        "sp":      { "score": 2, "quote": "Senterpartiet vil ha sterkere lokal forvaltning av rovdyr og vil ikke øke bestandsmålene — hensynet til beitedyr og distriktsbruk veier tungt." },
+        "rodt":    { "score": 5, "quote": "Rødt vil bevare levedyktige bestander av de fire store rovdyrene i tråd med naturmangfoldloven og Bern-konvensjonen." },
+        "mdg":     { "score": 7, "quote": "MDG vil øke bestandsmålene og styrke vernet av store rovdyr, og prioritere forebyggende tiltak fremfor felling." },
+        "krf":     { "score": 3, "quote": "KrF vil at rovviltforliket ligger fast med dagens bestandsmål, og styrke virkemidler som reduserer konflikten mellom rovdyr og beitenæring." },
+        "venstre": { "score": 7, "quote": "Venstre vil øke bestandsmålene for ulv, jerv og gaupe, utvide rovdyrsonene og styrke rovdyrenes rettsvern utenfor sonene." }
+      }
+    },
+    {
+      "id": "mobilforbud",
+      "topic": "Skole",
+      "statement": "Norge bør innføre nasjonalt mobilforbud i grunnskolen.",
+      "axis": "Nasjonalt forbud ↔ Lokalt skjønn",
+      "positions": {
+        "ap":      { "score": 5, "quote": "Arbeiderpartiet støtter strenge nasjonale anbefalinger og lokal håndheving av mobilforbud i grunnskoletiden for å sikre fokus og psykisk helse." },
+        "frp":     { "score": 5, "quote": "FrP støtter at skolene skal være mobilfrie i undervisningstiden, men mener detaljreguleringen bør ligge hos skoleeier." },
+        "hoyre":   { "score": 4, "quote": "Høyre vil at skolene selv setter rammer for mobilbruk, men anerkjenner at en mobilfri skoledag har klare faglige og helsemessige fordeler." },
+        "sv":      { "score": 7, "quote": "SV vil innføre et nasjonalt mobilforbud i grunnskolen, når den ikke brukes til pedagogiske formål." },
+        "sp":      { "score": 7, "quote": "Senterpartiet ønsker et nasjonalt mobilforbud i grunnskolen for å skjerme barnas læring og psykiske helse." },
+        "rodt":    { "score": 6, "quote": "Rødt vil innføre et forbud mot mobiltelefon i skoletida og styrke det fysiske, mobilfrie læringsmiljøet." },
+        "mdg":     { "score": 7, "quote": "MDG vil innføre nasjonale regler som sikrer en mobilfri skole, med pedagogisk begrunnede unntak." },
+        "krf":     { "score": 7, "quote": "KrF vil ha et nasjonalt mobilforbud på alle grunnskoler for å sikre konsentrasjon, vennskap og trygge læringsmiljø." },
+        "venstre": { "score": 4, "quote": "Venstre vil at skolene selv organiserer mobilbruk basert på faglig vurdering, og er skeptisk til detaljert nasjonal regulering." }
+      }
+    },
+    {
+      "id": "pensjonsalder",
+      "topic": "Pensjon og arbeid",
+      "statement": "Pensjonsalderen bør heves i takt med levealderen.",
+      "axis": "Heve pensjonsalder ↔ Beholde dagens nivå",
+      "positions": {
+        "ap":      { "score": 6, "quote": "Arbeiderpartiet sluttet seg til pensjonsforliket fra 2024 som gradvis hever aldersgrensene i takt med levealderen for å sikre et bærekraftig pensjonssystem." },
+        "frp":     { "score": 4, "quote": "FrP vil sikre at folk fortsatt kan ta ut alderspensjon ved fylte 62 år, men anerkjenner at levealderjusteringen krever lengre yrkeskarriere for full pensjon." },
+        "hoyre":   { "score": 7, "quote": "Høyre vil sikre et bærekraftig pensjonssystem ved å heve aldersgrensene i tråd med levealderen, slik pensjonsforliket legger opp til." },
+        "sv":      { "score": 3, "quote": "SV vil at samlet pensjon ved normert pensjonsalder skal gi en inntektsdekning på minst to tredjedeler av tidligere lønn, og særlig skjerme arbeidstakere i tunge yrker." },
+        "sp":      { "score": 5, "quote": "Senterpartiet støtter et bærekraftig pensjonssystem og pensjonsforliket, samtidig som vi sikrer mulighet for tidlig pensjon for slitne yrker." },
+        "rodt":    { "score": 1, "quote": "Rødt vil fjerne den automatiske økningen av pensjonsalderen — pensjonsforliket fra 2024 befester urettferdigheten ved gradvis å øke pensjonsalderen." },
+        "mdg":     { "score": 5, "quote": "MDG støtter et bærekraftig pensjonssystem som tilpasses levealderen, men vil styrke vernet for de som ikke kan stå lenger i arbeid." },
+        "krf":     { "score": 5, "quote": "KrF støtter pensjonsforliket og levealderjusteringen, kombinert med målrettede tiltak for å holde flere lenger i arbeid." },
+        "venstre": { "score": 6, "quote": "Venstre vil opprettholde et bærekraftig pensjonssystem som tilpasses levealderen, og legge bedre til rette for arbeid i siste del av yrkeslivet." }
+      }
+    },
+    {
+      "id": "sidemal",
+      "topic": "Skole og språk",
+      "statement": "Sidemål (nynorsk/bokmål) skal være obligatorisk med egen karakter i ungdomsskolen.",
+      "axis": "Beholde sidemålet ↔ Valgfritt sidemål",
+      "positions": {
+        "ap":      { "score": 5, "quote": "Arbeiderpartiet vil bevare en obligatorisk sidemålsopplæring som styrker beherskelsen av begge norske skriftspråk." },
+        "frp":     { "score": 1, "quote": "FrP vil fjerne krav om sidemål i det offentlige og ha valgfri sidemålsundervisning i skolen." },
+        "hoyre":   { "score": 3, "quote": "Høyre vil ikke ha egen eksamen i sidemål i videregående opplæring, men beholde tilbudet i grunnskolen." },
+        "sv":      { "score": 7, "quote": "SV vil sikre en god sidemålsopplæring med egen karakter i ungdomsskole og i videregående." },
+        "sp":      { "score": 6, "quote": "Senterpartiet vil styrke nynorsk og bokmål som likeverdige skriftspråk, og bevare obligatorisk sidemål med tilstrekkelig undervisning og læremidler." },
+        "rodt":    { "score": 6, "quote": "Rødt vil styrke opplæringen i begge norske skriftspråk og sikre at nynorske elever får læremidler og undervisning på eget skriftspråk." },
+        "mdg":     { "score": 5, "quote": "MDG vil opprettholde sidemålsopplæringen og styrke nynorskens stilling som likestilt skriftspråk." },
+        "krf":     { "score": 7, "quote": "KrF vil beholde egen karakter i norsk sidemål, hovedmål og muntlig." },
+        "venstre": { "score": 7, "quote": "Venstre vil styrke sidemålsordningen i skolen, blant annet ved å begynne den tidligere, og beholde en egen karakter i sidemål." }
+      }
     }
   ]
 }
