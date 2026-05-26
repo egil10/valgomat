@@ -19,18 +19,50 @@ from urllib.request import Request, urlopen
 
 UA = {"User-Agent": "ValgomatBot/0.1 (+https://github.com/egil10/valgomat)"}
 
-# Hand-picked speech URLs from regjeringen.no (recent "Taler og innlegg")
-REGJERINGEN_URLS: list[str] = [
-    "https://www.regjeringen.no/no/aktuelt/helse-og-omsorgstjenestens-beredskapsplaner-for-a-handtere-en-situasjon-med-krig-pa-norsk-jord/id3160707/",
-    "https://www.regjeringen.no/no/aktuelt/nye-losninger-i-innvandringspolitikken/id3160328/",
-    "https://www.regjeringen.no/no/aktuelt/russland-har-endret-seg.-det-har-ogsa-vart-naboskap/id3160051/",
-    "https://www.regjeringen.no/no/aktuelt/statsministerens-innlegg-pa-norsk-industris-arskonferanse/id3159832/",
-    "https://www.regjeringen.no/no/aktuelt/utenriksministerens-redegjorelse-om-viktige-eu-og-eos-saker/id3159640/",
-    "https://www.regjeringen.no/no/aktuelt/innovasjonstalen-2026/id3159904/",
-    "https://www.regjeringen.no/no/aktuelt/tale-pa-ffas-arsmote-2026/id3159554/",
-    "https://www.regjeringen.no/no/aktuelt/utenriksministerens-tale-pa-frigjorings-og-veterandagen-8.-mai-2026/id3159328/",
-    "https://www.regjeringen.no/no/aktuelt/finansministerens-innlegg-pa-markeringen-av-frigjorings-og-veterandagen/id3159187/",
-    "https://www.regjeringen.no/no/aktuelt/stor-usikkerhet/id3159745/",
+# Hand-picked speech URLs from regjeringen.no (recent "Taler og innlegg").
+# `attribution` is appended verbatim — the Støre-government rest-cabinet is
+# fully Arbeiderpartiet after Sp's 2025 exit, so all entries map to "ap".
+REGJERINGEN_URLS: list[tuple[str, dict]] = [
+    (
+        "https://www.regjeringen.no/no/aktuelt/helse-og-omsorgstjenestens-beredskapsplaner-for-a-handtere-en-situasjon-med-krig-pa-norsk-jord/id3160707/",
+        {"speaker_name": "Jan Christian Vestre", "speaker_role": "Helse- og omsorgsminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/nye-losninger-i-innvandringspolitikken/id3160328/",
+        {"speaker_name": "Astri Aas-Hansen", "speaker_role": "Justis- og beredskapsminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/russland-har-endret-seg.-det-har-ogsa-vart-naboskap/id3160051/",
+        {"speaker_name": "Jonas Gahr Støre", "speaker_role": "Statsminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/statsministerens-innlegg-pa-norsk-industris-arskonferanse/id3159832/",
+        {"speaker_name": "Jonas Gahr Støre", "speaker_role": "Statsminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/utenriksministerens-redegjorelse-om-viktige-eu-og-eos-saker/id3159640/",
+        {"speaker_name": "Espen Barth Eide", "speaker_role": "Utenriksminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/innovasjonstalen-2026/id3159904/",
+        {"speaker_name": "Kari Nessa Nordtun", "speaker_role": "Kunnskapsminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/tale-pa-ffas-arsmote-2026/id3159554/",
+        {"speaker_name": "Kari Nessa Nordtun", "speaker_role": "Kunnskapsminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/utenriksministerens-tale-pa-frigjorings-og-veterandagen-8.-mai-2026/id3159328/",
+        {"speaker_name": "Espen Barth Eide", "speaker_role": "Utenriksminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/finansministerens-innlegg-pa-markeringen-av-frigjorings-og-veterandagen/id3159187/",
+        {"speaker_name": "Jens Stoltenberg", "speaker_role": "Finansminister", "speaker_party": "ap"},
+    ),
+    (
+        "https://www.regjeringen.no/no/aktuelt/stor-usikkerhet/id3159745/",
+        {"speaker_name": "Jens Stoltenberg", "speaker_role": "Finansminister", "speaker_party": "ap"},
+    ),
 ]
 
 
@@ -146,16 +178,16 @@ def best_paragraph(doc: str) -> str:
 
 def collect() -> list[dict]:
     items: list[dict] = []
-    for url in REGJERINGEN_URLS:
+    for url, attribution in REGJERINGEN_URLS:
         try:
-            html = fetch(url)
+            doc = fetch(url)
         except Exception as e:  # noqa: BLE001
             print(f"skip {url}: {e}")
             continue
-        title = extract_title(html)
-        speaker = extract_speaker(html)
-        date = extract_date(html)
-        quote = best_paragraph(html)
+        title = extract_title(doc)
+        dept = extract_speaker(doc)
+        date = extract_date(doc)
+        quote = best_paragraph(doc)
         if not quote:
             print(f"no quote for {url}")
             continue
@@ -164,10 +196,11 @@ def collect() -> list[dict]:
                 "source": "regjeringen",
                 "source_label": "Regjeringen.no",
                 "title": title,
-                "speaker": speaker,
+                "department": dept,
                 "date": date,
                 "quote": quote,
                 "url": url,
+                **attribution,
             }
         )
         time.sleep(0.4)
