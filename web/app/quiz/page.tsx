@@ -222,7 +222,7 @@ export default function QuizPage() {
           </h1>
           <EmojiScale value={score} onChange={pickScore} />
           <div className="mt-auto">
-            <ArgumentReveal question={question} quiz={quiz} />
+            <ArgumentReveal question={question} quiz={quiz} revealed={current !== undefined} />
           </div>
         </section>
 

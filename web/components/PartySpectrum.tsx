@@ -39,6 +39,8 @@ export function PartySpectrum({
     return 6 + ((score - 1) / 6) * 88;
   }
 
+  const revealed = userScore !== null;
+
   return (
     <section
       className="glass rounded-3xl p-5 sm:p-7"
@@ -49,21 +51,12 @@ export function PartySpectrum({
           Politisk spekter
         </p>
         <p className="text-[11px] tabular-nums text-ink/40">
-          1 = Helt uenig · 7 = Helt enig
+          {revealed ? "1 = Helt uenig · 7 = Helt enig" : "Vises etter at du svarer"}
         </p>
       </div>
 
       <div className="relative mt-4 h-32 sm:h-36">
-        {/* Vertical user line through the whole spectrum */}
-        {userScore !== null && (
-          <div
-            className="absolute inset-y-0 w-px bg-ink/20 transition-[left] duration-300"
-            style={{ left: `${toPct(userScore)}%` }}
-            aria-hidden
-          />
-        )}
-
-        {/* Axis */}
+        {/* Axis is always visible — it's just the scale, no info leak. */}
         <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-black/10" />
         {TICKS.map((t) => (
           <div
@@ -74,38 +67,52 @@ export function PartySpectrum({
           />
         ))}
 
-        {/* Party logos clustered by score */}
-        {Array.from(byScore.entries()).map(([score, list]) => {
-          const left = toPct(score);
-          return (
+        {revealed && (
+          <>
+            {/* Vertical user line through the whole spectrum */}
             <div
-              key={score}
-              className="absolute top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1"
-              style={{ left: `${left}%` }}
-            >
-              {list.map((e) => (
-                <div key={e.slug} title={`${e.party.name} — ${score}/7`}>
-                  <PartyLogo party={e.party} size={32} ring={false} />
-                </div>
-              ))}
-            </div>
-          );
-        })}
+              className="absolute inset-y-0 w-px bg-ink/20 transition-[left] duration-300"
+              style={{ left: `${toPct(userScore!)}%` }}
+              aria-hidden
+            />
 
-        {/* User pill */}
-        {userScore !== null && (
-          <div
-            className="absolute top-0 -translate-x-1/2 transition-[left] duration-300"
-            style={{ left: `${toPct(userScore)}%` }}
-          >
-            <span className="pill block bg-ink px-2 py-0.5 text-[10px] font-medium text-white">
-              Deg · {userScore}
-            </span>
+            {Array.from(byScore.entries()).map(([score, list]) => {
+              const left = toPct(score);
+              return (
+                <div
+                  key={score}
+                  className="absolute top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-1"
+                  style={{ left: `${left}%` }}
+                >
+                  {list.map((e) => (
+                    <div key={e.slug} title={`${e.party.name} — ${score}/7`}>
+                      <PartyLogo party={e.party} size={32} ring={false} />
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+
+            <div
+              className="absolute top-0 -translate-x-1/2 transition-[left] duration-300"
+              style={{ left: `${toPct(userScore!)}%` }}
+            >
+              <span className="pill block bg-ink px-2 py-0.5 text-[10px] font-medium text-white">
+                Deg · {userScore}
+              </span>
+            </div>
+          </>
+        )}
+
+        {!revealed && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <p className="text-sm text-ink/45">
+              Velg et svar — så ser du hvor partiene står.
+            </p>
           </div>
         )}
       </div>
 
-      {/* Tick labels */}
       <div className="relative h-4 text-[10px] tabular-nums text-ink/40">
         {TICKS.map((t) => (
           <span

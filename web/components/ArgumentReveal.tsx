@@ -6,8 +6,17 @@ import { ExternalLink } from "lucide-react";
 import { PartyLogo } from "@/components/PartyLogo";
 import type { Question, Quiz, Party } from "@/lib/types";
 
-export function ArgumentReveal({ question, quiz }: { question: Question; quiz: Quiz }) {
+export function ArgumentReveal({
+  question,
+  quiz,
+  revealed,
+}: {
+  question: Question;
+  quiz: Quiz;
+  revealed: boolean;
+}) {
   const [open, setOpen] = useState(false);
+  if (!revealed) return null;
 
   const entries = Object.entries(question.positions);
   const enig = entries.reduce((best, [slug, p]) =>
