@@ -1,0 +1,284 @@
+{
+  "version": "2026-05-26",
+  "scale": {
+    "min": 1,
+    "max": 7,
+    "labels": {
+      "1": "Helt uenig",
+      "2": "Uenig",
+      "3": "Noe uenig",
+      "4": "Verken/eller",
+      "5": "Noe enig",
+      "6": "Enig",
+      "7": "Helt enig"
+    }
+  },
+  "parties": {
+    "ap":      { "name": "Arbeiderpartiet",         "abbr": "Ap",  "color": "#E8112D", "program_url": "https://res.cloudinary.com/arbeiderpartiet/image/upload/fl_attachment:partiprogram-2025-2029/v1/ievv_filestore/130322a45ccf45889bfc6fa4116c5b480cadc1e93e51491f8199451dd231c7c5" },
+    "frp":     { "name": "Fremskrittspartiet",      "abbr": "FrP", "color": "#005AA9", "program_url": "https://www.frp.no/files/Program/2025/FrP-Partiprogram-2025-2029.pdf" },
+    "hoyre":   { "name": "Høyre",                   "abbr": "H",   "color": "#0065F1", "program_url": "https://hoyre.no/politikk/partiprogram/" },
+    "sv":      { "name": "Sosialistisk Venstreparti","abbr": "SV", "color": "#C8102E", "program_url": "https://www.sv.no/wp-content/uploads/2025/04/svs-arbeidsprogram-2025-29-bm.pdf" },
+    "sp":      { "name": "Senterpartiet",            "abbr": "Sp", "color": "#14773D", "program_url": "https://www.senterpartiet.no/politikk/nytt-program" },
+    "rodt":    { "name": "Rødt",                     "abbr": "R",  "color": "#B5121B", "program_url": "https://roedt.no/fil/29796b043eb866e5315c03ee379bb3de40a32208.pdf" },
+    "mdg":     { "name": "Miljøpartiet De Grønne",   "abbr": "MDG","color": "#3D8C40", "program_url": "https://mdg.no/politikk" },
+    "krf":     { "name": "Kristelig Folkeparti",     "abbr": "KrF","color": "#F0B323", "program_url": "https://krf.no/content/uploads/2020/09/Partiprogram-2025-2029.pdf" },
+    "venstre": { "name": "Venstre",                  "abbr": "V",  "color": "#006666", "program_url": "https://www.venstre.no/assets/venstre-stortingsprogram-2025-2029.pdf" }
+  },
+  "questions": [
+    {
+      "id": "formuesskatt",
+      "topic": "Skatt og økonomi",
+      "statement": "Formuesskatten bør avvikles.",
+      "axis": "Mer omfordeling ↔ Mindre skatt på kapital",
+      "positions": {
+        "ap":      { "score": 2, "quote": "Arbeiderpartiet vil beholde en formuesskatt som bidrar til omfordeling, samtidig som vi gjør den enklere å forholde seg til for små bedrifter." },
+        "frp":     { "score": 7, "quote": "Fremskrittspartiet ønsker å avvikle formuesskatten — vi vil også fjerne formuesskatten fordi formuesskatten svekker norsk eierskap av bedrifter." },
+        "hoyre":   { "score": 6, "quote": "Høyre vil fjerne formuesskatten på arbeidende kapital og senke den ordinære satsen, slik at norsk eierskap ikke straffes." },
+        "sv":      { "score": 1, "quote": "SV vil skjerpe formuesskatten på de største formuene og innføre global formuesskatt for dollarmilliardærer." },
+        "sp":      { "score": 4, "quote": "Senterpartiet vil redusere formuesskatten for eiere av små og mellomstore bedrifter, blant annet gjennom økt bunnfradrag og verdsettelsesrabatter." },
+        "rodt":    { "score": 1, "quote": "Rødt vil skjerpe formuesskatten på store formuer kraftig — Norges rikeste skal bidra mer til fellesskapet." },
+        "mdg":     { "score": 3, "quote": "MDG vil beholde formuesskatten, men gjøre den mer treffsikker slik at den ikke rammer eierskap til små bedrifter." },
+        "krf":     { "score": 5, "quote": "Kristelig Folkeparti vil fjerne formuesskatten på arbeidende kapital og samtidig ha økt formuesskatt på de dyreste primærboligene." },
+        "venstre": { "score": 6, "quote": "Venstre vil fjerne formuesskatten på arbeidende kapital, og delvis kompensere inntektsbortfallet gjennom en moderat økning av andre skatter." }
+      }
+    },
+    {
+      "id": "oljeleting",
+      "topic": "Klima og energi",
+      "statement": "Norge bør stanse all leting etter ny olje og gass.",
+      "axis": "Klimaprioritet ↔ Petroleumsindustri",
+      "positions": {
+        "ap":      { "score": 2, "quote": "Arbeiderpartiet vil sikre videre aktivitet i petroleumsvirksomheten og hvordan dette skal kombineres med kuttene i utslipp." },
+        "frp":     { "score": 1, "quote": "FrP vil åpne for økt petroleumsvirksomhet, og er imot et tidsbestemt sluttpunkt for norsk olje- og gassutvinning." },
+        "hoyre":   { "score": 2, "quote": "Høyre vil videreføre en aktiv petroleumspolitikk og åpne for nye letetillatelser innenfor dagens forutsigbare rammer." },
+        "sv":      { "score": 7, "quote": "SV jobber for utfasing av norsk petroleumsvirksomhet i de internasjonale klimaforhandlingene og vil sikre nok grønne prosjekter til industrien." },
+        "sp":      { "score": 2, "quote": "Senterpartiet legger sameksistens til grunn for petroleumsvirksomhet, men i sårbare områder skal det ikke være petroleumsvirksomhet." },
+        "rodt":    { "score": 7, "quote": "Rødt vil at ingen nye letetillatelser innvilges på norsk sokkel, heller ikke gjennom TFO-ordningen (tildeling i forhåndsdefinerte områder)." },
+        "mdg":     { "score": 7, "quote": "MDG vil stanse all ny oljeleting og alle planer om mineralutvinning på havbunnen, og arbeide for utfasing av sektoren." },
+        "krf":     { "score": 5, "quote": "KrF vil sikre varig vern mot oljeleting og petroleumsaktivitet i havområdene utenfor Lofoten, Vesterålen og Senja, og begrense fremtidige lisenstildelinger." },
+        "venstre": { "score": 5, "quote": "Venstre vil ikke åpne for nye letetillatelser på norsk sokkel, og legger Parisavtalens mål til grunn for petroleumspolitikken." }
+      }
+    },
+    {
+      "id": "eu",
+      "topic": "EU og EØS",
+      "statement": "Norge bør melde seg inn i EU.",
+      "axis": "Europeisk integrasjon ↔ Nasjonal selvråderett",
+      "positions": {
+        "ap":      { "score": 3, "quote": "EØS-avtalen er vår viktigste — den ligger fast. Arbeiderpartiet garanterer for EØS-avtalen og bruker mulighetene den gir." },
+        "frp":     { "score": 1, "quote": "FrP er imot medlemskap i EU, men ønsker å sikre norske interesser gjennom EØS-avtalen og om nødvendig reforhandle deler av den." },
+        "hoyre":   { "score": 7, "quote": "Høyre vil arbeide for norsk EU-medlemskap, fordi tett samarbeid med EU er i Norges interesse i en mer urolig verden." },
+        "sv":      { "score": 2, "quote": "SV vil bruke åpningen i EØS-avtalen til å sikre norsk handlingsrom, og er motstander av norsk EU-medlemskap." },
+        "sp":      { "score": 1, "quote": "Senterpartiet vil ha et tett samarbeid med Europa, men sier nei til norsk medlemskap i EU og vil forsvare nasjonal selvråderett." },
+        "rodt":    { "score": 1, "quote": "Rødt vil at EØS-avtalen sies opp og erstattes med en handelsavtale, og er sterk motstander av norsk EU-medlemskap." },
+        "mdg":     { "score": 6, "quote": "MDG vil gå inn for nye forhandlinger med EU med sikte på norsk EU-medlemskap, der avtalen må godkjennes ved folkeavstemning." },
+        "krf":     { "score": 2, "quote": "KrF vil beholde dagens tilknytningsform til EU, og gjennom EØS-avtalen sikre et tett samarbeid med Europa." },
+        "venstre": { "score": 5, "quote": "Venstre er prinsipielt for norsk EU-medlemskap, men anerkjenner at det krever ny folkeavstemning og bred politisk støtte." }
+      }
+    },
+    {
+      "id": "kjernekraft",
+      "topic": "Klima og energi",
+      "statement": "Norge bør åpne for kommersiell drift av kjernekraft.",
+      "axis": "Kraftutbygging ↔ Naturvern",
+      "positions": {
+        "ap":      { "score": 3, "quote": "Arbeiderpartiet prioriterer havvind, vannkraft og solkraft, men er åpne for forskning på kjernekraft uten å forplikte til kommersiell drift." },
+        "frp":     { "score": 7, "quote": "FrP vil utforske mulighetene innen kjernekraft, og arbeide for å inkludere kjernekraft (særlig små modulære reaktorer – SMR) som del av energimiksen i Norge." },
+        "hoyre":   { "score": 5, "quote": "Høyre vil utrede kjernekraft og åpne for konsesjon for SMR-anlegg som en del av en langsiktig energimiks." },
+        "sv":      { "score": 1, "quote": "SV vil ikke åpne for kjernekraft i Norge — vi mener pengene gir mer fornybar kraft brukt på vind, sol og energieffektivisering." },
+        "sp":      { "score": 2, "quote": "Senterpartiet vil prioritere oppgradering av vannkraft og lokal kraftproduksjon, og er skeptisk til kommersiell kjernekraft i Norge." },
+        "rodt":    { "score": 1, "quote": "Rødt mener kjernekraft er for dyrt, for sent og uforenlig med en grønn omstilling — vi vil heller satse på sol, vind og energieffektivisering." },
+        "mdg":     { "score": 1, "quote": "MDG mener kjernekraft er for dyrt, for sent, og innebærer uhåndtert avfallsproblematikk — vi sier nei til atomkraft i Norge." },
+        "krf":     { "score": 3, "quote": "KrF vil utrede mulighetene for kjernekraft, men ikke åpne for kommersiell drift før sikkerhet og avfallshåndtering er avklart." },
+        "venstre": { "score": 7, "quote": "Venstre vil åpne for at etablering og kommersiell drift av kjernekraft kan tillates i Norge, og styrke nasjonal kompetanse på atomsikkerhet." }
+      }
+    },
+    {
+      "id": "bompenger",
+      "topic": "Samferdsel",
+      "statement": "Bompenger bør avvikles som finansieringsform for vei.",
+      "axis": "Brukerfinansiering ↔ Fellesfinansiering",
+      "positions": {
+        "ap":      { "score": 3, "quote": "Arbeiderpartiet vil prioritere kollektivtransport og bidra med statlige midler, men aksepterer bompenger der det er nødvendig for å realisere prosjekter." },
+        "frp":     { "score": 7, "quote": "FrP er imot bompenger og andre former for veiprising, rushtidsavgifter eller køprising, og vil avvikle bompenger som finansieringsmåte." },
+        "hoyre":   { "score": 2, "quote": "Høyre mener bompenger er en legitim finansieringsform der bompengeprosjekter gir gode samfunnsøkonomiske resultater." },
+        "sv":      { "score": 3, "quote": "SV støtter bruk av bompenger for å finansiere kollektivtransport og redusere biltrafikk i byene, men vil ha sosial profil." },
+        "sp":      { "score": 5, "quote": "Senterpartiet vil at samferdselsprosjekter i mindre grad baseres på bompenger, særlig i distriktene." },
+        "rodt":    { "score": 6, "quote": "Rødt vil at utbyggingen av veier ikke skal finansieres av bompenger, og vurdere avlasting av bompengeprosjekter som er blitt for dyre." },
+        "mdg":     { "score": 1, "quote": "MDG vil vurdere å innføre dynamisk veiprising som supplement eller alternativ til bompenger, og bruke bompenger til å sette ned kollektivpriser." },
+        "krf":     { "score": 3, "quote": "KrF vil vurdere innføring av veiprising som alternativ til innkreving av bompenger." },
+        "venstre": { "score": 2, "quote": "Venstre vil ha grønn veiprising som samtidig ivaretar personvernet, og mener bompenger fortsatt har en rolle i finansiering av samferdselen." }
+      }
+    },
+    {
+      "id": "kvoteflyktninger",
+      "topic": "Innvandring",
+      "statement": "Norge bør ta imot flere kvoteflyktninger.",
+      "axis": "Åpenhet ↔ Innvandringsrestriksjon",
+      "positions": {
+        "ap":      { "score": 5, "quote": "Arbeiderpartiet vil at Norge skal ta sin del av ansvaret for verdens flyktninger og opprettholde et høyt nivå av kvoteflyktninger." },
+        "frp":     { "score": 1, "quote": "FrP vil stanse mottak av kvoteflyktninger inntil vi har kontroll på asylinnvandringen, og vurdere mottak basert på integreringsmuligheter." },
+        "hoyre":   { "score": 3, "quote": "Høyre vil prioritere kvoteflyktninger som har størst behov for beskyttelse, og knytte antallet til Norges integreringskapasitet." },
+        "sv":      { "score": 7, "quote": "SV vil at Norge skal øke kvoten av flyktninger og ta et større ansvar for de mest sårbare i en stadig mer presset verden." },
+        "sp":      { "score": 3, "quote": "Senterpartiet vil at Norge tar et solidarisk ansvar, men antallet må tilpasses kommunenes integreringskapasitet." },
+        "rodt":    { "score": 6, "quote": "Rødt vil øke kvoteflyktningmottaket og bevare retten til familiegjenforening, fordi solidaritet med flyktninger er en sosialistisk grunnverdi." },
+        "mdg":     { "score": 6, "quote": "MDG vil at Norge øker mottaket av kvoteflyktninger og styrker integreringen, særlig av klimaflyktninger." },
+        "krf":     { "score": 6, "quote": "KrF vil at Norge skal ta imot et høyt antall kvoteflyktninger, fordi det er en planlagt, trygg og effektiv form for hjelp." },
+        "venstre": { "score": 6, "quote": "Venstre vil at Norge skal være et åpent og rettferdig samfunn som tar sin del av ansvaret for verdens flyktninger." }
+      }
+    },
+    {
+      "id": "to-prosent-forsvar",
+      "topic": "Forsvar og sikkerhet",
+      "statement": "Norge bør bruke minst 2 prosent av BNP på forsvar.",
+      "axis": "Større forsvarsbudsjett ↔ Mindre forsvarsbudsjett",
+      "positions": {
+        "ap":      { "score": 7, "quote": "Arbeiderpartiet i regjering oppfyller Norges NATO-toprosentmål — NATO er hjørnesteinen for norsk sikkerhet." },
+        "frp":     { "score": 7, "quote": "FrP vil oppfylle og overoppfylle NATOs toprosentmål, og styrke forsvarsbudsjettet over tid." },
+        "hoyre":   { "score": 7, "quote": "Høyre vil at Norge skal være en troverdig alliert i NATO og fortsatt ligge over toprosentmålet." },
+        "sv":      { "score": 3, "quote": "SV mener Norges sikkerhet styrkes mer av en aktiv freds- og nedrustningspolitikk enn av et stort forsvarsbudsjett, men vil holde forsvaret godt utstyrt." },
+        "sp":      { "score": 6, "quote": "Senterpartiet støtter NATOs toprosentmål og vil styrke forsvaret i hele Norge, særlig i nord." },
+        "rodt":    { "score": 2, "quote": "Rødt vil prioritere territorialforsvar og folkeforsvar, og er kritisk til ukritisk vekst i NATO-tilpassede våpenkjøp." },
+        "mdg":     { "score": 5, "quote": "MDG støtter et sterkt forsvar innen NATO, men vil knytte forsvarsutgifter til konkrete kapabiliteter, ikke til en fast prosentandel." },
+        "krf":     { "score": 6, "quote": "KrF vil oppfylle NATOs toprosentmål og styrke forsvaret, sivil beredskap og totalforsvaret." },
+        "venstre": { "score": 7, "quote": "Venstre vil bidra til å styrke NATO som vår viktigste sikkerhetsgaranti og forsvarsallianse, og oppfylle toprosentmålet." }
+      }
+    },
+    {
+      "id": "profittfri-velferd",
+      "topic": "Velferd",
+      "statement": "Kommersielle aktører bør ikke kunne ta ut profitt fra velferdstjenester.",
+      "axis": "Profittfri velferd ↔ Markedsbasert velferd",
+      "positions": {
+        "ap":      { "score": 5, "quote": "Arbeiderpartiet vil redusere innslag av kommersielle aktører i velferden og pålegge kommersielle aktører å benytte tariffavtale." },
+        "frp":     { "score": 1, "quote": "FrP mener private og kommersielle aktører gir bedre kvalitet og valgfrihet i velferden, og vil utvide deres rolle." },
+        "hoyre":   { "score": 2, "quote": "Høyre mener mangfold og valgfrihet — også fra kommersielle leverandører — gir bedre velferd, og vil videreføre fritt brukervalg." },
+        "sv":      { "score": 7, "quote": "SV vil prioritere velferd, ikke privat profitt — private barnehager og skoler skal ikke kunne ta ut profitt." },
+        "sp":      { "score": 4, "quote": "Senterpartiet vil prioritere ideelle aktører fremfor kommersielle, men bevare et mangfold i velferdstilbudet." },
+        "rodt":    { "score": 7, "quote": "Rødt vil ha profittfri velferd — universelle profittfrie velferdsgoder som er finansiert i fellesskap og tilgjengelige for alle." },
+        "mdg":     { "score": 5, "quote": "MDG vil prioritere ideelle og offentlige aktører i velferden, og stramme inn muligheten for kommersielle aktører til å ta ut profitt." },
+        "krf":     { "score": 4, "quote": "KrF vil sikre et mangfold av offentlige, ideelle og kommersielle aktører, men sikre at midlene går til tjenestene." },
+        "venstre": { "score": 2, "quote": "Venstre vil ha mangfold i velferden og åpner for både ideelle og kommersielle aktører innenfor strenge kvalitetskrav." }
+      }
+    },
+    {
+      "id": "abort-uke-18",
+      "topic": "Helse og likestilling",
+      "statement": "Grensen for selvbestemt abort bør utvides til uke 18.",
+      "axis": "Liberal abortlov ↔ Restriktiv abortlov",
+      "positions": {
+        "ap":      { "score": 6, "quote": "Arbeiderpartiet vil utvide grensen for selvbestemt abort til uke 18, slik at kvinner selv bestemmer over egen kropp lenger ut i svangerskapet." },
+        "frp":     { "score": 3, "quote": "FrP vil behandle abortgrensen som et personlig samvittighetsspørsmål for den enkelte representant, og har ingen partilinje for å utvide." },
+        "hoyre":   { "score": 4, "quote": "Høyre vil ikke ta initiativ til å endre abortgrensen for selvbestemt abort i kommende stortingsperiode." },
+        "sv":      { "score": 7, "quote": "SV vil utvide retten til selvbestemt abort til uke 22, og styrke seksuell og reproduktiv helse for alle." },
+        "sp":      { "score": 4, "quote": "Senterpartiet anerkjenner kvinners rett til selvbestemt abort, og overlater spørsmålet om uke 18 til den enkelte representant." },
+        "rodt":    { "score": 7, "quote": "Rødt mener selvbestemt abort ikke gir flere aborter, det gir først og fremst tryggere aborter — kvinnen skal bestemme." },
+        "mdg":     { "score": 7, "quote": "MDG vil styrke retten til selvbestemt abort i tråd med faglige råd og utvide grensen til uke 18." },
+        "krf":     { "score": 1, "quote": "KrF mener utvidelsene av grensen for selvbestemt abort i abortloven fra høsten 2024 var feil, og vil arbeide for et sterkere rettsvern for det ufødte liv." },
+        "venstre": { "score": 7, "quote": "Venstre vil opprettholde selvbestemt abort fram til uke 18 — retten til selvbestemt abort er en viktig og hardt tilkjempet rettighet." }
+      }
+    },
+    {
+      "id": "bistand-bni",
+      "topic": "Utenrikspolitikk",
+      "statement": "Norge bør bruke minst 1 prosent av BNI på bistand.",
+      "axis": "Bistandsambisjoner høyt ↔ Bistandsambisjoner lavt",
+      "positions": {
+        "ap":      { "score": 6, "quote": "Arbeiderpartiet vil føre en ambisiøs utviklingspolitikk og opprettholde et høyt bistandsnivå rundt 1 prosent av BNI." },
+        "frp":     { "score": 2, "quote": "FrP vil redusere det offentlige bistandsbudsjettet og prioritere humanitær nødhjelp og målrettede tiltak fremfor generell bistand." },
+        "hoyre":   { "score": 5, "quote": "Høyre vil innrette bistanden slik at den oppnår størst mulig effekt, begrense antall mottakerland, og prioritere kostnadseffektive løsninger." },
+        "sv":      { "score": 7, "quote": "SV vil øke bistanden over 1 prosent av BNI og prioritere klima, fattigdomsbekjempelse og kvinners rettigheter." },
+        "sp":      { "score": 4, "quote": "Senterpartiet vil opprettholde en betydelig norsk bistand, men prioritere kvalitet, effekt og partnerskap fremfor måltall alene." },
+        "rodt":    { "score": 7, "quote": "Rødt vil sikre at utgifter til flyktningarbeid i Norge ikke dekkes over bistandsbudsjettet, og øke reell bistand betydelig." },
+        "mdg":     { "score": 7, "quote": "MDG vil styrke klima- og naturbistand, øke bistandsnivået og prioritere universelle velferdstiltak som skolemat og kontantoverføringer." },
+        "krf":     { "score": 7, "quote": "KrF vil at Norge skal bidra med minst 1 prosent av BNI til bistand og være en pådriver for å bekjempe ekstrem fattigdom." },
+        "venstre": { "score": 6, "quote": "Venstre vil fastholde målet om at minst 1 prosent av bruttonasjonalinntekten (BNI) skal brukes på bistand." }
+      }
+    },
+    {
+      "id": "rusreform",
+      "topic": "Justis",
+      "statement": "Bruk og besittelse av brukerdoser narkotika bør avkriminaliseres.",
+      "axis": "Helseperspektiv ↔ Strafferettsperspektiv",
+      "positions": {
+        "ap":      { "score": 4, "quote": "Arbeiderpartiet vil ikke kriminalisere rusavhengige, men opprettholder forbudet mot narkotika og styrker helsehjelpen." },
+        "frp":     { "score": 2, "quote": "FrP vil opprettholde forbudet mot narkotika og prioritere strenge reaksjoner mot salg, samt rask helsehjelp til rusavhengige." },
+        "hoyre":   { "score": 3, "quote": "Høyre mener bruk og besittelse av narkotika skal være forbudt, men personer som tas for bruk skal møtes med oppfølging i helsetjenesten." },
+        "sv":      { "score": 7, "quote": "SV vil gjennomføre en rusreform som tar rusavhengige ut av strafferettens spor, og prioritere helsehjelp fremfor straff." },
+        "sp":      { "score": 2, "quote": "Senterpartiet vil opprettholde forbudet mot bruk, besittelse og kjøp av narkotika, men sikre at de som tas følges tett opp av helsevesenet." },
+        "rodt":    { "score": 7, "quote": "Rødt vil avkriminalisere bruk og besittelse av illegale rusmidler til eget bruk. Dette er ikke ensbetydende med legalisering — salg vil fremdeles være ulovlig." },
+        "mdg":     { "score": 7, "quote": "MDG vil ta rusavhengige ut av strafferettens spor og innføre en reell rusreform med vekt på skadereduksjon og helsehjelp." },
+        "krf":     { "score": 1, "quote": "KrF vil at all bruk og besittelse av narkotika skal være forbudt, og at unge som tas for bruk eller besittelse av narkotika raskt følges opp." },
+        "venstre": { "score": 7, "quote": "Venstre vil gjennomføre en rusreform med avkriminalisering av besittelse av mindre mengder narkotika til eget forbruk, og stanse vilkårlige narkotikarazziaer." }
+      }
+    },
+    {
+      "id": "vindkraft-land",
+      "topic": "Klima og energi",
+      "statement": "Det bør bygges mer landbasert vindkraft i Norge.",
+      "axis": "Mer fornybar utbygging ↔ Sterkere naturvern",
+      "positions": {
+        "ap":      { "score": 5, "quote": "Arbeiderpartiet vil legge til rette for utbygging av vannkraft, vindkraft og solenergi, men sikre lokal aksept og forutsigbarhet for vertskommuner." },
+        "frp":     { "score": 3, "quote": "FrP vil ha utbygging av kraftproduksjon som folk vil ha, men er kritiske til subsidiert landbasert vindkraft som ødelegger natur." },
+        "hoyre":   { "score": 5, "quote": "Høyre vil bygge mer fornybar kraft, inkludert landbasert vindkraft der kommunene ønsker det." },
+        "sv":      { "score": 4, "quote": "SV vil prioritere energieffektivisering, oppgradering av vannkraft og sol før ny landbasert vindkraft, og kreve hensyn til natur og urfolks rettigheter." },
+        "sp":      { "score": 3, "quote": "Senterpartiet vil at kommunene skal ha vetorett mot vindkraft på land, og vil ikke bygge ut vindkraft i sårbare natur- eller reindriftsområder." },
+        "rodt":    { "score": 3, "quote": "Rødt vil prioritere energieffektivisering og oppgradering av vannkraft fremfor utbygging av landbasert vindkraft som rammer natur og urfolks rettigheter." },
+        "mdg":     { "score": 5, "quote": "MDG vil bygge mer fornybar kraft, men prioritere energieffektivisering, sol og havvind før nye, store landbaserte vindkraftverk." },
+        "krf":     { "score": 3, "quote": "KrF vil opprettholde kommunenes vetorett for nye vindkraftkonsesjoner på land — nye vindkraftprosjekter skal være ønsket av vertskommunene." },
+        "venstre": { "score": 5, "quote": "Venstre vil legge til rette for utbygging av landbasert vindkraft der hensyn til natur, reindrift og lokalsamfunn ivaretas." }
+      }
+    },
+    {
+      "id": "innvandringskutt",
+      "topic": "Innvandring",
+      "statement": "Norge bør stramme inn innvandringspolitikken kraftig.",
+      "axis": "Streng innvandringspolitikk ↔ Liberal innvandringspolitikk",
+      "positions": {
+        "ap":      { "score": 4, "quote": "Arbeiderpartiet vil ha en streng, men rettferdig innvandringspolitikk, og prioritere god integrering." },
+        "frp":     { "score": 7, "quote": "FrP vil stanse mottak av kvoteflyktninger inntil vi har kontroll, stanse familiegjenforening for enslige mindreårige, og avvikle alderskriterier for asylsøkere." },
+        "hoyre":   { "score": 5, "quote": "Høyre vil ha en streng, men rettferdig innvandringspolitikk i tråd med våre internasjonale forpliktelser, og prioritere arbeidsinnvandring som dekker reelle behov." },
+        "sv":      { "score": 2, "quote": "SV vil ha en human innvandringspolitikk som ivaretar retten til å søke asyl, og motarbeide kjølig innstramming av familiegjenforening og kvoter." },
+        "sp":      { "score": 4, "quote": "Senterpartiet vil ha en streng, men rettferdig innvandringspolitikk, der mottak tilpasses kommunenes integreringskapasitet." },
+        "rodt":    { "score": 2, "quote": "Rødt vil ha en human flyktning- og innvandringspolitikk og er imot innstramminger som rammer barn, familier og sårbare asylsøkere." },
+        "mdg":     { "score": 2, "quote": "MDG vil ha en human innvandringspolitikk, øke kvoten av kvoteflyktninger og styrke integreringen, ikke svekke den." },
+        "krf":     { "score": 3, "quote": "KrF vil ha en human og forutsigbar innvandringspolitikk, redusere saksbehandlingstiden for familiegjenforening og styrke integreringen." },
+        "venstre": { "score": 3, "quote": "Venstre vil sikre tilstrekkelig hjelp og bistand til mennesker som flykter, og motarbeide unødige innstramminger som svekker rettsvernet." }
+      }
+    },
+    {
+      "id": "skolemat",
+      "topic": "Skole",
+      "statement": "Det bør innføres gratis skolemat i grunnskolen.",
+      "axis": "Universelle velferdstiltak ↔ Foreldreansvar/kommunal frihet",
+      "positions": {
+        "ap":      { "score": 5, "quote": "Arbeiderpartiet vil støtte kommuner som vil tilby gratis skolemat, og fase inn et sunt måltid i skolen der det er mulig." },
+        "frp":     { "score": 2, "quote": "FrP mener mat i skolen primært er et foreldreansvar, og prioriterer pengene på lærertetthet og kvalitet i undervisningen." },
+        "hoyre":   { "score": 3, "quote": "Høyre vil ikke pålegge kommunene gratis skolemat, men gi kommunene frihet til selv å avgjøre om de vil tilby det." },
+        "sv":      { "score": 7, "quote": "SV vil innføre gratis skolemat for alle elever i grunnskolen, fordi sunn mat på skolen utjevner forskjeller og gir bedre læring." },
+        "sp":      { "score": 4, "quote": "Senterpartiet vil støtte gradvis innføring av et sunt skolemåltid med kortreiste råvarer, men la kommunene velge løsning." },
+        "rodt":    { "score": 7, "quote": "Rødt vil ha gratis sunn skolemat til alle elever i grunnskolen og videregående, som et universelt velferdstiltak." },
+        "mdg":     { "score": 7, "quote": "MDG vil innføre praktisk undervisning og innfasing av skolemat — en sunn dagsstart for alle elever." },
+        "krf":     { "score": 4, "quote": "KrF vil gradvis innføre et sunt skolemåltid i grunnskolen, men sikre kommunal frihet i hvordan det organiseres." },
+        "venstre": { "score": 4, "quote": "Venstre vil støtte gradvis innfasing av et sunt skolemåltid, men prioritere flere lærere og spesialpedagogisk hjelp først." }
+      }
+    },
+    {
+      "id": "sentralisering",
+      "topic": "Distrikt og kommune",
+      "statement": "Tvangssammenslåtte kommuner og fylker bør kunne deles opp igjen.",
+      "axis": "Desentralisering ↔ Større enheter",
+      "positions": {
+        "ap":      { "score": 4, "quote": "Arbeiderpartiet vil at lokale ønsker skal veie tungt og åpne for justeringer der det er bred lokal støtte for endring." },
+        "frp":     { "score": 3, "quote": "FrP vil at kommuner og fylker selv bestemmer struktur, men har som hovedlinje at færre og større kommuner gir bedre tjenester." },
+        "hoyre":   { "score": 1, "quote": "Høyre mener strukturreformene har gjort kommunene mer robuste og vil ikke åpne for reversering av sammenslåinger." },
+        "sv":      { "score": 6, "quote": "SV vil at sammenslåtte kommuner og fylker som ønsker det, skal kunne dele seg igjen, og styrke lokaldemokratiet." },
+        "sp":      { "score": 7, "quote": "Senterpartiet vil reversere tvangssammenslåinger der det er lokalt ønske, og bygge tjenester nær folk i hele Norge." },
+        "rodt":    { "score": 7, "quote": "Rødt vil oppløse tvangssammenslåtte kommuner og fylker som ønsker å bli oppløst, og bevare et nært folkestyre." },
+        "mdg":     { "score": 5, "quote": "MDG vil åpne for at sammenslåtte kommuner og fylker kan dele seg etter lokal vilje, men prioritere klimaomstilling og natur i kommunestrukturen." },
+        "krf":     { "score": 5, "quote": "KrF vil at lokalsamfunnene selv skal bestemme om sammenslåinger skal opprettholdes eller reverseres, og styrke lokaldemokratiet." },
+        "venstre": { "score": 3, "quote": "Venstre vil ikke åpne for omfattende reversering, men gjøre det enklere å justere grenser der det er brede lokale ønsker." }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "slug": "rodt",
+  "name": "Rødt",
+  "abbr": "R",
+  "color": "#B5121B",
+  "source_url": "https://roedt.no/fil/29796b043eb866e5315c03ee379bb3de40a32208.pdf",
+  "hub_url": "https://roedt.no/arbeidsprogram",
+  "pdf_sha1": "29796b043eb866e5315c03ee379bb3de40a32208",
+  "n_pages": 108,
+  "n_sections": 1767,
+  "n_chars": 366388
+}

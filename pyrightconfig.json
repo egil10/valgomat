@@ -1,0 +1,6 @@
+{
+  "include": ["scrapers", "analysis"],
+  "exclude": [".venv", "node_modules", "web", "data"],
+  "extraPaths": ["."],
+  "pythonVersion": "3.11"
+}

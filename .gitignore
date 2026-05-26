@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+.turbo/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Data caches — raw PDFs and large fetches are gitignored.
+# Processed + curated data IS tracked (data/processed, data/questions).
+data/raw/**/*.pdf
+data/raw/**/*.html
+data/raw/**/*.json.gz
+data/raw/stortinget/cache/
+data/raw/regjeringen/cache/
+
+# Logs
+*.log
+scraper.log

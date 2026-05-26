@@ -1,0 +1,12 @@
+{
+  "slug": "venstre",
+  "name": "Venstre",
+  "abbr": "V",
+  "color": "#006666",
+  "source_url": "https://www.venstre.no/assets/venstre-stortingsprogram-2025-2029.pdf",
+  "hub_url": "https://www.venstre.no/politikk/partiprogram/program-2025-2029/",
+  "pdf_sha1": "a5834d0bced037701869fb62292a4396b66daf5c",
+  "n_pages": 68,
+  "n_sections": 10,
+  "n_chars": 227868
+}
