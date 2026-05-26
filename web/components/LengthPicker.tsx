@@ -85,28 +85,28 @@ export function LengthPicker() {
         className="group relative mt-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-2xl border border-white/60 px-7 py-6 text-ink shadow-button sm:px-9 sm:py-7"
       >
         {/* Cream paper base */}
-        <span aria-hidden className="absolute inset-0 -z-10 bg-[#FAF5EC]" />
-        {/* Watercolor blobs — soft party tones spread out so the surface
-            reads as painted, not striped. */}
+        <span aria-hidden className="absolute inset-0 -z-10 bg-[#FBF8F0]" />
+        {/* Watercolor blobs — pale party tones so the surface stays
+            primarily cream with just a hint of color. */}
         <span
           aria-hidden
           className="absolute inset-0 -z-10"
           style={{
             background:
-              "radial-gradient(60% 120% at 8% 50%, rgba(232, 17, 45, 0.32), transparent 60%)," +
-              "radial-gradient(50% 110% at 32% 60%, rgba(181, 18, 27, 0.22), transparent 65%)," +
-              "radial-gradient(55% 110% at 50% 40%, rgba(20, 119, 61, 0.30), transparent 65%)," +
-              "radial-gradient(45% 110% at 65% 60%, rgba(240, 179, 35, 0.34), transparent 65%)," +
-              "radial-gradient(60% 120% at 92% 50%, rgba(0, 101, 241, 0.30), transparent 60%)",
+              "radial-gradient(55% 110% at 8% 50%, rgba(232, 17, 45, 0.14), transparent 60%)," +
+              "radial-gradient(50% 110% at 32% 60%, rgba(181, 18, 27, 0.10), transparent 65%)," +
+              "radial-gradient(55% 110% at 50% 40%, rgba(20, 119, 61, 0.12), transparent 65%)," +
+              "radial-gradient(45% 110% at 65% 60%, rgba(240, 179, 35, 0.16), transparent 65%)," +
+              "radial-gradient(55% 110% at 92% 50%, rgba(0, 101, 241, 0.13), transparent 60%)",
           }}
         />
-        {/* Soft top highlight so text stays readable */}
+        {/* Subtle top highlight so text stays crisp */}
         <span
           aria-hidden
           className="absolute inset-0 -z-10"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 50%)",
+              "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 60%)",
           }}
         />
         {/* Brighter wash on hover */}

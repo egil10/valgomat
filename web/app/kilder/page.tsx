@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -62,7 +63,14 @@ export default function KilderPage() {
               rel="noreferrer"
               className="group flex h-full items-center gap-3 rounded-2xl border border-black/[0.06] bg-white/55 p-3 hover:bg-white/85"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink/[0.06] font-display text-sm font-semibold text-ink/70">St</span>
+              <Image
+                src="/logos/stortinget.png"
+                alt="Stortinget"
+                width={40}
+                height={40}
+                className="h-10 w-10 shrink-0 rounded-full"
+                unoptimized
+              />
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-ink">Stortinget</p>
                 <p className="truncate text-[11px] text-ink/45">data.stortinget.no/eksport — roster, referater</p>
@@ -77,7 +85,14 @@ export default function KilderPage() {
               rel="noreferrer"
               className="group flex h-full items-center gap-3 rounded-2xl border border-black/[0.06] bg-white/55 p-3 hover:bg-white/85"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink/[0.06] font-display text-sm font-semibold text-ink/70">Rj</span>
+              <Image
+                src="/logos/regjeringen.png"
+                alt="Regjeringen"
+                width={40}
+                height={40}
+                className="h-10 w-10 shrink-0 rounded-full"
+                unoptimized
+              />
               <div className="min-w-0">
                 <p className="truncate text-sm font-medium text-ink">Regjeringen</p>
                 <p className="truncate text-[11px] text-ink/45">Taler og innlegg fra statsråder</p>

@@ -38,8 +38,8 @@ export function PillHeader() {
           </span>
         </Link>
 
-        {/* Center: nav */}
-        <ul className="flex items-center justify-center gap-0.5">
+        {/* Center: nav, evenly spaced */}
+        <ul className="flex items-center justify-center gap-1 sm:gap-3">
           {NAV.map((item) => {
             const active = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
             return (
@@ -47,7 +47,7 @@ export function PillHeader() {
                 <Link
                   href={item.href}
                   className={clsx(
-                    "pill px-3 py-1.5 text-sm transition-colors",
+                    "pill px-4 py-1.5 text-sm transition-colors",
                     active ? "bg-ink text-white" : "text-ink/65 hover:text-ink"
                   )}
                 >

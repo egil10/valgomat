@@ -77,14 +77,15 @@ export function CursorGlow() {
       className="pointer-events-none fixed inset-0 z-0"
       style={{
         background:
-          // Three soft radial blobs in party tones (red / green / blue),
-          // each at a different lagged position so the shape always drifts.
-          "radial-gradient(360px circle at var(--ax, 30%) var(--ay, 25%), rgba(232, 17, 45, 0.13), transparent 65%)," +
-          "radial-gradient(420px circle at var(--bx, 60%) var(--by, 45%), rgba(20, 119, 61, 0.11), transparent 65%)," +
-          "radial-gradient(500px circle at var(--cx, 45%) var(--cy, 70%), rgba(0, 101, 241, 0.10), transparent 65%)",
-        filter: "blur(40px)",
-        mixBlendMode: "multiply",
-        opacity: 0.85,
+          // Three large, very soft pastel blobs in party tones. Each lags
+          // the cursor with its own ease so the shape always drifts and
+          // never reads as a single hard circle.
+          "radial-gradient(620px circle at var(--ax, 30%) var(--ay, 25%), rgba(255, 120, 140, 0.18), transparent 70%)," +
+          "radial-gradient(720px circle at var(--bx, 60%) var(--by, 45%), rgba(120, 220, 160, 0.16), transparent 70%)," +
+          "radial-gradient(820px circle at var(--cx, 45%) var(--cy, 70%), rgba(140, 190, 255, 0.16), transparent 70%)",
+        filter: "blur(60px)",
+        mixBlendMode: "screen",
+        opacity: 0.7,
       }}
     />
   );
