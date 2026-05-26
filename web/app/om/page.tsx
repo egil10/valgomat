@@ -121,7 +121,7 @@ match%   = 100 × (1 − distance / maxPossible)`}
         <h2 className="font-display text-xl font-medium">Datakilder</h2>
         <ul className="space-y-2 text-ink/70">
           <li className="flex items-center gap-3">
-            <Image src="/logos/stortinget.svg" alt="Stortinget" width={88} height={24} className="h-6 w-auto opacity-80" unoptimized />
+            <Image src="/logos/stortinget.png" alt="Stortinget" width={28} height={28} className="h-7 w-7 rounded opacity-80" unoptimized />
             <span>Stortingsrepresentanter via <code className="text-[0.92em]">data.stortinget.no/eksport</code>.</span>
           </li>
           <li className="flex items-center gap-3">

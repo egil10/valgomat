@@ -23,7 +23,7 @@ type InstitutionalQuote = {
 
 const LOGO_BY_SOURCE: Record<InstitutionalQuote["source"], string> = {
   regjeringen: "/logos/regjeringen.png",
-  stortinget: "/logos/stortinget.svg",
+  stortinget: "/logos/stortinget.png",
 };
 
 const DATE_FORMAT = new Intl.DateTimeFormat("nb-NO", {
@@ -65,11 +65,7 @@ export function InstitutionalTicker() {
                 alt={it.source_label}
                 width={36}
                 height={36}
-                className={
-                  it.source === "regjeringen"
-                    ? "h-9 w-9 shrink-0 rounded"
-                    : "h-8 w-auto shrink-0 self-start"
-                }
+                className="h-9 w-9 shrink-0 rounded"
                 unoptimized
               />
               <div className="min-w-0 flex-1">

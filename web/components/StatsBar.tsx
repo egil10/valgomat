@@ -34,11 +34,11 @@ export function StatsBar() {
             className="opacity-60 transition-opacity hover:opacity-100"
           >
             <Image
-              src="/logos/stortinget.svg"
+              src="/logos/stortinget.png"
               alt="Stortinget"
-              width={88}
+              width={24}
               height={24}
-              className="h-6 w-auto"
+              className="h-6 w-6 rounded"
               unoptimized
             />
           </a>

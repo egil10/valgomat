@@ -86,11 +86,11 @@ export default function HomePage() {
                 className="opacity-70 transition-opacity hover:opacity-100"
               >
                 <Image
-                  src="/logos/stortinget.svg"
+                  src="/logos/stortinget.png"
                   alt="Stortinget"
-                  width={88}
-                  height={24}
-                  className="h-6 w-auto"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 rounded"
                   unoptimized
                 />
               </a>

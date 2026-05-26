@@ -283,14 +283,15 @@ export default function QuizPage() {
             onClick={advance}
             disabled={!current && skipsLeft <= 0}
             className={
-              current
-                ? "pill inline-flex h-9 items-center gap-1.5 bg-ink px-5 text-sm font-medium text-white shadow-button transition-colors enabled:hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
-                : "pill inline-flex h-9 items-center gap-1.5 border border-black/[0.06] bg-white/70 px-4 text-sm font-medium text-ink/75 transition-colors enabled:hover:bg-white enabled:hover:text-ink disabled:cursor-not-allowed disabled:opacity-40"
+              "pill inline-flex h-9 w-[140px] items-center justify-center gap-1.5 text-sm font-medium shadow-button transition-colors disabled:cursor-not-allowed disabled:opacity-40 " +
+              (current
+                ? "bg-ink text-white enabled:hover:bg-ink/90"
+                : "border border-black/[0.06] bg-white/70 text-ink/75 enabled:hover:bg-white enabled:hover:text-ink")
             }
           >
             {current ? (
               <>
-                <span>{index + 1 === total ? "Se resultater" : "Neste"}</span>
+                <span>{index + 1 === total ? "Resultater" : "Neste"}</span>
                 <ChevronRight size={15} aria-hidden />
               </>
             ) : (
