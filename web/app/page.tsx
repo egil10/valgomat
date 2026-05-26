@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Quote, Scale, Building2, BookOpen } from "lucide-react";
 
 import { CitationsTicker } from "@/components/CitationsTicker";
@@ -97,6 +98,59 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* Institutional sources */}
+      <section>
+        <p className="text-[11px] uppercase tracking-[0.18em] text-ink/55">
+          Institusjonelle kilder
+        </p>
+        <ul className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <li>
+            <a
+              href="https://www.stortinget.no/"
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-3 rounded-2xl border border-black/[0.06] bg-white/55 px-4 py-2.5 transition-colors hover:bg-white/85"
+            >
+              <Image
+                src="/logos/stortinget.svg"
+                alt="Stortingets logo"
+                width={120}
+                height={32}
+                className="h-8 w-auto"
+                unoptimized
+              />
+              <span className="text-sm text-ink/75 group-hover:text-ink">
+                Stortinget
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.regjeringen.no/"
+              target="_blank"
+              rel="noreferrer"
+              className="group inline-flex items-center gap-3 rounded-2xl border border-black/[0.06] bg-white/55 px-4 py-2.5 transition-colors hover:bg-white/85"
+            >
+              <Image
+                src="/logos/regjeringen.png"
+                alt="Regjeringens riksvåpen"
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded"
+                unoptimized
+              />
+              <span className="text-sm text-ink/75 group-hover:text-ink">
+                Regjeringen
+              </span>
+            </a>
+          </li>
+        </ul>
+        <p className="mt-3 max-w-prose text-xs text-ink/55">
+          Sitater hentes primært fra partienes vedtatte program 2025–2029, supplert med
+          referater fra Stortinget og taler/dokumenter fra Regjeringen.no.
+        </p>
       </section>
     </div>
   );

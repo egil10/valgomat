@@ -79,7 +79,7 @@ export function LengthPicker() {
         <Link
           href="/quiz"
           onClick={startFresh}
-          className="pill inline-flex items-center gap-2 bg-ink px-6 py-3 text-sm font-medium text-white shadow-button transition-transform hover:-translate-y-0.5"
+          className="pill inline-flex items-center gap-2 bg-ink px-6 py-3 text-sm font-medium text-white shadow-button transition-colors hover:bg-ink/90"
         >
           Start {total} påstander
           <span aria-hidden>→</span>

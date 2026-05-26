@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { dataStats } from "@/lib/stats";
 
 const FORMAT = new Intl.NumberFormat("nb-NO");
@@ -23,14 +25,48 @@ export function StatsBar() {
             </li>
           ))}
         </ul>
-        <a
-          href="https://github.com/egil10/valgomat"
-          className="text-xs text-ink/45 underline-offset-2 hover:text-ink/80 hover:underline"
-          target="_blank"
-          rel="noreferrer"
-        >
-          egil10/valgomat ↗
-        </a>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://www.stortinget.no/"
+            target="_blank"
+            rel="noreferrer"
+            title="Stortinget"
+            className="opacity-60 transition-opacity hover:opacity-100"
+          >
+            <Image
+              src="/logos/stortinget.svg"
+              alt="Stortinget"
+              width={88}
+              height={24}
+              className="h-6 w-auto"
+              unoptimized
+            />
+          </a>
+          <a
+            href="https://www.regjeringen.no/"
+            target="_blank"
+            rel="noreferrer"
+            title="Regjeringen"
+            className="opacity-60 transition-opacity hover:opacity-100"
+          >
+            <Image
+              src="/logos/regjeringen.png"
+              alt="Regjeringen"
+              width={24}
+              height={24}
+              className="h-6 w-6 rounded"
+              unoptimized
+            />
+          </a>
+          <a
+            href="https://github.com/egil10/valgomat"
+            className="text-xs text-ink/45 underline-offset-2 hover:text-ink/80 hover:underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            egil10/valgomat ↗
+          </a>
+        </div>
       </div>
     </footer>
   );

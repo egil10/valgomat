@@ -212,7 +212,7 @@ export default function QuizPage() {
             type="button"
             onClick={prev}
             disabled={index === 0}
-            className="text-sm text-ink/55 transition disabled:opacity-30 enabled:hover:text-ink"
+            className="text-sm text-ink/55 transition-colors disabled:opacity-30 enabled:hover:text-ink"
           >
             ← Tilbake
           </button>
@@ -220,13 +220,25 @@ export default function QuizPage() {
             type="button"
             onClick={advance}
             disabled={!current && skipsLeft <= 0}
-            className="pill inline-flex items-center gap-2 bg-ink px-5 py-2 text-sm font-medium text-white shadow-button transition-transform enabled:hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
+            className="pill inline-flex items-center gap-2 bg-ink px-5 py-2 text-sm font-medium text-white shadow-button transition-colors enabled:hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {current
               ? (index + 1 === total ? "Resultater" : "Neste")
               : "Hopp over"} →
           </button>
         </div>
+      </div>
+
+      {/* Counter row — same numbers shown every render so the line never jumps */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] tabular-nums text-ink/55">
+        <span><strong className="font-medium text-ink/85">{answers.length}</strong> svart</span>
+        <span className="text-ink/30">·</span>
+        <span><strong className="font-medium text-ink/85">{skipped.size}</strong> hoppet over</span>
+        <span className="text-ink/30">·</span>
+        <span><strong className="font-medium text-ink/85">{Math.max(0, total - answers.length - skipped.size)}</strong> igjen</span>
+        <span className="text-ink/30">·</span>
+        <span><strong className="font-medium text-ink/85">{skipsLeft}</strong> hopp tilgjengelig</span>
+        <span className="ml-auto text-ink/40">Spørsmål {index + 1} av {total}</span>
       </div>
 
       {/* Combined card — fixed-feeling height */}
@@ -268,7 +280,6 @@ export default function QuizPage() {
           {showQuotes ? "Skjul alle sitater ↑" : "Vis alle 9 sitater ↓"}
         </button>
         <div className="flex gap-3">
-          <span className="tabular-nums text-ink/40">{skipsLeft} hopp igjen</span>
           {answers.length > 0 && (
             <Link href="/results" className="underline-offset-2 hover:text-ink hover:underline">
               Resultater så langt →

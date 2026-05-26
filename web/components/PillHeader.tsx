@@ -22,18 +22,24 @@ export function PillHeader() {
       <nav
         aria-label="Hovedmeny"
         className={clsx(
-          "pointer-events-auto glass-strong flex items-center gap-2 rounded-full px-2 py-1.5",
-          "min-w-[min(94vw,640px)] sm:px-3"
+          "pointer-events-auto glass-strong rounded-full px-3 py-1.5",
+          "grid w-full max-w-[640px] grid-cols-[auto_1fr_auto] items-center gap-3"
         )}
       >
+        {/* Left: brand mark */}
         <Link
           href="/"
           aria-label="Forside"
-          className="pill flex h-9 w-9 items-center justify-center text-ink hover:opacity-80"
+          className="pill flex items-center gap-2 pl-1 pr-2 text-ink hover:opacity-80"
         >
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-ink" />
+          <span className="hidden font-display text-sm font-medium sm:inline">
+            valgomat
+          </span>
         </Link>
-        <ul className="flex items-center gap-0.5">
+
+        {/* Center: nav */}
+        <ul className="flex items-center justify-center gap-0.5">
           {NAV.map((item) => {
             const active = pathname === item.href || (item.href !== "/" && pathname?.startsWith(item.href));
             return (
@@ -51,8 +57,16 @@ export function PillHeader() {
             );
           })}
         </ul>
-        <div className="ml-auto flex items-center">
-          {onQuiz && <QuizHeaderControls />}
+
+        {/* Right: quiz controls (on /quiz) or session badge (elsewhere) */}
+        <div className="flex min-w-[120px] items-center justify-end">
+          {onQuiz ? (
+            <QuizHeaderControls />
+          ) : (
+            <span className="hidden text-[11px] uppercase tracking-[0.18em] text-ink/45 sm:inline">
+              2025 — 2029
+            </span>
+          )}
         </div>
       </nav>
     </header>
