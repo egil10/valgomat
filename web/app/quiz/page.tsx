@@ -11,6 +11,7 @@ import { FeedbackPanel } from "@/components/FeedbackSlide";
 import { ImportancePicker } from "@/components/ImportancePicker";
 import { PartyStack } from "@/components/PartyStack";
 import { SegmentedProgress } from "@/components/SegmentedProgress";
+import { StandingsSidebar } from "@/components/StandingsSidebar";
 import { quiz, getQuestionById } from "@/lib/data";
 import {
   loadAnswers,
@@ -41,6 +42,7 @@ export default function QuizPage() {
   const [length, setLength] = useState<QuizLength>(25);
   const [orderIds, setOrderIds] = useState<string[]>([]);
   const [showQuotes, setShowQuotes] = useState(false);
+  const [showStandings, setShowStandings] = useState(true);
   const autoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   /** Resolved pool of question objects, in the shuffled order. */
@@ -62,6 +64,7 @@ export default function QuizPage() {
     const prefs = loadPrefs();
     setAutoMode(prefs.autoAdvance);
     setLength(prefs.length);
+    setShowStandings(prefs.showStandings);
 
     let order = loadOrder();
     if (order.length === 0) {
@@ -295,36 +298,48 @@ export default function QuizPage() {
         </div>
       </div>
 
-      {/* Combined card — locked min-height so it never expands/collapses */}
-      <section
-        className="glass-strong flex min-h-[500px] flex-col rounded-3xl p-5 sm:min-h-[540px] sm:p-6"
-        aria-label="Påstand"
+      {/* Main card + standings sidebar */}
+      <div
+        className={
+          showStandings
+            ? "grid gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1fr)_240px]"
+            : "block"
+        }
       >
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-ink/45">
-            {question.axis}
-          </p>
-          <ImportancePicker value={importance} onChange={pickImportance} />
-        </div>
+        <section
+          className="glass-strong flex min-h-[500px] flex-col rounded-3xl p-5 sm:min-h-[540px] sm:p-6"
+          aria-label="Påstand"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-ink/45">
+              {question.axis}
+            </p>
+            <ImportancePicker value={importance} onChange={pickImportance} />
+          </div>
 
-        <h1 className="mt-3 line-clamp-3 min-h-[4.4em] font-display text-2xl font-medium leading-snug text-balance sm:min-h-[4em] sm:text-3xl">
-          {question.statement}
-        </h1>
+          <h1 className="mt-3 line-clamp-3 min-h-[4.4em] font-display text-2xl font-medium leading-snug text-balance sm:min-h-[4em] sm:text-3xl">
+            {question.statement}
+          </h1>
 
-        <div className="mt-4 flex justify-between px-1 text-[10px] uppercase tracking-[0.18em] text-ink/45">
-          <span>Helt uenig</span>
-          <span>Tja</span>
-          <span>Helt enig</span>
-        </div>
+          <div className="mt-4 flex justify-between px-1 text-[10px] uppercase tracking-[0.18em] text-ink/45">
+            <span>Helt uenig</span>
+            <span>Tja</span>
+            <span>Helt enig</span>
+          </div>
 
-        <div className="mt-1.5">
-          <EmojiScale value={score} onChange={pickScore} />
-        </div>
+          <div className="mt-1.5">
+            <EmojiScale value={score} onChange={pickScore} />
+          </div>
 
-        <div className="mt-2">
-          <PartyStack quiz={quiz} question={question} userScore={score} />
-        </div>
-      </section>
+          <div className="mt-2">
+            <PartyStack quiz={quiz} question={question} userScore={score} />
+          </div>
+        </section>
+
+        {showStandings && (
+          <StandingsSidebar quiz={quiz} answers={answers} />
+        )}
+      </div>
 
       <BestMatchCallout quiz={quiz} question={question} answer={current} />
 

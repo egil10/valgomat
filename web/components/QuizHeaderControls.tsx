@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
-import { Home } from "lucide-react";
+import { Eye, EyeOff, Home } from "lucide-react";
 
 import { AUTO_OPTIONS, type AutoMode } from "@/components/AutoAdvance";
-import { HeaderTopMatch } from "@/components/HeaderTopMatch";
 import { clearAnswers, clearOrder } from "@/lib/store";
 import { loadPrefs, savePrefs } from "@/lib/prefs";
 import { emitPrefsChanged, emitReset } from "@/lib/quizSignals";
@@ -14,17 +13,26 @@ import { emitPrefsChanged, emitReset } from "@/lib/quizSignals";
 export function QuizHeaderControls() {
   const router = useRouter();
   const [autoMode, setAutoMode] = useState<AutoMode>("manual");
+  const [showStandings, setShowStandings] = useState(true);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     const p = loadPrefs();
     setAutoMode(p.autoAdvance);
+    setShowStandings(p.showStandings);
     setHydrated(true);
   }, []);
 
   function changeAuto(v: AutoMode) {
     setAutoMode(v);
     savePrefs({ autoAdvance: v });
+    emitPrefsChanged();
+  }
+
+  function toggleStandings() {
+    const next = !showStandings;
+    setShowStandings(next);
+    savePrefs({ showStandings: next });
     emitPrefsChanged();
   }
 
@@ -42,7 +50,16 @@ export function QuizHeaderControls() {
 
   return (
     <div className="flex items-center gap-2">
-      <HeaderTopMatch />
+      <button
+        type="button"
+        onClick={toggleStandings}
+        title={showStandings ? "Skjul rangering-panel" : "Vis rangering-panel"}
+        aria-pressed={showStandings}
+        className="pill inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-ink/65 transition-colors hover:bg-white/70 hover:text-ink"
+      >
+        {showStandings ? <Eye size={12} aria-hidden /> : <EyeOff size={12} aria-hidden />}
+        <span className="hidden sm:inline">Rangering</span>
+      </button>
       <div
         className="hidden items-center gap-0.5 rounded-full border border-black/[0.06] bg-white/55 p-0.5 md:flex"
         role="radiogroup"
@@ -75,7 +92,7 @@ export function QuizHeaderControls() {
         className="pill inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-ink/65 transition-colors hover:bg-white/70 hover:text-rose-700"
       >
         <Home size={12} aria-hidden />
-        <span>Reset</span>
+        <span className="hidden sm:inline">Reset</span>
       </button>
     </div>
   );

@@ -11,11 +11,13 @@ export type QuizLength = typeof LENGTH_OPTIONS[number];
 export type Prefs = {
   autoAdvance: AutoMode;
   length: QuizLength;
+  showStandings: boolean;
 };
 
 const DEFAULT: Prefs = {
   autoAdvance: "manual",
   length: 25,
+  showStandings: true,
 };
 
 export function loadPrefs(): Prefs {
